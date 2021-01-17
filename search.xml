@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Mysql分库分表</title>
+      <link href="/zwhblog.cn/2021/01/16/mysql-fen-ku-fen-biao/"/>
+      <url>/zwhblog.cn/2021/01/16/mysql-fen-ku-fen-biao/</url>
+      
+        <content type="html"><![CDATA[<h1 id="为什么要分库分表？"><a href="#为什么要分库分表？" class="headerlink" title="为什么要分库分表？"></a>为什么要分库分表？</h1><p><strong>原文链接</strong>：<a href="https://juejin.im/post/6844903992909103117">原文链接</a> </p><p>我没有用过分库分表，靠着这篇博客了解的</p><p>关系型数据库本身比较容易成为系统瓶颈，单机存储容量、连接数、处理能力都有限。当单表的数据量达到1000W或100G以后，由于查询维度较多，即使添加从库、优化索引，做很多操作时性能仍下降严重。此时就要考虑对其进行切分了，切分的目的就在于减少数据库的负担，缩短查询时间。</p><p>而切分数据库和表的方式就两种，垂直切分和水平切分</p><h1 id="数据库瓶颈产生原因和解决办法"><a href="#数据库瓶颈产生原因和解决办法" class="headerlink" title="数据库瓶颈产生原因和解决办法"></a>数据库瓶颈产生原因和解决办法</h1><p>不管是IO瓶颈还是CPU瓶颈，最终都会导致数据库的活跃连接数增加，进而逼近甚至达到数据库可承载的活跃连接数的阈值。在业务service来看， 就是可用数据库连接少甚至无连接可用，接下来就可以想象了（并发量、吞吐量、崩溃）。</p><h2 id="IO瓶颈"><a href="#IO瓶颈" class="headerlink" title="IO瓶颈"></a>IO瓶颈</h2><p>第一种：</p><p>磁盘读IO瓶颈，热点数据太多，数据库缓存放不下，每次查询会产生大量的IO，降低查询速度-&gt;分库和垂直分表</p><p>第二种：</p><p>网络IO瓶颈，请求的数据太多，网络带宽不够 -&gt;分库</p><h2 id="CPU瓶颈"><a href="#CPU瓶颈" class="headerlink" title="CPU瓶颈"></a>CPU瓶颈</h2><p>第一种：</p><p>SQl问题：如SQL中包含join,group by, order by，非索引字段条件查询等，增加CPU运算的操作-&gt;SQL优化，建立合适的索引，在业务Service层进行业务计算。</p><p>第二种：</p><p>单表数据量太大，查询时扫描的行太多，SQl效率低，增加CPU运算的操作。-&gt;水平分表。</p><h1 id="分库分表"><a href="#分库分表" class="headerlink" title="分库分表"></a>分库分表</h1><h2 id="水平分库"><a href="#水平分库" class="headerlink" title="水平分库"></a>水平分库</h2><p><img src="https://img-blog.csdnimg.cn/20201111123353102.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>一张表的数据通过不同的分发策略发送到不同的数据库中</p><ul><li>两个数据库中的表结构完全一致</li><li>他们的数据完全不同</li><li>两个库中的所有数据的并集是全部的数据</li></ul><p>适用场景：<br>库多了，并发就上去了，解决了你的并发量问题</p><h2 id="垂直分库"><a href="#垂直分库" class="headerlink" title="垂直分库"></a>垂直分库</h2><p><img src="https://img-blog.csdnimg.cn/20201111124105338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>根据表中业务的不同来进行划分不同字段到不同的库中</p><ul><li>每个库中表结构都不同</li><li>每个库中数据和字段不一样</li><li>所有库的并集是全量数据</li></ul><p>适用场景：</p><p>划分成多个库，提高了并发度，并且需要按照业务模块划分到不同表中</p><p>表中业务模块都定义好的情况下，才能够使用，否则后期使用是灾难</p><h2 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h2><p><img src="https://img-blog.csdnimg.cn/20201111124945960.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p>将一张表的数据按照某种策略拆分到多个表中</p><ul><li>每个表的字段结构都相同</li><li>每个表的数据不一样</li><li>所有表的并集是全部的数据</li></ul><p>适用场景：</p><p>系统并发量没有到瓶颈，就是单表数据过多，导致查询缓慢，加重了CPU的负担，这种情况可以使用水平分表</p><h2 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h2><p><img src="https://img-blog.csdnimg.cn/2020111112551481.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80NDY3NTg0NA==,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>将一张表的字段按照字段的活跃性拆分到不同的表中</p><ul><li>每个表的字段结构不一样</li><li>每个表的数据没有相同的，但是会有一个交集，通常是一个主键，用于关联数据</li><li>所有表的并集是全部的数据</li></ul><p>适用场景：</p><p>并发量没有上来，表的记录并不多，但是字段多，并且热点数据和非热点数据在一起，单行数据所需的存储空间较大，以至于数据库缓存的数据行减少，查询时回去读磁盘数据产生大量随机读IO，产生IO瓶颈。<br>总结就是，字段太多，查询时产生大量io，产生io瓶颈，导致查询慢，可以使用这种方式</p><h2 id="分库分表工具"><a href="#分库分表工具" class="headerlink" title="分库分表工具"></a>分库分表工具</h2><ol><li>List item</li><li>sharding-jdbc（当当）</li><li>TSharding（蘑菇街）</li><li>Atlas（奇虎360）</li><li>Cobar（阿里巴巴）</li><li>MyCAT（基于Cobar）</li><li>Oceanus（58同城）</li><li>Vitess（谷歌） 各种工具的利弊自查</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Mysql </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+            <tag> 关系型数据库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nvm版本管理</title>
+      <link href="/zwhblog.cn/2019/09/05/hello-world/"/>
+      <url>/zwhblog.cn/2019/09/05/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> nodejs </tag>
+            
+            <tag> npm </tag>
+            
+            <tag> nvm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
