@@ -471,14 +471,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    7 分
                 </div>
                 
 
@@ -501,10 +501,161 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>sqoop是apache旗下一款“Hadoop和关系数据库服务器之间传送数据”的工具。</p>
+                <h1 id="Sqoop"><a href="#Sqoop" class="headerlink" title="Sqoop"></a>Sqoop</h1><h2 id="Sqoop是什么"><a href="#Sqoop是什么" class="headerlink" title="Sqoop是什么"></a>Sqoop是什么</h2><p>sqoop是apache旗下一款“Hadoop和关系数据库服务器之间传送数据”的工具。sqoop通过mr导入导出，底层是只有m没有r的mr任务</p>
 <p>导入数据：MySQL，Oracle导入数据到Hadoop的HDFS、HIVE、HBASE等数据存储系统；</p>
 <p>导出数据：从Hadoop的文件系统中导出数据到关系数据库</p>
-<p>CDH先安装了Sqoop2，以为用法一样，只是结构不一样了，后来发现用法完全不一样，又把sqoop给装了回来，还复习了一波<br>hadoop1    是我的Mysql安装机器<br>exercise    Mysql中测试的的数据库<br>test_table   Mysql  exercise数据库的测试表<br>@[toc]<br>|选项  | 含义说明 |<br>|–|–|<br>|–append  |  将数据追加到HDFS上一个已存在的数据集上|<br>| –as-avrodatafile |将数据导入到Avro数据文件  |<br>| –as-sequencefile | 将数据导入到SequenceFile |<br>|–as-textfile  | 将数据导入到普通文本文件（默认） |<br>| –boundary-query | <statement>    边界查询，用于创建分片（InputSplit）  |<br>|–columns &lt;col,col,col…&gt;  | 从表中导出指定的一组列的数据 |<br>| —delete-target-dir|    如果指定目录存在，则先删除掉|<br>|–direct    |使用直接导入模式（优化导入速度）|<br>|–direct-split-size <n>    |分割输入stream的字节大小（在直接导入模式下）|<br>|–fetch-size <n>    |从数据库中批量读取记录数|<br>|–inline-lob-limit <n>    |设置内联的LOB对象的大小|<br>|-m,–num-mappers <n>    |使用n个map任务并行导入数据|<br>|-e,–query <statement>    |导入的查询语句|<br>|–split-by <column-name>    |指定按照哪个列去分割数据，不同数据交给不同maptask执行|<br>|–table <table-name>    |导入的源表表名|<br>|–target-dir </table-name></column-name></statement></n></n></n></n></statement></p><dir>      | 导入HDFS的目标路径 |<br>| –warehouse-dir <dir> |  HDFS存放表的根路径|<br>|–where <where clause="">      |  指定导出时所使用的查询条件|<br>| -z,–compress     |启用压缩  |<br>| –compression-codec <c>      | 指定Hadoop的codec方式（默认gzip） |<br>| –null-string <null-string> | 如果指定列为字符串类型，使用指定字符串替换值为null的该类列的值 |<br>| –null-non-string <null-string>  |  如果指定列为非字符串类型，使用指定字符串替换值为null的该类列的值 |<br>这里的<code>--table</code>和 <code>--query</code>两者是可以替换的。在使用query时，可以不使用sql，改成–table的形式<br>使用query时，必须得在Sql语句后面加上/<code>$CONDITIONS </code><br><code>$CONDITIONS </code>的作用可以参考以下博客<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngchaolin/p/12271211.html">https://www.cnblogs.com/youngchaolin/p/12271211.html</a></null-string></null-string></c></where></dir></dir><p></p>
+<p>CDH先安装了Sqoop2，以为用法一样，只是结构不一样了，后来发现用法完全不一样，又把sqoop给装了回来，还复习了一波<br>hadoop1    是我的Mysql安装机器<br>exercise    Mysql中测试的的数据库<br>test_table   Mysql  exercise数据库的测试表</p>
+<h2 id="手动安装sqoop"><a href="#手动安装sqoop" class="headerlink" title="手动安装sqoop"></a>手动安装sqoop</h2><p>这里我是CDH直接安装的，下面安装的步骤是apache版本过程</p>
+<p>1、上传解压sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar包</p>
+<pre class="line-numbers language-none"><code class="language-none">tar -zxvf sqoop-1.4.6.bin__hadoop-2.0.4-alpha.tar<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>2、修改etc/profile文件</p>
+<pre class="line-numbers language-none"><code class="language-none">export JAVA_HOME=/root/Downloads/jdk1.8.0_161
+export PATH=$PATH:$JAVA_HOME/bin
+export HADOOP_HOME=/root/Downloads/hadoop-2.6.5
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+export ZOOKEEPER_HOME=/root/Downloads/zookeeper-3.4.5
+export PATH=$PATH:$ZOOKEEPER_HOME/bin
+export HIVE_HOME=/root/Downloads/apache-hive-1.2.0-bin
+export PATH=$PATH:$HIVE_HOME/bin
+export FLUME_HOME=/root/Downloads/apache-flume-1.6.0-bin
+export PATH=$PATH:$FLUME_HOME/bin
+export HBASE_HOME=/root/Downloads/hbase-1.2.6
+export PATH=$PATH:$HBASE_HOME/bin
+export SQOOP_HOME=/root/Downloads/sqoop-1.4.6.bin__hadoop-2.0.4-alpha
+export PATH=$PATH:$SQOOP_HOME/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>source /etc/profile 来刷新配置文件来使生效</p>
+<p>3、在sqoop下的lib中添加mysql控制包，是负责sql能够识别的</p>
+<pre class="line-numbers language-none"><code class="language-none">cd /home/hadoop/hive-1.2.1/lib
+cp mysql-connector-java-5.1.24-bin.jar /home/hadoop/sqoop-1.4.6/lib<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>4、修改conf/sqoop-env.sh</p>
+<p>mv sqoop-env-template.sh sqoop-env.sh</p>
+<pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">export HADOOP_COMMON_HOME=/opt/modules/hadoop
+#Set path to where hadoop-*-core.jar is available
+export HADOOP_MAPRED_HOME=/opt/modules/hadoop
+#Set the path to where bin/hive is available
+export HIVE_HOME=/opt/modules/hive
+export ZOOKEEPER_HOME=/opt/modules/zookeeper
+#Set the path for where zookeper config dir is
+export ZOOCFGDIR=/opt/modules/zookeeper
+#set the path to where bin/hbase is available
+export HBASE_HOME=/opt/modules/hbase<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>5、测试</p>
+<pre class="line-numbers language-none"><code class="language-none">sqoop version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="底层工作机制"><a href="#底层工作机制" class="headerlink" title="底层工作机制"></a>底层工作机制</h2><p>将导入或导出命令翻译成 MapReduce 程序来实现</p>
+<p>在翻译出的 MapReduce 中主要是对InputFormat 和 </p>
+<p>OutputFormat 进行定制<img src="/zwhblog.cn/2020/11/09/cdh/sqoop/sqoop1-dao-ru-hdfs-hive-shu-ju/640" alt="img"></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–append</td>
+<td>将数据追加到HDFS上一个已存在的数据集上</td>
+</tr>
+<tr>
+<td>–as-avrodatafile</td>
+<td>将数据导入到Avro数据文件</td>
+</tr>
+<tr>
+<td>–as-sequencefile</td>
+<td>将数据导入到SequenceFile</td>
+</tr>
+<tr>
+<td>–as-textfile</td>
+<td>将数据导入到普通文本文件（默认）</td>
+</tr>
+<tr>
+<td>–boundary-query</td>
+<td><statement>    边界查询，用于创建分片（InputSplit）</statement></td>
+</tr>
+<tr>
+<td>–columns &lt;col,col,col…&gt;</td>
+<td>从表中导出指定的一组列的数据</td>
+</tr>
+<tr>
+<td>—delete-target-dir</td>
+<td>如果指定目录存在，则先删除掉</td>
+</tr>
+<tr>
+<td>–direct</td>
+<td>使用直接导入模式（优化导入速度）</td>
+</tr>
+<tr>
+<td>–direct-split-size <n></n></td>
+<td>分割输入stream的字节大小（在直接导入模式下）</td>
+</tr>
+<tr>
+<td>–fetch-size <n></n></td>
+<td>从数据库中批量读取记录数</td>
+</tr>
+<tr>
+<td>–inline-lob-limit <n></n></td>
+<td>设置内联的LOB对象的大小</td>
+</tr>
+<tr>
+<td>-m,–num-mappers <n></n></td>
+<td>使用n个map任务并行导入数据</td>
+</tr>
+<tr>
+<td>-e,–query <statement></statement></td>
+<td>导入的查询语句</td>
+</tr>
+<tr>
+<td>–split-by <column-name></column-name></td>
+<td>指定按照哪个列去分割数据，不同数据交给不同maptask执行</td>
+</tr>
+<tr>
+<td>–table <table-name></table-name></td>
+<td>导入的源表表名</td>
+</tr>
+<tr>
+<td>–target-dir <dir></dir></td>
+<td>导入HDFS的目标路径</td>
+</tr>
+<tr>
+<td>–warehouse-dir <dir></dir></td>
+<td>HDFS存放表的根路径</td>
+</tr>
+<tr>
+<td>–where <where clause=""></where></td>
+<td>指定导出时所使用的查询条件</td>
+</tr>
+<tr>
+<td>-z,–compress</td>
+<td>启用压缩</td>
+</tr>
+<tr>
+<td>–compression-codec <c></c></td>
+<td>指定Hadoop的codec方式（默认gzip）</td>
+</tr>
+<tr>
+<td>–null-string <null-string></null-string></td>
+<td>如果指定列为字符串类型，使用指定字符串替换值为null的该类列的值</td>
+</tr>
+<tr>
+<td>–null-non-string <null-string></null-string></td>
+<td>如果指定列为非字符串类型，使用指定字符串替换值为null的该类列的值</td>
+</tr>
+<tr>
+<td>这里的<code>--table</code>和 <code>--query</code>两者是可以替换的。在使用query时，可以不使用sql，改成–table的形式</td>
+<td></td>
+</tr>
+<tr>
+<td>使用query时，必须得在Sql语句后面加上/<code>$CONDITIONS </code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>$CONDITIONS </code>的作用可以参考以下博客</td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.cnblogs.com/youngchaolin/p/12271211.html">https://www.cnblogs.com/youngchaolin/p/12271211.html</a></td>
+<td></td>
+</tr>
+</tbody></table>
 <h2 id="sqoop查询mysql的数据库"><a href="#sqoop查询mysql的数据库" class="headerlink" title="sqoop查询mysql的数据库"></a>sqoop查询mysql的数据库</h2><pre class="line-numbers language-none"><code class="language-none">sqoop list-databases \
 --connect "jdbc:mysql://hadoop1:3306/" \
 --username root \
@@ -569,6 +720,10 @@
 --check-column raw_add_time \
 --last-value "2020-07-31 09:31:51";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>--check-column</code>: 必须是timestamp列  时间列（int）<br><code>--incremental lastmodified</code>: 设置为最后改动模式，基于时间列的增量导入（将时间列大于等于阈值的所有数据增量导入Hadoop）<br><code>--merge-key</code>: 合并列（主键，合并键值相同的记录）必须是唯一主键<br><code>--last-value</code>: 所有大于最后一个时间的数据都会被更新<br>这个我试了之后，我的结果比预想值多了一条，<br>表中作为阈值的数据产生了重复数据。<br>而且我的数据没有同一秒的，一秒多条数据，可如果能会因为merge-key的合并功能导致数据的缺失<br>这个暂不确定，以后再试试</p>
+<h2 id="sqoop与HBase"><a href="#sqoop与HBase" class="headerlink" title="sqoop与HBase"></a>sqoop与HBase</h2><h3 id="mysql导入hbase表中"><a href="#mysql导入hbase表中" class="headerlink" title="mysql导入hbase表中"></a>mysql导入hbase表中</h3><pre class="line-numbers language-none"><code class="language-none">//-column-family ''指定列族名
+sqoop import -connect jdbc:mysql://linux03:3306/hehe -username root -password 123456 root-table student -hbase-table student2 -column-family 'per data' -hbase-row-key id -m1 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+
 <h2 id="Sqoop的Append和Lastmodified的区别"><a href="#Sqoop的Append和Lastmodified的区别" class="headerlink" title="Sqoop的Append和Lastmodified的区别"></a>Sqoop的Append和Lastmodified的区别</h2><p>Lastmodified 和Append模式的区别：<br><code>Append</code>模式处理不了更新数据，而<code>Lastmodified</code>模式可以</p>
 <p>​<br>​    </p>
 
@@ -865,13 +1020,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/zwhblog.cn/2020/11/09/cdh/spark/cdh5.16-spark2-an-zhuang-cheng-gong-dan-qi-dong-shi-bai/">
+                <a href="/zwhblog.cn/2020/11/09/cdh/yarn/yarn/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/15.jpg" class="responsive-img" alt="CDH5.16.2 Spark安装后启动失败">
+                        <img src="/zwhblog.cn/medias/featureimages/2.jpg" class="responsive-img" alt="Yarn的学习笔记">
                         
-                        <span class="card-title">CDH5.16.2 Spark安装后启动失败</span>
+                        <span class="card-title">Yarn的学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -888,12 +1043,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/CDH/" class="post-category">
-                                    CDH
-                                </a>
-                            
-                            <a href="/zwhblog.cn/categories/CDH/Spark/" class="post-category">
-                                    Spark
+                            <a href="/zwhblog.cn/categories/Yarn/" class="post-category">
+                                    Yarn
                                 </a>
                             
                             
@@ -903,12 +1054,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/CDH/">
-                        <span class="chip bg-color">CDH</span>
-                    </a>
-                    
-                    <a href="/zwhblog.cn/tags/Spark/">
-                        <span class="chip bg-color">Spark</span>
+                    <a href="/zwhblog.cn/tags/Yarn/">
+                        <span class="chip bg-color">Yarn</span>
                     </a>
                     
                 </div>
@@ -1112,7 +1259,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">64.4k</span>&nbsp;字
+                class="white-color">108k</span>&nbsp;字
             
             
             

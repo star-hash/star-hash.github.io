@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    5.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    17 分
+                    23 分
                 </div>
                 
 
@@ -517,6 +517,102 @@
 <li>将集群中任一节点的请求路由到存有相关数据的节点</li>
 <li>集群扩容时无缝整合新节点，重新分配分片以便从离群节点恢复</li>
 </ul>
+<h2 id="Elasticsearch-安装"><a href="#Elasticsearch-安装" class="headerlink" title="Elasticsearch 安装"></a>Elasticsearch 安装</h2><p>1、在安装好jdk8.0以上版本的情况下，上传elasticSearch的jar包，进行解压，<strong>解压到普通目录下，除了root目录</strong>。</p>
+<p>2、修改配置文件config下面的elasticsearch.yml配置文件</p>
+<pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"># ---------------------------------- Cluster -----------------------------------
+#
+# Use a descriptive name for your cluster:
+#集群名称
+cluster.name: my-application
+#
+# ------------------------------------ Node ------------------------------------
+#
+# Use a descriptive name for the node:
+#指定当前节点名称
+node.name: node-1
+#
+# Add custom attributes to the node:
+#
+#node.attr.rack: r1
+
+# ---------------------------------- Network -----------------------------------
+#
+# Set the bind address to a specific IP (IPv4 or IPv6):
+#当前节点地址
+network.host: 192.168.247.20
+#
+# Set a custom port for HTTP:
+# 指定http访问端口(默认9200)
+http.port: 9200
+#
+# For more information, consult the network module documentation.
+#
+# --------------------------------- Discovery ----------------------------------
+#
+# Pass an initial list of hosts to perform discovery when new node is started:
+# The default list of hosts is ["127.0.0.1", "[::1]"]
+#配置为集群中所有节点的ip地址
+discovery.zen.ping.unicast.hosts: ["Linux01", "Linux02","Linux03"]
+#
+# Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
+#配置集群节点数量(nodes/2+1)
+discovery.zen.minimum_master_nodes: 2
+#
+# For more information, consult the zen discovery module documentation.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、创建新用户</p>
+<pre class="line-numbers language-none"><code class="language-none">//因为es不能用root来开启，得新建立一个用户来开启es
+useradd elk
+passwd  elk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>4、开放权限</p>
+<pre class="line-numbers language-none"><code class="language-none">chmod -R 777 elasticsearch-6.2.4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>5、所有机器切换用户elk到bin目录开启elasticSearch</p>
+<pre class="line-numbers language-none"><code class="language-none">[root@Linux01 elasticsearch-6.2.4]# su elk
+[elk@Linux01 elasticsearch-6.2.4]#  bin/elasticsearch<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>注意：搭建集群如出现问题，请先删除data文件夹中内容，再启动集群</strong></p>
+<p>6、查看结果</p>
+<p>查看节点状态</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token header-name keyword">http:</span>192.168.247.20:9200<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查到以下内容则正常</p>
+<pre class="line-numbers language-none"><code class="language-none">{
+  "name": "node-1",
+  "cluster_name": "my-application",
+  "cluster_uuid": "P6bOcKBgQ_61HKKgh5lNgA",
+  "version": {
+    "number": "6.2.4",
+    "build_hash": "ccec39f",
+    "build_date": "2018-04-12T20:37:28.497551Z",
+    "build_snapshot": false,
+    "lucene_version": "7.2.1",
+    "minimum_wire_compatibility_version": "5.6.0",
+    "minimum_index_compatibility_version": "5.0.0"
+  },
+  "tagline": "You Know, for Search"
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看集群的状态</p>
+<pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token header-name keyword">http:</span>//192.168.247.20:9200/_cluster/health<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查到以下内容则正常</p>
+<pre class="line-numbers language-none"><code class="language-none">{
+    "cluster_name": "my-application",
+    "status": "green",
+    "timed_out": false,
+    "number_of_nodes": 3,
+    "number_of_data_nodes": 3,
+    "active_primary_shards": 10,
+    "active_shards": 20,
+    "relocating_shards": 0,
+    "initializing_shards": 0,
+    "unassigned_shards": 0,
+    "delayed_unassigned_shards": 0,
+    "number_of_pending_tasks": 0,
+    "number_of_in_flight_fetch": 0,
+    "task_max_waiting_in_queue_millis": 0,
+    "active_shards_percent_as_number": 100.0
+}
+
+//	green：正常
+//  yellow: 集群正常 数据正常，部分副本不正常
+//  red: 集群部分正常，数据可能丢失，需要紧急修复<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装可能出现的问题"><a href="#安装可能出现的问题" class="headerlink" title="安装可能出现的问题"></a>安装可能出现的问题</h3><pre class="line-numbers language-http" data-language="http"><code class="language-http"><span class="token header-name keyword">http:</span>//www.dajiangtai.com/community/18136.do?origin=csdn-geek&amp;dt=1214<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="Elasticsearch-请求语句的组成"><a href="#Elasticsearch-请求语句的组成" class="headerlink" title="Elasticsearch 请求语句的组成"></a>Elasticsearch 请求语句的组成</h2><p>一个 Elasticsearch 请求和任何 HTTP 请求一样由若干相同的部件组成：</p>
 <pre class="line-numbers language-none"><code class="language-none">curl -X&lt;VERB&gt; '&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;' -d '&lt;BODY&gt;'
 
@@ -608,12 +704,36 @@ GET /_count
 <p>这样的好处是可以<strong>把一个大的索引拆分成多个，分布到不同的节点上</strong>。降低单服务器的压力，构成分布式搜索，<strong>提高整体检索的效率（分片数的最优值与硬件参数和数据量大小有关）。</strong>分片的数量<strong>只能在索引创建前指定，并且索引创建后不能更改。</strong></p>
 <p><strong>4）副本（Replica）</strong></p>
 <p>副本是一个分片的<strong>精确复制</strong>，每个分片可以有零个或多个副本。副本的作用一是<strong>提高系统的容错性</strong>，当某个节点某个分片损坏或丢失时可以从副本中恢复。二是<strong>提高es的查询效率</strong>，es会自动对搜索请求进行负载均衡。</p>
+<p>Elasticsearch中的每个索引默认分配5个主分片和1个副本</p>
 <h2 id="面向文档"><a href="#面向文档" class="headerlink" title="面向文档"></a>面向文档</h2><p>在应用程序中对象很少只是一个简单的键和值的列表。通常，它们拥有更复杂的数据结构，可能包括日期、地理信息、其他对象或者数组等。</p>
 <p>也许有一天你想把这些对象存储在数据库中。使用关系型数据库的行和列存储，这相当于是把一个表现力丰富的对象塞到一个非常大的电子表格中：为了适应表结构，你必须设法将这个对象扁平化—通常一个字段对应一列—而且每次查询时又需要将其重新构造为对象。</p>
 <p>Elasticsearch 是 <em>面向文档</em> 的，意味着它存储整个对象或 <em>文档</em>。<strong>Elasticsearch 不仅存储文档，而且 <em>索引</em> 每个文档的内容，使之可以被检索。在 Elasticsearch 中，我们对文档进行索引、检索、排序和过滤—而不是对行列数据</strong>。这是一种完全不同的思考数据的方式，也是 Elasticsearch 能支持复杂全文检索的原因。</p>
 <h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a>JSON</h2><p>Elasticsearch 使用 JavaScript Object Notation（或者 <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Json"><em>JSON</em></a>）作为文档的序列化格式。JSON 序列化为大多数编程语言所支持，并且已经成为 NoSQL 领域的标准格式</p>
 <p>官方 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/client/index.html">Elasticsearch 客户端</a> 自动为您提供 JSON 转化。</p>
 <p>一个 Elasticsearch 集群可以 包含多个 <em>索引</em> ，相应的每个索引可以包含多个 <em>类型</em> 。 这些不同的类型存储着多个 <em>文档</em> ，每个文档又有 多个 <em>属性</em> 。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><pre class="line-numbers language-none"><code class="language-none">核心数据类型
+字符串型：text、keyword
+数值型：long、integer、short、byte、double、float、half_float、scaled_float
+日期类型：date
+布尔类型：boolean
+二进制类型：binary
+范围类型：integer_range、float_range、long_range、double_range、date_range
+复杂数据类型
+数组类型：array
+对象类型：object
+嵌套类型：nested object
+
+地理位置数据类型
+geo_point(点)、geo_shape(形状)
+专用类型
+记录IP地址ip
+实现自动补全completion
+记录分词数：token_count
+记录字符串hash值 murmur3
+多字段特性multi-fields
+允许对同一个字段采用不同的配置，比如分词，例如对人名实现拼音搜索，只需要在人名中新增一个子字段为pinyin即可<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="dynamic-严格性设置"><a href="#dynamic-严格性设置" class="headerlink" title="dynamic  严格性设置"></a>dynamic  严格性设置</h3><p>a.true：允许自动新增字段（默认的配置）<br>b.False：不允许自动新增字段，但是文档可以正常写入，无法对字段进行查询操作(可写不能查询)<br>c.strict：文档不能写入（如果写入会报错）</p>
+<h3 id="数据类型text和keyword的区别"><a href="#数据类型text和keyword的区别" class="headerlink" title="数据类型text和keyword的区别"></a>数据类型text和keyword的区别</h3><p>text:text类型的字段值 保存入的数据会被进行分词处理<br>keyword:保存入的数据不会被分词处理</p>
 <h2 id="倒排索引"><a href="#倒排索引" class="headerlink" title="倒排索引"></a>倒排索引</h2><p>Elasticsearch 使用一种称为 <em>倒排索引</em> 的结构，它适用于快速的全文搜索。一个倒排索引由文档中所有不重复词的列表构成，对于其中每个词，有一个包含它的文档列表。</p>
 <p>例如，假设我们有两个文档，每个文档的 <code>content</code> 域包含如下内容：</p>
 <ol>
@@ -669,6 +789,7 @@ Total   |   2   |  1<span aria-hidden="true" class="line-numbers-rows"><span></s
 <p>Elasticsearch提供了开箱即用的字符过滤器、分词器和token 过滤器。 这些可以组合起来形成自定义的分析器以用于不同的目的。我们会在 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/cn/elasticsearch/guide/current/custom-analyzers.html">自定义分析器</a> 章节详细讨论。</p>
 <h2 id="分词器"><a href="#分词器" class="headerlink" title="分词器"></a>分词器</h2><p>Elasticsearch还附带了可以直接使用的预包装的分析器。接下来我们会列出最重要的分析器。为了证明它们的差异，我们看看每个分析器会从下面的字符串得到哪些词条：</p>
 <pre class="line-numbers language-none"><code class="language-none">"Set the shape to semi-transparent by calling set_trans(5)"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>Standard（es默认）    支持多语言，按词切分并做小写处理<br>Simple    按照非字母切分，小写处理<br>Whitespace    按照空格来切分<br>Stop    去除语气助词，如the、an、的、这等<br>Keyword    不分词<br>Pattern    正则分词，默认\w+,即非字词符号做分割符<br>Language    常见语言的分词器（30+）</p>
 <ul>
 <li><p><strong>标准分析器</strong></p>
 <p>标准分析器是Elasticsearch默认使用的分析器。它是分析各种语言文本最常用的选择。它根据 <a target="_blank" rel="noopener" href="http://www.unicode.org/reports/tr29/">Unicode 联盟</a> 定义的 <em>单词边界</em> 划分文本。删除绝大部分标点。最后，将词条小写。它会产生<code>set, the, shape, to, semi, transparent, by, calling, set_trans, 5</code></p>
@@ -721,7 +842,8 @@ PUT /megacorp/employee/3
 </li>
 </ul>
 <p>请求体 —— JSON 文档 —— 包含了这位员工的所有详细信息，他的名字叫 John Smith ，今年 25 岁，喜欢攀岩。</p>
-<h3 id="获取单条数据"><a href="#获取单条数据" class="headerlink" title="获取单条数据"></a>获取单条数据</h3><pre class="line-numbers language-sense" data-language="sense"><code class="language-sense">GET /megacorp/employee/1
+<h3 id="获取单条数据"><a href="#获取单条数据" class="headerlink" title="获取单条数据"></a>获取单条数据</h3><p>es查询方式都可以使用postman来进行访问</p>
+<pre class="line-numbers language-sense" data-language="sense"><code class="language-sense">GET /megacorp/employee/1
 
 获取的值：
 {
@@ -1061,485 +1183,30 @@ PUT /megacorp/employee/3
         }
      ]
   }<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h2 id="相关性得分"><a href="#相关性得分" class="headerlink" title="相关性得分"></a>相关性得分</h2><p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code>about</code> 属性清楚地写着 “rock climbing” 。</p>
+<h3 id="新增索引"><a href="#新增索引" class="headerlink" title="新增索引"></a>新增索引</h3><pre class="line-numbers language-none"><code class="language-none">PUT index_name/?pretty
+
+curl -XPUT '192.168.247.20:9200/index_name?pretty'
+//例子:
+//在创建索引时还可以设置默认的分片数量、备份数量和刷新的秒数
+curl -XPUT 'http://192.168..247.20:9200/index_name?pretty' -H 'Content-Type: application/json' -d'
+	{
+	"settings" : {
+    "number_of_shards":8,
+    "number_of_replicas" : 1,
+    "refresh_interval":"30s"
+    	}
+   	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><pre class="line-numbers language-none"><code class="language-none">curl -XDELETE '192.168.247.20:9200/index_name?pretty'
+DELETE index_name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><h2 id="相关性得分"><a href="#相关性得分" class="headerlink" title="相关性得分"></a>相关性得分</h2><p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code>about</code> 属性清楚地写着 “rock climbing” 。</p>
 <p>但为什么 Jane Smith 也作为结果返回了呢？原因是她的 <code>about</code> 属性里提到了 “rock” 。因为只有 “rock” 而没有 “climbing” ，所以她的相关性得分低于 John 的。</p>
 <p>这是一个很好的案例，阐明了 Elasticsearch 如何 <em>在</em> 全文属性上搜索并返回相关性最强的结果。Elasticsearch中的 <em>相关性</em> 概念非常重要，也是完全区别于传统关系型数据库的一个概念，数据库中的一条记录要么匹配要么不匹配。</p>
+<h1 id="常用搜索引擎框架"><a href="#常用搜索引擎框架" class="headerlink" title="常用搜索引擎框架"></a>常用搜索引擎框架</h1><p>1、<strong>Lucene</strong></p>
+<p>Apache下面的一个开源项目，高性能的、可扩展的工具库，提供搜索的基本架构，如果开发人员需用使用的话，需用自己进行开发,成本比较大，但是性能高</p>
+<p>2、<strong>Solr</strong></p>
+<p>Solr基于Lucene的全文搜索框架，提供了比Lucene更为丰富的功能，同时实现了可配置、可扩展并对查询性能进行了优化<br>建立索引时，搜索效率下降，实时索引搜索效率不高<br>数据量的增加，Solr的搜索效率会变得更低,适合小的搜索应用，对应java客户端的是solrj</p>
+<p>3、<strong>ElasticSearch</strong></p>
+<p>基于Lucene的搜索框架, 它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口<br>上手容易，拓展节点方便，可用于存储和检索海量数据，接近实时搜索，海量数据量增加，搜索响应性能几乎不受影响，分布式搜索框架，自动发现节点，副本机制，保障可用性</p>
 
                 
             </div>
@@ -1830,13 +1497,13 @@ PUT /megacorp/employee/3
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/zwhblog.cn/2020/11/03/java/java8-wen-dang-xue-xi-bi-ji/">
+                <a href="/zwhblog.cn/2020/11/03/flume/flume/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/14.jpg" class="responsive-img" alt="Java8文档笔记">
+                        <img src="/zwhblog.cn/medias/featureimages/7.jpg" class="responsive-img" alt="Flume">
                         
-                        <span class="card-title">Java8文档笔记</span>
+                        <span class="card-title">Flume</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1853,8 +1520,8 @@ PUT /megacorp/employee/3
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/Java/" class="post-category">
-                                    Java
+                            <a href="/zwhblog.cn/categories/Flume/" class="post-category">
+                                    Flume
                                 </a>
                             
                             
@@ -1864,8 +1531,8 @@ PUT /megacorp/employee/3
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/Java/">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/zwhblog.cn/tags/Flume/">
+                        <span class="chip bg-color">Flume</span>
                     </a>
                     
                 </div>
@@ -2069,7 +1736,7 @@ PUT /megacorp/employee/3
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">64.4k</span>&nbsp;字
+                class="white-color">108k</span>&nbsp;字
             
             
             
