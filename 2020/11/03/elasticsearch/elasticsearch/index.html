@@ -1198,7 +1198,7 @@ curl -XPUT 'http://192.168..247.20:9200/index_name?pretty' -H 'Content-Type: app
    	}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h3><pre class="line-numbers language-none"><code class="language-none">curl -XDELETE '192.168.247.20:9200/index_name?pretty'
 DELETE index_name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h5 id><a href="#" class="headerlink" title></a></h5><h2 id="相关性得分"><a href="#相关性得分" class="headerlink" title="相关性得分"></a>相关性得分</h2><p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code>about</code> 属性清楚地写着 “rock climbing” 。</p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><h2 id="相关性得分"><a href="#相关性得分" class="headerlink" title="相关性得分"></a>相关性得分</h2><p>Elasticsearch 默认按照相关性得分排序，即每个文档跟查询的匹配程度。第一个最高得分的结果很明显：John Smith 的 <code>about</code> 属性清楚地写着 “rock climbing” 。</p>
 <p>但为什么 Jane Smith 也作为结果返回了呢？原因是她的 <code>about</code> 属性里提到了 “rock” 。因为只有 “rock” 而没有 “climbing” ，所以她的相关性得分低于 John 的。</p>
 <p>这是一个很好的案例，阐明了 Elasticsearch 如何 <em>在</em> 全文属性上搜索并返回相关性最强的结果。Elasticsearch中的 <em>相关性</em> 概念非常重要，也是完全区别于传统关系型数据库的一个概念，数据库中的一条记录要么匹配要么不匹配。</p>
 <h1 id="常用搜索引擎框架"><a href="#常用搜索引擎框架" class="headerlink" title="常用搜索引擎框架"></a>常用搜索引擎框架</h1><p>1、<strong>Lucene</strong></p>
