@@ -471,14 +471,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    358
+                    896
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    4 分
                 </div>
                 
 
@@ -513,14 +513,14 @@
 <h2 id="“”、’’、-的区别"><a href="#“”、’’、-的区别" class="headerlink" title="“”、’’、``的区别"></a>“”、’’、``的区别</h2> <pre class="line-numbers language-none"><code class="language-none"> `` 	是命令替换，执行你的命令
 ''   	单引号是单纯的字符，不会引用
 ""		双引号是可以引用的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h1 id="bash环境变量配置"><a href="#bash环境变量配置" class="headerlink" title="bash环境变量配置"></a>bash环境变量配置</h1><p>在编写Shell脚本之前，首先要配置好<br>JDK1.8<br>/etc/profile 环境变量，否则用户没有权限就无法跨界点访问</p>
+<h2 id="bash环境变量配置"><a href="#bash环境变量配置" class="headerlink" title="bash环境变量配置"></a>bash环境变量配置</h2><p>在编写Shell脚本之前，首先要配置好<br>JDK1.8<br>/etc/profile 环境变量，否则用户没有权限就无法跨界点访问</p>
 <pre class="line-numbers language-none"><code class="language-none">export JAVA_HOME=/usr/java/jdk1.8
 export CLASSPATH=.:${JAVA_HOME}/jre/lib/rt.jar:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar
 export PATH=$PATH:${JAVA_HOME}/bin           <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>~/bashrc文件   环境变量的设置只对用户自己生效，配置这个文件，使用bash命令，只要以该用户身份运行命令行就会读取到该文件。</p>
 <p>在所有节点上执行这个命令</p>
 <pre class="line-numbers language-none"><code class="language-none">cat /etc/profile &gt;&gt; ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h1 id="所有节点运行相同命令脚本"><a href="#所有节点运行相同命令脚本" class="headerlink" title="所有节点运行相同命令脚本"></a>所有节点运行相同命令脚本</h1><p>写的时候注意，中间没有逗号</p>
+<h2 id="所有节点运行相同命令脚本"><a href="#所有节点运行相同命令脚本" class="headerlink" title="所有节点运行相同命令脚本"></a>所有节点运行相同命令脚本</h2><p>写的时候注意，中间没有逗号</p>
 <pre class="line-numbers language-none"><code class="language-none">#! /bin/bash
 for i in hadoop1 hadoop2 hadoop3
 do
@@ -528,6 +528,143 @@ do
         ssh $i "$*"
 done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>i  是循环的变量（hadoop1,hadoop2,hadoop3），do是要干的事情，done是结束语句，这三个是shell中for循环一体的</p>
+<h2 id="java-jar-脚本"><a href="#java-jar-脚本" class="headerlink" title="java -jar 脚本"></a>java -jar 脚本</h2><h4 id="运行java-jar"><a href="#运行java-jar" class="headerlink" title="运行java -jar"></a>运行java -jar</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">#!/bin/bash
+#description: 启动重启server服务
+#端口号，根据此端口号确定pid1
+PORT1=8080
+PORT2=8081
+PORT3=8082
+PORT4=8083
+#启动命令所在目录
+HOME='/usr/local/src/large-screen/jars'
+LOGHOME='/usr/local/src/large-screen/logs'
+
+#查询出监听了PORT端口TCP协议的程序
+pid1=`netstat -anp|grep $PORT1|awk '{printf $7}'|cut -d/ -f1`
+pid2=`netstat -anp|grep $PORT2|awk '{printf $7}'|cut -d/ -f1`
+pid3=`netstat -anp|grep $PORT3|awk '{printf $7}'|cut -d/ -f1`
+pid4=`netstat -anp|grep $PORT4|awk '{printf $7}'|cut -d/ -f1`
+
+
+start(){
+   if [ -n "$pid1" ]; then
+      echo "server already start,pid1:$pid1"
+      return 0
+   fi
+   #进入命令所在目录
+   cd $HOME
+   nohup java -jar $HOME/auto-drive-0.0.1-SNAPSHOT.jar &gt; $LOGHOME/server.log 2&gt;&amp;1 &amp;   #启动聊天服务器 把日志输出到HOME目录的server.log文件中
+   echo "start at port:$PORT1"
+   
+   
+   if [ -n "$pid2" ]; then
+      echo "server already start,pid2:$pid2"
+      return 0
+   fi
+   cd $HOME
+   nohup java -jar $HOME/test-operation-0.0.1-SNAPSHOT.jar &gt; $LOGHOME/operation.log 2&gt;&amp;1 &amp;
+   echo "start at port:$PORT2"
+   
+   if [ -n "$pid3" ]; then
+      echo "server already start,pid3:$pid3"
+      return 0
+   fi
+   #进入命令所在目录
+   cd $HOME
+   nohup java -jar $HOME/test-service-0.0.1-SNAPSHOT.jar &gt; $LOGHOME/service.log 2&gt;&amp;1 &amp;
+   echo "start at port:$PORT3"
+
+   if [ -n "$pid4" ]; then
+      echo "server already start,pid4:$pid4"
+      return 0
+   fi
+   #进入命令所在目录
+   cd $HOME
+   nohup java -jar $HOME/vehicle-coord-0.0.1-SNAPSHOT.jar &gt; $LOGHOME/coord.log 2&gt;&amp;1 &amp;
+   echo "start at port:$PORT4"
+}
+
+stop(){
+   if [ -z "$pid1" ]; then
+      echo "not find program on port1:$PORT1"
+      return 0
+   fi
+   kill -9 $pid1
+   rm -rf $pid1
+   echo "kill program use signal 2,pid1:$pid1"
+   
+   if [ -z "$pid2" ]; then
+      echo "not find program on port2:$PORT2"
+      return 0
+   fi
+   kill -9 $pid2
+   rm -rf $pid2
+   echo "kill program use signal 2,pid2:$pid2"
+   
+   if [ -z "$pid3" ]; then
+      echo "not find program on port3:$PORT3"
+      return 0
+   fi
+   kill -9 $pid3
+   rm -rf $pid3
+   echo "kill program use signal 2,pid3:$pid3"
+   
+   if [ -z "$pid4" ]; then
+      echo "not find program on port4:$PORT4"
+      return 0
+   fi
+   kill -9 $pid4
+   rm -rf $pid4
+   echo "kill program use signal 2,pid4:$pid4"
+}
+
+status(){
+   if [ -z "$pid1" ]; then
+      echo "not find program on port1:$PORT1"
+   else
+      echo "program is running,pid1:$pid1"
+   fi
+   
+   if [ -z "$pid2" ]; then
+      echo "not find program on port1:$PORT2"
+   else
+      echo "program is running,pid1:$pid2"
+   fi
+   
+   if [ -z "$pid3" ]; then
+      echo "not find program on port1:$PORT3"
+   else
+      echo "program is running,pid1:$pid3"
+   fi
+   
+   if [ -z "$pid4" ]; then
+      echo "not find program on port1:$PORT4"
+   else
+      echo "program is running,pid1:$pid4"
+   fi
+}
+
+case $1 in
+   start)
+      start
+   ;;
+   stop)
+      stop
+   ;;
+   restart)
+      $0 stop
+      sleep 2
+      $0 start
+    ;;
+   status)
+      status
+   ;;
+   *)
+      echo "Usage: {start|stop|status}"
+   ;;
+esac
+
+exit 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -822,13 +959,13 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/01/16/spring/springboot-kuang-jia-wu/">
+                <a href="/2021/01/16/spring/spring-ssm-zheng-he-kuang-jia-si/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="SpringBoot学习">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="SSM">
                         
-                        <span class="card-title">SpringBoot学习</span>
+                        <span class="card-title">SSM</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -856,16 +993,12 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Spring/">
-                        <span class="chip bg-color">Spring</span>
+                    <a href="/tags/SSM/">
+                        <span class="chip bg-color">SSM</span>
                     </a>
                     
                     <a href="/tags/Java%E6%A1%86%E6%9E%B6/">
                         <span class="chip bg-color">Java框架</span>
-                    </a>
-                    
-                    <a href="/tags/Spring-boot/">
-                        <span class="chip bg-color">Spring boot</span>
                     </a>
                     
                 </div>
@@ -1069,7 +1202,7 @@ done<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">116.3k</span>&nbsp;字
+                class="white-color">122.9k</span>&nbsp;字
             
             
             
