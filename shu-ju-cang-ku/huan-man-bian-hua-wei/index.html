@@ -509,7 +509,7 @@
 <p>这样的方式就是Mysql中一般表的处理方式，如果变中的值发生了变化就直接update，不保留历史数据，这样显然是不符合我们需求的。</p>
 <h4 id="Type2-增加新的列"><a href="#Type2-增加新的列" class="headerlink" title="Type2 增加新的列"></a>Type2 增加新的列</h4><p>数据仓库系统的目标之一是正确地表示历史记录。我们在生产环境中的基于Hive的数仓建设过程中，拉链表就是直接的体现。</p>
 <p>这种类型在维度表中<strong>添加两个辅助列</strong>：该行的有效日期（effective date）和过期日期（expiration date），分别指示该行从哪个时间点开始生效，以及在哪个时间点过后会变为无效。<strong>每当一个或多个维度发生更改时，就创建一个新的行</strong>，新行包含有修改后的维度值，而旧行包含有修改前的维度值，且旧行的过期日期也会同步修改。书中的例子如下：</p>
-<p><img src="/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="图片"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="图片"></p>
 <p>在上图中，当前有效列（current列）的过期日期会被记录为9999-12-31。当Department Name维度变化时，旧有的Product Key为12345的行的过期日期被更新为修改日期，并且新建了一个Key为25984的行，包含新的数据。</p>
 <p>需要注意的是，这里的Product Key是所谓代理键（surrogate key），即不表示具体业务含义，而只是代表表内数据行的唯一ID。在处理SCD时，代理键可以直接用来区分同一自然键（natural key）的数据的新旧版本。上图中的SKU就是自然键。</p>
 <p>这种类型的SCD处理方式能够非常有效且精确地保留历史与反映变更，但缺点是会造成数据的膨胀，因为即使只有一个维度变化，也要创建新行。</p>
@@ -518,9 +518,9 @@
 <p>这种方式是我第一次了解拉链表时，最快想到的方式，但是这样并不理想，如果某一列持续update 那么会一直新增column，如果column没有了那么就会覆盖上次的值，有这上面两种类型的缺点</p>
 <h4 id="Type4-新增维度表"><a href="#Type4-新增维度表" class="headerlink" title="Type4 新增维度表"></a>Type4 新增维度表</h4><p>如果我们的表规模非常大，数据量千万以上，大量的列变化非常频繁，那么这时候就不能用上面的办法来支撑了，我们需要将那些快速变化的维度从原来的大维度表中拆分出来单独处理，是为微维度（mini-dimension）。</p>
 <p>我们用书中的内容举例，如果顾客维度中有一部分人口统计学（demographic）维度是RCD，就将它们拆成单独的维度表：</p>
-<p><img src="/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="图片"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="图片"></p>
 <p>最后给出一张《The Data Warehouse Toolkit, 3rd Edition》中的这几种方式的比较图：</p>
-<p><img src="/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="比较图"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/640" alt="比较图"></p>
 
                 
             </div>
@@ -547,7 +547,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/">https://star-hash.github.io/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -766,13 +766,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/zwhblog.cn/shu-ju-cang-ku/la-lian-biao/">
+                <a href="/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/11.jpg" class="responsive-img" alt="拉链表">
+                        <img src="/zwhblog.cn/medias/featureimages/11.jpg" class="responsive-img" alt="NTP时间服务器配置">
                         
-                        <span class="card-title">拉链表</span>
+                        <span class="card-title">NTP时间服务器配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -789,8 +789,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
-                                    数据仓库
+                            <a href="/zwhblog.cn/categories/NTP/" class="post-category">
+                                    NTP
                                 </a>
                             
                             
@@ -800,12 +800,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
-                        <span class="chip bg-color">数据仓库</span>
-                    </a>
-                    
-                    <a href="/zwhblog.cn/tags/%E6%8B%89%E9%93%BE%E8%A1%A8/">
-                        <span class="chip bg-color">拉链表</span>
+                    <a href="/zwhblog.cn/tags/NTP%E9%85%8D%E7%BD%AE/">
+                        <span class="chip bg-color">NTP配置</span>
                     </a>
                     
                 </div>
@@ -1058,7 +1054,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             

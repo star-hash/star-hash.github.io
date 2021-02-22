@@ -545,10 +545,10 @@ export PATH=$PATH:$FLUME_HOME/bin<span aria-hidden="true" class="line-numbers-ro
 <h4 id="Flume-逻辑上分三层架构"><a href="#Flume-逻辑上分三层架构" class="headerlink" title="Flume 逻辑上分三层架构"></a>Flume 逻辑上分三层架构</h4><p>Agent，collector，storage</p>
 <p>Agent<br>用于采集数据，agent 是 flume 中存储数据流的地方，同时 agent 会将产生的数据传输到 collector<br>Coolector<br>Collector 的作用是坚多个 agent 的数据汇总后，加载到 storage 中，多个 collector 之间遵循负载均衡规则<br>Storage<br>Storage 是存储系统，可以是一个普通 file，也可以是 HDFS，HIVE，Hbase 等。<br>————————————————<br>版权声明：本文为CSDN博主「郑斯道」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengshidao/article/details/78312299">https://blog.csdn.net/zhengshidao/article/details/78312299</a></p>
 <h4 id="flume-ng-的组件"><a href="#flume-ng-的组件" class="headerlink" title="flume ng 的组件"></a>flume ng 的组件</h4><h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>flume以agent是flume的最小执行单位。一个agent就是一个jvm，单个agent由source、sink和channel三大组件构成，agent是产生数据流的地方</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
 <h6 id="1、source（单线程）"><a href="#1、source（单线程）" class="headerlink" title="1、source（单线程）"></a>1、source（单线程）</h6><p>完成对日志数据的采集，分成transtion和event打入channel</p>
 <p>Event： 一个数据单元，消息头和消息体组成。（Events可以是日志记录、 avro 对象等。）</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
 <h6 id="source-avro-类型"><a href="#source-avro-类型" class="headerlink" title="source  avro 类型"></a>source  avro 类型</h6><p>avro是监控的本地文件</p>
 <p>vim avro.conf</p>
 <pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">a1.sources = r1
@@ -659,7 +659,7 @@ a1.sinks.k1.channel = c1<span aria-hidden="true" class="line-numbers-rows"><span
 <p>进行测试</p>
 <pre class="line-numbers language-none"><code class="language-none">curl -X post -d '[{"headers":{"a1":"a"},"body":"i am a log"}]' linux01:6666<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>结果显示</p>
-<p><img src="/zwhblog.cn/flume/flume/1568806782986.png" alt="1568806782986"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/flume/flume/1568806782986.png" alt="1568806782986"></p>
 <h6 id="source-spooldir"><a href="#source-spooldir" class="headerlink" title="source spooldir"></a>source spooldir</h6><p>监控目录下的文件变化，一次性，在采集后不可修改，文件后缀名变为.COMPLETED，此时不能再对文件内容进行改变，否则flume会抛出异常</p>
 <p>即spool source类型只适合采集一次写入。<strong>不支持断点续传</strong></p>
 <p>vim spool.conf</p>
@@ -693,7 +693,7 @@ flume-ng agent -n a1 -c . -f spool.conf -Dflume.root.logger=INFO,console
 <p><strong>taildirsouce可以自动保存处理出局的偏移量，支持断点续传，还可以同时监控多个目录，是多线程的</strong></p>
 <h5 id="2、channel（缓存区，一次性）"><a href="#2、channel（缓存区，一次性）" class="headerlink" title="2、channel（缓存区，一次性）"></a>2、channel（缓存区，一次性）</h5><p>主要提供队列功能，对source提供的数据进行简单的缓存，是连接Source和Sink的组件</p>
 <p>可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
 <h6 id="channel-memory-类型-常用"><a href="#channel-memory-类型-常用" class="headerlink" title="channel memory 类型(常用)"></a>channel memory 类型(常用)</h6><pre class="line-numbers language-none"><code class="language-none">a1.sources = r1
 a1.sinks = k1
 a1.channels = c1
@@ -744,7 +744,7 @@ a1.sinks.k1.channel = c1 <span aria-hidden="true" class="line-numbers-rows"><spa
 <p>FileChannel传输速度相对于Memory慢，但数据安全保障高，Agent进程挂掉也可以从失败中恢复数据。</p>
 <h5 id="3、sink（单线程）"><a href="#3、sink（单线程）" class="headerlink" title="3、sink（单线程）"></a>3、sink（单线程）</h5><p>取出channel的数据，进行相应的存储文件系统，数据库，或者提交到远程服务器</p>
 <p>Sink负责持久化日志或者把事件推向另一个Source。</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
 <h6 id="sink-hdfs"><a href="#sink-hdfs" class="headerlink" title="sink hdfs"></a>sink hdfs</h6><p>生成的监控文件在hdfs中，在浏览器中 linux:50070  来查看结果，hdfs dfs -text 路径  查看数据</p>
 <p>vim hdfs-sink.conf </p>
 <pre class="line-numbers language-none"><code class="language-none">@sink必配项
@@ -1237,7 +1237,7 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/flume/flume/">https://star-hash.github.io/zwhblog.cn/flume/flume/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/flume/flume/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/flume/flume/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1452,6 +1452,55 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/zwhblog.cn/elasticsearch/elasticsearch/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/zwhblog.cn/medias/featureimages/22.jpg" class="responsive-img" alt="Elasticsearch的学习使用">
+                        
+                        <span class="card-title">Elasticsearch的学习使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/zwhblog.cn/categories/Elasticsearch/" class="post-category">
+                                    Elasticsearch
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/zwhblog.cn/tags/Elasticsearch/">
+                        <span class="chip bg-color">Elasticsearch</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/zwhblog.cn/java/java8-wen-dang-xue-xi-bi-ji/">
                     <div class="card-image">
                         
@@ -1468,9 +1517,9 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1488,55 +1537,6 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
                     
                     <a href="/zwhblog.cn/tags/Java/">
                         <span class="chip bg-color">Java</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/zwhblog.cn/cdh/hadoop/hadoop/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/zwhblog.cn/medias/featureimages/3.jpg" class="responsive-img" alt="Hadoop学习笔记">
-                        
-                        <span class="card-title">Hadoop学习笔记</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/zwhblog.cn/categories/Hadoop/" class="post-category">
-                                    Hadoop
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/zwhblog.cn/tags/Hadopp/">
-                        <span class="chip bg-color">Hadopp</span>
                     </a>
                     
                 </div>
@@ -1740,7 +1740,7 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             

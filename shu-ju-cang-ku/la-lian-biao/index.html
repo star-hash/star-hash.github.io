@@ -433,10 +433,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/zwhblog.cn/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
-                                <span class="chip bg-color">数据仓库</span>
-                            </a>
-                        
                             <a href="/zwhblog.cn/tags/%E6%8B%89%E9%93%BE%E8%A1%A8/">
                                 <span class="chip bg-color">拉链表</span>
                             </a>
@@ -449,8 +445,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/zwhblog.cn/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
-                                数据仓库
+                            <a href="/zwhblog.cn/categories/%E6%95%B0%E4%BB%93/" class="post-category">
+                                数仓
                             </a>
                         
                     </div>
@@ -462,7 +458,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-03
+                    2021-02-11
                 </div>
                 
 
@@ -471,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    816
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    8 分
                 </div>
                 
 
@@ -851,6 +847,26 @@
 </li>
 </ol>
 <p>原文链接：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/mrM2x-YH2Bs69JGCXLBRdA">https://mp.weixin.qq.com/s/mrM2x-YH2Bs69JGCXLBRdA</a></p>
+<h2 id="缓慢变化纬"><a href="#缓慢变化纬" class="headerlink" title="缓慢变化纬"></a>缓慢变化纬</h2><p>Slowly Changing Dimensions are dimensions that have data that slowly changes. 意思就是说数据会发生缓慢变化的维度就叫”缓慢变化维”。</p>
+<p>处理缓慢变化维度是Kimball数仓体系中永恒的话题，因为数据仓库的本质，以及维度表在维度建模中的基础作用，我们几乎总是要跟踪维度的变更（change tracking），以保留历史，并提供准确的查询和分析结果。在《The Data Warehouse Toolkit, 3rd Edition》一书的第5章，Kimball提出了多种缓慢变化维度的类型和处理方法，其中前五种是原生的，后面的方法都是混合方法（hybrid techniques），因此下面来看看前五种，即Type 0~Type 4。</p>
+<h4 id="Tpye0-保留原始值"><a href="#Tpye0-保留原始值" class="headerlink" title="Tpye0 保留原始值"></a>Tpye0 保留原始值</h4><p>某一个属性值绝不会变化。事实表始终按照该原始值进行分组。比如在用户维度表中，用户注册时使用的原始用户名（original_user_name）。如果它发生变化，那么变化后的值是无效的，会被抛弃，始终按照用户第一次填写的数据为准。很明显这种方式是不推荐的。</p>
+<p>说白话就是只要第一次的数据，不要变化后的数据</p>
+<h4 id="Type1-覆盖更新"><a href="#Type1-覆盖更新" class="headerlink" title="Type1 覆盖更新"></a>Type1 覆盖更新</h4><p>与业务数据保持一致，同样为直接update。这样就难以记录历史变化，例如如果周杰伦于15年7月调入北京，那么我们想要知道北京销售员在15年的销售数据时，就会将周杰伦的业绩算入北京分公司下，实际上周杰伦7月份以前的销售数据均应算在台北，所以为了避免这样的问题就有了TYPE2的处理方式。</p>
+<p>这样的方式就是Mysql中一般表的处理方式，如果变中的值发生了变化就直接update，不保留历史数据，这样显然是不符合我们需求的。</p>
+<h4 id="Type2-增加新的列"><a href="#Type2-增加新的列" class="headerlink" title="Type2 增加新的列"></a>Type2 增加新的列</h4><p>数据仓库系统的目标之一是正确地表示历史记录。我们在生产环境中的基于Hive的数仓建设过程中，拉链表就是直接的体现。</p>
+<p>这种类型在维度表中<strong>添加两个辅助列</strong>：该行的有效日期（effective date）和过期日期（expiration date），分别指示该行从哪个时间点开始生效，以及在哪个时间点过后会变为无效。<strong>每当一个或多个维度发生更改时，就创建一个新的行</strong>，新行包含有修改后的维度值，而旧行包含有修改前的维度值，且旧行的过期日期也会同步修改。书中的例子如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/UdK9ByfMT2MNlco9pTMxjCHkDStQYtm6g4ftCUE2aCXeuBwYmguksjwnR0SJ7W4MXmKHcrR1e1svztIWiaTheew/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p>在上图中，当前有效列（current列）的过期日期会被记录为9999-12-31。当Department Name维度变化时，旧有的Product Key为12345的行的过期日期被更新为修改日期，并且新建了一个Key为25984的行，包含新的数据。</p>
+<p>需要注意的是，这里的Product Key是所谓代理键（surrogate key），即不表示具体业务含义，而只是代表表内数据行的唯一ID。在处理SCD时，代理键可以直接用来区分同一自然键（natural key）的数据的新旧版本。上图中的SKU就是自然键。</p>
+<p>这种类型的SCD处理方式能够非常有效且精确地保留历史与反映变更，但缺点是会造成数据的膨胀，因为即使只有一个维度变化，也要创建新行。</p>
+<h4 id="Type3-新增属性列"><a href="#Type3-新增属性列" class="headerlink" title="Type3 新增属性列"></a>Type3 新增属性列</h4><p>用不同的字段来保存不同的值，就是在表中增加一个字段，这个字段用来保存变化后的当前值，而原来的值则被称为变化前的值。我们举个很简单的例子，例如我们在用户表中的用户住址这一列会变化，那么我们可以通过新增一个列来表示曾经的地址：</p>
+<p>这么做虽然解决上面的数据膨胀的问题，但是如果很多个列都会变化，那么我们要新增很多系列，显然这是不合理的。另外，这种做法只能保留上一次的数据，那么更久远的变化就丢失了。</p>
+<p>这种方式是我第一次了解拉链表时，最快想到的方式，但是这样并不理想，如果某一列持续update 那么会一直新增column，如果column没有了那么就会覆盖上次的值，有这上面两种类型的缺点</p>
+<h4 id="Type4-新增维度表"><a href="#Type4-新增维度表" class="headerlink" title="Type4 新增维度表"></a>Type4 新增维度表</h4><p>如果我们的表规模非常大，数据量千万以上，大量的列变化非常频繁，那么这时候就不能用上面的办法来支撑了，我们需要将那些快速变化的维度从原来的大维度表中拆分出来单独处理，是为微维度（mini-dimension）。</p>
+<p>我们用书中的内容举例，如果顾客维度中有一部分人口统计学（demographic）维度是RCD，就将它们拆成单独的维度表：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/UdK9ByfMT2MNlco9pTMxjCHkDStQYtm6jRhnoDkSk0Vul1Tibv26TmyqQDSBmbLk4OAsxAUQ2afib2b3ibtxFEfhQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
+<p>最后给出一张《The Data Warehouse Toolkit, 3rd Edition》中的这几种方式的比较图：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/UdK9ByfMT2MNlco9pTMxjCHkDStQYtm6Eia8ZWvH3J25UmIj5uyau7vHSesHuSoMSBmlsmzrBGnNCNOnb4QeibeA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p>
 
                 
             </div>
@@ -877,7 +893,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/shu-ju-cang-ku/la-lian-biao/">https://star-hash.github.io/zwhblog.cn/shu-ju-cang-ku/la-lian-biao/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/la-lian-biao/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/shu-ju-cang-ku/la-lian-biao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -914,10 +930,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/zwhblog.cn/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
-                                    <span class="chip bg-color">数据仓库</span>
-                                </a>
                             
                                 <a href="/zwhblog.cn/tags/%E6%8B%89%E9%93%BE%E8%A1%A8/">
                                     <span class="chip bg-color">拉链表</span>
@@ -1096,13 +1108,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/zwhblog.cn/git/git-de-shi-yong/">
+                <a href="/zwhblog.cn/linux/linux-ming-ling/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/5.jpg" class="responsive-img" alt="Git的使用">
+                        <img src="/zwhblog.cn/medias/featureimages/19.jpg" class="responsive-img" alt="Linux命令">
                         
-                        <span class="card-title">Git的使用</span>
+                        <span class="card-title">Linux命令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1113,14 +1125,14 @@
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-12
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/Git/" class="post-category">
-                                    Git
+                            <a href="/zwhblog.cn/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -1130,8 +1142,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/Git/">
-                        <span class="chip bg-color">Git</span>
+                    <a href="/zwhblog.cn/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1145,13 +1157,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/zwhblog.cn/shu-ju-cang-ku/huan-man-bian-hua-wei/">
+                <a href="/zwhblog.cn/linux/centos-huan-jing-da-jian/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/8.jpg" class="responsive-img" alt="缓慢变化维解决的几种方式">
+                        <img src="/zwhblog.cn/medias/featureimages/21.jpg" class="responsive-img" alt="Linux环境搭建">
                         
-                        <span class="card-title">缓慢变化维解决的几种方式</span>
+                        <span class="card-title">Linux环境搭建</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1162,14 +1174,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
-                                    数据仓库
+                            <a href="/zwhblog.cn/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -1179,12 +1191,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
-                        <span class="chip bg-color">数据仓库</span>
-                    </a>
-                    
-                    <a href="/zwhblog.cn/tags/%E7%BC%93%E6%85%A2%E5%8F%98%E5%8C%96%E7%BB%B4/">
-                        <span class="chip bg-color">缓慢变化维</span>
+                    <a href="/zwhblog.cn/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1388,7 +1396,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             

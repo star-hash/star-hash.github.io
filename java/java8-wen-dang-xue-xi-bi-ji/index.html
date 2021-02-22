@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7.5k
+                    9.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    26 分
+                    33 分
                 </div>
                 
 
@@ -736,6 +736,125 @@ This burrito is a little hot.
 This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>将数据和方法包装进类中并把具体实现隐藏被称作是<em>封装</em>（encapsulation）</p>
 <p>访问控制通常被称为<em>隐藏实现</em>（implementation hiding）。</p>
+<h1 id="第六章-初始化和清理"><a href="#第六章-初始化和清理" class="headerlink" title="第六章 初始化和清理"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E7%AC%AC%E5%85%AD%E7%AB%A0-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E6%B8%85%E7%90%86">第六章 初始化和清理</a></h1><p>C++ 引入了构造器的概念，这是一个特殊的方法，每创建一个对象，这个方法就会被自动调用。Java 采用了构造器的概念，另外还使用了垃圾收集器（Garbage Collector, GC）去自动回收不再被使用的对象所占的资源。这一章将讨论初始化和清理的问题，以及在 Java 中对它们的支持。</p>
+<h2 id="利用构造器保证初始化"><a href="#利用构造器保证初始化" class="headerlink" title="利用构造器保证初始化"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E5%88%A9%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8%E4%BF%9D%E8%AF%81%E5%88%9D%E5%A7%8B%E5%8C%96">利用构造器保证初始化</a></h2><p>注意点：java中初始化如果类中有多个构造器只会调用一个构造器，然后调用父类构造器，中间不会去调用自己的无参构造器。而scala多个构造器会一级一级的调用自己的无参构造器，然后再调用父类的构造器</p>
+<h2 id="方法重载"><a href="#方法重载" class="headerlink" title="方法重载"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD">方法重载</a></h2><p>重载就是相同方法名称不同参数值，调用时根据不同的参数来进行区分</p>
+<h3 id="返回值的重载"><a href="#返回值的重载" class="headerlink" title="返回值的重载"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E9%87%8D%E8%BD%BD">返回值的重载</a></h3><p>java8支持返回值的重载，但是并不建议使用。</p>
+<h2 id="无参构造器"><a href="#无参构造器" class="headerlink" title="无参构造器"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E6%97%A0%E5%8F%82%E6%9E%84%E9%80%A0%E5%99%A8">无参构造器</a></h2><p>如果你创建一个类，类中没有构造器，那么编译器就会自动为你创建一个无参构造器</p>
+<p>但是,一旦你显式地定义了构造器（无论有参还是无参），编译器就不会自动为你创建无参构造器。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// housekeeping/DefaultConstructor.java</span>
+<span class="token keyword">class</span> <span class="token class-name">Bird</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DefaultConstructor</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Bird</span> bird <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Bird</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 默认的</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="this关键字-1"><a href="#this关键字-1" class="headerlink" title="this关键字"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=this%E5%85%B3%E9%94%AE%E5%AD%97">this关键字</a></h2><p>对于两个相同类型的对象 <strong>a</strong> 和 <strong>b</strong>，你可能在想如何调用这两个对象的 <code>peel()</code> 方法：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// housekeeping/BananaPeel.java</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Banana</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">peel</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*...*/</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BananaPeel</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Banana</span> a <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Banana</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Banana</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">.</span><span class="token function">peel</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        b<span class="token punctuation">.</span><span class="token function">peel</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果只有一个方法 <code>peel()</code> ，那么怎么知道调用的是对象 <strong>a</strong> 的 <code>peel()</code>方法还是对象 <strong>b</strong> 的 <code>peel()</code> 方法呢？</p>
+<p><strong>this</strong> 关键字只能在非静态方法内部使用。当你调用一个对象的方法时，<strong>this</strong> 生成了一个对象引用。你可以像对待其他引用一样对待这个引用。如果你在一个类的方法里调用该类的其他方法，不要使用 <strong>this</strong>，直接调用即可，<strong>this</strong> 自动地应用于其他方法上了。因此你可以像这样：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// housekeeping/Apricot.java</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Apricot</span> <span class="token punctuation">{</span>
+    <span class="token keyword">void</span> <span class="token function">pick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/* ... */</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">pit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">pick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">/* ... */</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在 <code>pit()</code> 方法中，你可以使用 <code>this.pick()</code>，但是没有必要。编译器自动为你做了这些。<strong>this</strong> 关键字只用在一些必须显式使用当前对象引用的特殊场合。例如，用在 <strong>return</strong> 语句中返回对当前对象的引用。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// housekeeping/Leaf.java</span>
+<span class="token comment">// Simple use of the "this" keyword</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Leaf</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Leaf</span> <span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"i = "</span> <span class="token operator">+</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Leaf</span> x <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Leaf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        x<span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">increment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="在构造器中调用构造器"><a href="#在构造器中调用构造器" class="headerlink" title="在构造器中调用构造器"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E5%9C%A8%E6%9E%84%E9%80%A0%E5%99%A8%E4%B8%AD%E8%B0%83%E7%94%A8%E6%9E%84%E9%80%A0%E5%99%A8">在构造器中调用构造器</a></h3><p>当你在一个类中写了多个构造器，有时你想在一个构造器中调用另一个构造器来避免代码重复。你通过 <strong>this</strong> 关键字实现这样的调用。</p>
+<p>通常当你说 <strong>this</strong>，意味着”这个对象”或”当前对象”，它本身生成对当前对象的引用。在一个构造器中，当你给 <strong>this</strong> 一个参数列表时，它是另一层意思。它通过最直接的方式显式地调用匹配参数列表的构造器：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// housekeeping/Flower.java</span>
+<span class="token comment">// Calling constructors with "this"</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Flower</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> petalCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token class-name">String</span> s <span class="token operator">=</span> <span class="token string">"initial value"</span><span class="token punctuation">;</span>
+
+    <span class="token class-name">Flower</span><span class="token punctuation">(</span><span class="token keyword">int</span> petals<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        petalCount <span class="token operator">=</span> petals<span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Constructor w/ int arg only, petalCount = "</span> <span class="token operator">+</span> petalCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">Flower</span><span class="token punctuation">(</span><span class="token class-name">String</span> ss<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Constructor w/ string arg only, s = "</span> <span class="token operator">+</span> ss<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        s <span class="token operator">=</span> ss<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">Flower</span><span class="token punctuation">(</span><span class="token class-name">String</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span> petals<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>petals<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//- this(s); // Can't call two!</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>s <span class="token operator">=</span> s<span class="token punctuation">;</span> <span class="token comment">// Another use of "this"</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"String &amp; int args"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token class-name">Flower</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token string">"hi"</span><span class="token punctuation">,</span> <span class="token number">47</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"no-arg constructor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">printPetalCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">//- this(11); // Not inside constructor!</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"petalCount = "</span> <span class="token operator">+</span> petalCount <span class="token operator">+</span> <span class="token string">" s = "</span> <span class="token operator">+</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Flower</span> x <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Flower</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        x<span class="token punctuation">.</span><span class="token function">printPetalCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="static-的含义"><a href="#static-的含义" class="headerlink" title="static 的含义"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=static-%E7%9A%84%E5%90%AB%E4%B9%89">static 的含义</a></h3><p><strong>static</strong> 方法中不会存在 <strong>this</strong>。你不能在静态方法中调用非静态方法（反之可以）。静态方法是为类而创建的，不需要任何对象。</p>
+<p>事实上，这就是静态方法的主要目的，静态方法看起来就像全局方法一样，但是 Java 中不允许全局方法，一个类中的静态方法可以访问其他静态方法和静态属性。一些人认为静态方法不是面向对象的，因为它们的确具有全局方法的语义。使用静态方法，因为不存在 <strong>this</strong>，所以你没有向一个对象发送消息。的确，如果你发现代码中出现了大量的 <strong>static</strong> 方法，就该重新考虑自己的设计了</p>
+<h2 id="垃圾回收器-1"><a href="#垃圾回收器-1" class="headerlink" title="垃圾回收器"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8">垃圾回收器</a></h2><p>使用完一个对象就不管它并非总是安全的。Java 中有垃圾回收器回收无用对象占用的内存。但现在考虑一种特殊情况：你创建的对象不是通过 <strong>new</strong> 来分配内存的，而垃圾回收器只知道如何释放用 <strong>new</strong> 创建的对象的内存，所以它不知道如何回收不是 <strong>new</strong> 分配的内存。为了处理这种情况，Java 允许在类中定义一个名为 <code>finalize()</code> 的方法。</p>
+<p>它的工作原理”假定”是这样的：当垃圾回收器准备回收对象的内存时，首先会调用其 <code>finalize()</code> 方法，并在下一轮的垃圾回收动作发生时，才会真正回收对象占用的内存。所以如果你打算使用 <code>finalize()</code> ，就能在垃圾回收时做一些重要的清理工作。</p>
+<p>所以有必要明确区分一下：在 C++ 中，对象总是被销毁的（在一个 bug-free 的程序中），而在 Java 中，对象并非总是被垃圾回收，或者换句话说：</p>
+<ol>
+<li>对象可能不被垃圾回收。</li>
+<li>垃圾回收不等同于析构。</li>
+</ol>
+<p>这意味着在你不再需要某个对象之前，如果必须执行某些动作，你得自己去做。Java 没有析构器或类似的概念，所以你必须得自己创建一个普通的方法完成这项清理工作。例如，对象在创建的过程中会将自己绘制到屏幕上。如果不是明确地从屏幕上将其擦除，它可能永远得不到清理。如果在 <code>finalize()</code> 方法中加入某种擦除功能，那么当垃圾回收发生时，<code>finalize()</code> 方法被调用（不保证一定会发生），图像就会被擦除，要是”垃圾回收”没有发生，图像则仍会保留下来。</p>
+<p>也许你会发现，只要程序没有濒临内存用完的那一刻，对象占用的空间就总也得不到释放。如果程序执行结束，而垃圾回收器一直没有释放你创建的任何对象的内存，则当程序退出时，那些资源会全部交还给操作系统。这个策略是恰当的，因为垃圾回收本身也有开销，要是不使用它，那就不用支付这部分开销了。</p>
+<h3 id="终结条件-1"><a href="#终结条件-1" class="headerlink" title="终结条件"></a><a target="_blank" rel="noopener" href="https://lingcoder.github.io/OnJava8/#/book/06-Housekeeping?id=%E7%BB%88%E7%BB%93%E6%9D%A1%E4%BB%B6">终结条件</a></h3><p>通常，不能指望 <code>finalize()</code> ，你必须创建其他的”清理”方法，并明确地调用它们。所以看起来，<code>finalize()</code> 只对大部分程序员很难用到的一些晦涩内存清理里有用了。但是，<code>finalize()</code> 还有一个有趣的用法，它不依赖于每次都要对 <code>finalize()</code> 进行调用，这就是对象终结条件的验证。）。</p>
 
                 
             </div>
@@ -762,7 +881,7 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/java8-wen-dang-xue-xi-bi-ji/">https://star-hash.github.io/zwhblog.cn/java/java8-wen-dang-xue-xi-bi-ji/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/java/java8-wen-dang-xue-xi-bi-ji/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/java/java8-wen-dang-xue-xi-bi-ji/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -977,55 +1096,6 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/zwhblog.cn/elasticsearch/elasticsearch/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/zwhblog.cn/medias/featureimages/22.jpg" class="responsive-img" alt="Elasticsearch的学习使用">
-                        
-                        <span class="card-title">Elasticsearch的学习使用</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/zwhblog.cn/categories/Elasticsearch/" class="post-category">
-                                    Elasticsearch
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/zwhblog.cn/tags/Elasticsearch/">
-                        <span class="chip bg-color">Elasticsearch</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="/zwhblog.cn/flume/flume/">
                     <div class="card-image">
                         
@@ -1042,9 +1112,9 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1062,6 +1132,55 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
                     
                     <a href="/zwhblog.cn/tags/Flume/">
                         <span class="chip bg-color">Flume</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/zwhblog.cn/cdh/hadoop/hadoop/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/zwhblog.cn/medias/featureimages/3.jpg" class="responsive-img" alt="Hadoop学习笔记">
+                        
+                        <span class="card-title">Hadoop学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/zwhblog.cn/categories/Hadoop/" class="post-category">
+                                    Hadoop
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/zwhblog.cn/tags/Hadopp/">
+                        <span class="chip bg-color">Hadopp</span>
                     </a>
                     
                 </div>
@@ -1265,7 +1384,7 @@ This burrito is maybe too hot.<span aria-hidden="true" class="line-numbers-rows"
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             

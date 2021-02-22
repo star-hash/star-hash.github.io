@@ -662,7 +662,7 @@ set autocommit = 0/1;
 
 <h2 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h2><p>Mysql中数据备份使用的命令是:<strong><em>\</em>mysqldump**</strong>命令将数据库中的数据备份成一个<strong>文本文件</strong>。表的结构和表中的数据将存储在生成的文本文件中。</p>
 <p>mysqldump不要再mysql中执行，要在外部执行</p>
-<p><img src="/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119133604603.png" alt="image-20210119133604603"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119133604603.png" alt="image-20210119133604603"></p>
 <p>1、导出一整个数据库</p>
 <pre class="line-numbers language-none"><code class="language-none">mysqldump -u test -p test &gt; test.sql
 //mysqldump -u 用户名 -p 数据库名 &gt; 导出的文件名<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -674,11 +674,11 @@ set autocommit = 0/1;
 <p>4、备份所有数据库</p>
 <pre class="line-numbers language-none"><code class="language-none">mysqldump -u root -h host -p --all-databases &gt; backdb.sql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="使用-sql文件"><a href="#使用-sql文件" class="headerlink" title="使用.sql文件"></a>使用.sql文件</h2><p>1、在外部使用</p>
-<p><img src="/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119134733857.png" alt="image-20210119134733857"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119134733857.png" alt="image-20210119134733857"></p>
 <pre class="line-numbers language-none"><code class="language-none">mysql -u root -p 123456 &lt; /test.sql
 如果出错有提示，不出错就什么也没有<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>2、在Mysql命令行使用</p>
-<p><img src="/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119134547594.png" alt="image-20210119134547594"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/image-20210119134547594.png" alt="image-20210119134547594"></p>
 <pre class="line-numbers language-none"><code class="language-none">source .sql文件地址<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="创建数据库规则"><a href="#创建数据库规则" class="headerlink" title="创建数据库规则"></a>创建数据库规则</h2><p> （Rule）规则 就是数据库中对存储在表的列或用户自定义数据类型中的值的规定和限制。规则是单独存储的独立的数据库对象。规则与其作用的表或用户自定义数据类型是相互独立的，即表或用户自定义对象的删除、修改不会对与之相连的规则产生影响。规则和约束可以同时使用，表的列可以有一个规则及多个CHECK 约束。规则与CHECK 约束很相似，相比之下，使用在ALTERTABLE 或CREATE TABLE 命令中的CHECK 约束是更标准的限制列值的方法，但CHECK 约束不能直接作用于用户自定义数据类型。</p>
 <pre class="line-numbers language-none"><code class="language-none">CREATE RULE rule_name AS condition_expression
@@ -712,7 +712,7 @@ set autocommit = 0/1;
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/">https://star-hash.github.io/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/mysql/mysql-bu-chang-yong-ming-ling/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -927,13 +927,13 @@ set autocommit = 0/1;
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/zwhblog.cn/spring/spring-cloud/spring-cloud-zu-jian-shuo-ming/">
+                <a href="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/14.jpg" class="responsive-img" alt="Spring Cloud组件说明">
+                        <img src="/zwhblog.cn/medias/featureimages/19.jpg" class="responsive-img" alt="Spring Bus">
                         
-                        <span class="card-title">Spring Cloud组件说明</span>
+                        <span class="card-title">Spring Bus</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -954,8 +954,8 @@ set autocommit = 0/1;
                                     Spring
                                 </a>
                             
-                            <a href="/zwhblog.cn/categories/Spring/Spring-Cloud/" class="post-category">
-                                    Spring Cloud
+                            <a href="/zwhblog.cn/categories/Spring/Spring-Bus/" class="post-category">
+                                    Spring Bus
                                 </a>
                             
                             
@@ -969,8 +969,8 @@ set autocommit = 0/1;
                         <span class="chip bg-color">Spring</span>
                     </a>
                     
-                    <a href="/zwhblog.cn/tags/Spring-Cloud/">
-                        <span class="chip bg-color">Spring Cloud</span>
+                    <a href="/zwhblog.cn/tags/Spring-Bus/">
+                        <span class="chip bg-color">Spring Bus</span>
                     </a>
                     
                 </div>
@@ -1223,7 +1223,7 @@ set autocommit = 0/1;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             

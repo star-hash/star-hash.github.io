@@ -550,7 +550,7 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
 <h1 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h1><h2 id="kafka数据同步-镜像工具-kafka-mirror-maker"><a href="#kafka数据同步-镜像工具-kafka-mirror-maker" class="headerlink" title="kafka数据同步/镜像工具 kafka mirror maker"></a>kafka数据同步/镜像工具 kafka mirror maker</h2><p>MirrorMaker为kafka的镜像工具，如果没有这个需求就可以不启动这个服务。</p>
 <p>可以使用kafkamaker来进行kafka之间的数据迁移/发送</p>
 <h2 id="Kafka为什么快"><a href="#Kafka为什么快" class="headerlink" title="Kafka为什么快"></a>Kafka为什么快</h2><h3 id="磁盘读写"><a href="#磁盘读写" class="headerlink" title="磁盘读写"></a>磁盘读写</h3><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/b5d1zNec-RcFwgEtNxNRUg">原文地址</a></p>
-<p><img src="/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/ddd70f0e1e858cc507a23112e6d05010.png" alt="磁盘原理"></p>
+<p><img src="/zwhblog.cn/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/ddd70f0e1e858cc507a23112e6d05010.png" alt="磁盘原理"></p>
 <p>磁盘读写过程</p>
 <ol>
 <li>先进行寻址（找到对应的柱面，磁头要瞄准相应的磁道）</li>
@@ -589,7 +589,7 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
 <p>如果每个消息都压缩，但是压缩率相对很低，所以Kafka使用了批量压缩，即将多个消息一起压缩而不是单个消息压缩</p>
 <p>Kafka允许使用递归的消息集合，批量的消息可以通过压缩的形式传输并且在日志中也可以保持压缩格式，直到被消费者解压缩</p>
 <p>Kafka支持多种压缩协议，包括Gzip和Snappy压缩协议</p>
-<h3 id="消息写入过程"><a href="#消息写入过程" class="headerlink" title="消息写入过程"></a>消息写入过程</h3><p><img src="/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/640" alt="img"></p>
+<h3 id="消息写入过程"><a href="#消息写入过程" class="headerlink" title="消息写入过程"></a>消息写入过程</h3><p><img src="/zwhblog.cn/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/640" alt="img"></p>
 <p>producer需要从用户空间到网卡(zero-copy)</p>
 <p>生产者发送批量压缩的数据到broker，broker通过MappedByteBuffer的map()函数映射其地址到你的虚拟内存地址。</p>
 <p>接着就可以对这个MappedByteBuffer执行写入操作了，写入的时候他会直接进入PageCache中，然后过一段时间之后，由os的线程异步刷入磁盘中，可以看上面的示意图。</p>
@@ -623,7 +623,7 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/">https://star-hash.github.io/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/</a>
+                    <a href="https://star-hash.github.io/zwhblog.cn/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/">https://star-hash.github.io/zwhblog.cn/zwhblog.cn/da-shu-ju-zhi-shi-zong-jie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -895,13 +895,13 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/zwhblog.cn/ntp-shi-jian-fu-wu-qi-pei-zhi/">
+                <a href="/zwhblog.cn/xiao-wen-jian-chu-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/zwhblog.cn/medias/featureimages/11.jpg" class="responsive-img" alt="NTP时间服务器配置">
+                        <img src="/zwhblog.cn/medias/featureimages/22.jpg" class="responsive-img" alt="Hive/Spark小文件的处理">
                         
-                        <span class="card-title">NTP时间服务器配置</span>
+                        <span class="card-title">Hive/Spark小文件的处理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -918,8 +918,8 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/zwhblog.cn/categories/NTP/" class="post-category">
-                                    NTP
+                            <a href="/zwhblog.cn/categories/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/" class="post-category">
+                                    小文件优化
                                 </a>
                             
                             
@@ -929,8 +929,8 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/zwhblog.cn/tags/NTP%E9%85%8D%E7%BD%AE/">
-                        <span class="chip bg-color">NTP配置</span>
+                    <a href="/zwhblog.cn/tags/%E5%B0%8F%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96/">
+                        <span class="chip bg-color">小文件优化</span>
                     </a>
                     
                 </div>
@@ -1134,7 +1134,7 @@ set spark.hadoopRDD.ignoreEmptySplits=true;<span aria-hidden="true" class="line-
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">129k</span>&nbsp;字
+                class="white-color">144.1k</span>&nbsp;字
             
             
             
