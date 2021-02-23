@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.2k
+                    6.3k
                 </div>
                 
 
@@ -546,7 +546,7 @@ export PATH=$PATH:$FLUME_HOME/bin<span aria-hidden="true" class="line-numbers-ro
 <p>Agent<br>用于采集数据，agent 是 flume 中存储数据流的地方，同时 agent 会将产生的数据传输到 collector<br>Coolector<br>Collector 的作用是坚多个 agent 的数据汇总后，加载到 storage 中，多个 collector 之间遵循负载均衡规则<br>Storage<br>Storage 是存储系统，可以是一个普通 file，也可以是 HDFS，HIVE，Hbase 等。<br>————————————————<br>版权声明：本文为CSDN博主「郑斯道」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengshidao/article/details/78312299">https://blog.csdn.net/zhengshidao/article/details/78312299</a></p>
 <h4 id="flume-ng-的组件"><a href="#flume-ng-的组件" class="headerlink" title="flume ng 的组件"></a>flume ng 的组件</h4><h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>flume以agent是flume的最小执行单位。一个agent就是一个jvm，单个agent由source、sink和channel三大组件构成，agent是产生数据流的地方</p>
 <p><img src="/zwhblog.cn/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
-<h6 id="1、source（单线程）"><a href="#1、source（单线程）" class="headerlink" title="1、source（单线程）"></a>1、source（单线程）</h6><p>完成对日志数据的采集，分成transtion和event打入channel</p>
+<h4 id="1、source（单线程）"><a href="#1、source（单线程）" class="headerlink" title="1、source（单线程）"></a>1、source（单线程）</h4><p>完成对日志数据的采集，分成transtion和event打入channel</p>
 <p>Event： 一个数据单元，消息头和消息体组成。（Events可以是日志记录、 avro 对象等。）</p>
 <p><img src="/zwhblog.cn/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
 <h6 id="source-avro-类型"><a href="#source-avro-类型" class="headerlink" title="source  avro 类型"></a>source  avro 类型</h6><p>avro是监控的本地文件</p>
@@ -691,8 +691,9 @@ flume-ng agent -n a1 -c . -f spool.conf -Dflume.root.logger=INFO,console
 <p>在配置文件中指定的文件夹中修改文件就会触发监控</p>
 <h6 id="source-Taildir"><a href="#source-Taildir" class="headerlink" title="source Taildir"></a>source Taildir</h6><p>flume1.7才出来的，建议用1.8，1.8修复了一个taildirsource的bug</p>
 <p><strong>taildirsouce可以自动保存处理出局的偏移量，支持断点续传，还可以同时监控多个目录，是多线程的</strong></p>
-<h5 id="2、channel（缓存区，一次性）"><a href="#2、channel（缓存区，一次性）" class="headerlink" title="2、channel（缓存区，一次性）"></a>2、channel（缓存区，一次性）</h5><p>主要提供队列功能，对source提供的数据进行简单的缓存，是连接Source和Sink的组件</p>
+<h4 id="2、channel（缓存区，一次性）"><a href="#2、channel（缓存区，一次性）" class="headerlink" title="2、channel（缓存区，一次性）"></a>2、channel（缓存区，一次性）</h4><p>主要提供队列功能，对source提供的数据进行简单的缓存，是连接Source和Sink的组件，还可以对source和sink之间进行解耦</p>
 <p>可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。</p>
+<p>处理场景：source端数据高峰sink端速度比source端慢，这时候channel就起到了它的作用。</p>
 <p><img src="/zwhblog.cn/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
 <h6 id="channel-memory-类型-常用"><a href="#channel-memory-类型-常用" class="headerlink" title="channel memory 类型(常用)"></a>channel memory 类型(常用)</h6><pre class="line-numbers language-none"><code class="language-none">a1.sources = r1
 a1.sinks = k1
@@ -742,7 +743,7 @@ a1.sinks.k1.channel = c1 <span aria-hidden="true" class="line-numbers-rows"><spa
 <h6 id="channel-kafka"><a href="#channel-kafka" class="headerlink" title="channel kafka"></a>channel kafka</h6><p>直接往kafka中放入数据，省去了sink，提高了效率</p>
 <h6 id="FileChannel和MemoryChannel区别"><a href="#FileChannel和MemoryChannel区别" class="headerlink" title="FileChannel和MemoryChannel区别"></a>FileChannel和MemoryChannel区别</h6><p>MemoryChannel传输数据速度更快，但因为数据保存在JVM的堆内存中，Agent进程挂掉会导致数据丢失，适用于对数据质量要求不高的需求。</p>
 <p>FileChannel传输速度相对于Memory慢，但数据安全保障高，Agent进程挂掉也可以从失败中恢复数据。</p>
-<h5 id="3、sink（单线程）"><a href="#3、sink（单线程）" class="headerlink" title="3、sink（单线程）"></a>3、sink（单线程）</h5><p>取出channel的数据，进行相应的存储文件系统，数据库，或者提交到远程服务器</p>
+<h4 id="3、sink（单线程）"><a href="#3、sink（单线程）" class="headerlink" title="3、sink（单线程）"></a>3、sink（单线程）</h4><p>取出channel的数据，进行相应的存储文件系统，数据库，或者提交到远程服务器</p>
 <p>Sink负责持久化日志或者把事件推向另一个Source。</p>
 <p><img src="/zwhblog.cn/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
 <h6 id="sink-hdfs"><a href="#sink-hdfs" class="headerlink" title="sink hdfs"></a>sink hdfs</h6><p>生成的监控文件在hdfs中，在浏览器中 linux:50070  来查看结果，hdfs dfs -text 路径  查看数据</p>
@@ -915,7 +916,7 @@ a1.sink.k1.channel=c1<span aria-hidden="true" class="line-numbers-rows"><span></
 <h4 id="flume的运行单位"><a href="#flume的运行单位" class="headerlink" title="flume的运行单位"></a>flume的运行单位</h4><p>flume的最小运行单位是Agent</p>
 <h4 id="flume的最小传输单位"><a href="#flume的最小传输单位" class="headerlink" title="flume的最小传输单位"></a>flume的最小传输单位</h4><p>flume的最小传输单位是event(事件)</p>
 <h4 id="event-事件-的组成"><a href="#event-事件-的组成" class="headerlink" title="event(事件)的组成"></a>event(事件)的组成</h4><p>一行文本内容会被反序列化成一个event </p>
-<p>event是传输数据的核心，他的组成有<strong>header</strong>和<strong>body</strong>两部分组成：Header是一个map，body部分可以是string和**byte[]**等，body是真正存放数据的地方，headers部分是interceptor,可以存放一些数据属性,header默认是空的</p>
+<p>event是传输数据的核心，他的组成有<strong>headers</strong>和<strong>body</strong>两部分组成：Header是一个集合 Map[String,String]用于携带一些KV类型的元数据（标识，描述等），body部分可以是string和<strong>byte[]字节数组</strong>，body装载着具体的数据内容，headers部分是interceptor,可以存放一些数据属性,header默认是空的</p>
 <p> 从source获取数据后会先封装成event，然后将event发送到channel，sink从channel拿event消费 </p>
 <h4 id="interceptor-拦截器）"><a href="#interceptor-拦截器）" class="headerlink" title="interceptor(拦截器）"></a>interceptor(拦截器）</h4><p>拦截器的位置在source传入到channel中时发挥作用，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
 <h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><p>channel选择器</p>
@@ -1740,7 +1741,7 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.1k</span>&nbsp;字
+                class="white-color">144.7k</span>&nbsp;字
             
             
             

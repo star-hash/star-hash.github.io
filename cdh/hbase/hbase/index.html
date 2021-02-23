@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.1k
+                    6.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    23 分
+                    24 分
                 </div>
                 
 
@@ -562,9 +562,10 @@
 <h5 id="1、client"><a href="#1、client" class="headerlink" title="1、client"></a>1、client</h5><p>使用HBase RPC机制与HMaster和HRegionServer进行通信</p>
 <p>Client与HMaster进行通信进行管理类操作</p>
 <p>Client与HRegionServer进行数据读写类操作</p>
-<h5 id="2、HMaster"><a href="#2、HMaster" class="headerlink" title="2、HMaster"></a>2、HMaster</h5><p>1、为Regionserver分配region</p>
+<h5 id="2、HMaster"><a href="#2、HMaster" class="headerlink" title="2、HMaster"></a>2、HMaster</h5><p>主要就是前三点</p>
+<p>1、为Regionserver分配region</p>
 <p>2、负责Regionserver的负载均衡</p>
-<p>3、发现失效的regionserver重新分配其上的region</p>
+<p>3、发现失效的regionserver重新分配其上的region（故障转移）</p>
 <p>4、GFS上的垃圾回收。</p>
 <p>5、处理用户对表的增删改查操作 </p>
 <p>可以启动多个HMaster，需要zookeeper，通过zookeeper保证总有一个HMaster运行。相当于管理者，类似namenode，其他的HMaster处于热备份的状态。</p>
@@ -573,9 +574,8 @@
 <h5 id="3、Hregionserver"><a href="#3、Hregionserver" class="headerlink" title="3、Hregionserver"></a>3、Hregionserver</h5><p>hmaster的管理单位，是从节点，对文件或数据进行处理及计算，client直接连接HRegionServer，并通信获取Hbase中的数据。（从HMaster中获取元数据，找到RowKey所在的HRegion/HregionServer后）</p>
 <p>主要负责响应客户io请求，向HDFS文件系统中读写数据。</p>
 <ol>
-<li>维护Master分配给它的region，处理对这些region的IO请求</li>
+<li>维护Master分配给它的region，处理对这些region的IO请求（管理自己节点上的Region）</li>
 <li>负责切分在运行过程中变得过大的region</li>
-<li></li>
 </ol>
 <h5 id="4、Hlog"><a href="#4、Hlog" class="headerlink" title="4、Hlog"></a>4、Hlog</h5><p>操作日志文件，恢复元数据，类似fsimage和edits</p>
 <p>放置hbase中进行操作的时候没有真正的成功而丢失数据</p>
@@ -583,13 +583,14 @@
 <h5 id="5、Hregion"><a href="#5、Hregion" class="headerlink" title="5、Hregion"></a>5、Hregion</h5><p>Region是hbase中分布式存储和负载均衡的最小单位，但不是最小的存储单元。 </p>
 <p><strong>HBase表按照按照row_key水平进行切割成多个HRegion，Region是按照大小分隔的， 随着region不断增大，当增大到一个阀值的时候，region就会分成两个region。</strong> </p>
 <p><strong>每个Hregion都记录了他的startkey和endkey第一个HRegion的StartKey为空，最后一个HRegion的EndKey为空），rowkey是排序的，client可以通过HMaster定位每个rowkey在那个HRegion。HRegion由HMaster分配到相应的HRegionServer，HRegionServer来负责HRegion的启动和管理</strong></p>
-<h5 id="6、Store"><a href="#6、Store" class="headerlink" title="6、Store"></a>6、Store</h5><p>每个region包含了多个store对象，一个store包含了一个memstore和若干个stroefile。，storefile包含了一个或多个hfile。是真正的存储单位，表中的<strong>每一个列族切一个store</strong>，是最小单位</p>
+<h5 id="6、Store"><a href="#6、Store" class="headerlink" title="6、Store"></a>6、Store</h5><p>store是跟列族数量相关的，表有多少个列族就有多少个store</p>
+<p>表中的<strong>每一个列族切一个store</strong></p>
 <h5 id="7、MemStore"><a href="#7、MemStore" class="headerlink" title="7、MemStore"></a>7、MemStore</h5><p>是一个（写）缓存，在存入数据时，在到hdfs前先插入到memstore中，memstore的文件是存在内存中的，返回插入成功，相当于缓存。<strong>每个列族有一个MemStore</strong></p>
-<h5 id="8、StoreFile"><a href="#8、StoreFile" class="headerlink" title="8、StoreFile"></a>8、StoreFile</h5><p>memstore中达到阀值后，进行溢写文件到storeFile,进行溢写文件后缓存文件将不存在，和HFile一样都是存储HBase数据的，</p>
+<h5 id="8、StoreFile"><a href="#8、StoreFile" class="headerlink" title="8、StoreFile"></a>8、StoreFile</h5><p>memstore中达到阀值后，进行溢写文件到storeFile,进行溢写文件后缓存文件将不存在，他是Hfile的封装。当溢写文件过多时，会触发<strong>compaction</strong>操作，将多个文件合并成一个storefile。单个文件过大也不利于文件的检索，这时会触发分裂操作，将HRegion分成两个来管理.</p>
 <h5 id="9、Hfile"><a href="#9、Hfile" class="headerlink" title="9、Hfile"></a>9、Hfile</h5><p>Hfile由很多个数据块(block)组成，并且有一个固定的结尾块 其中的数据块是由一个header和多个key-value的键值对组成 。 在HDFS中的数据默认会有3份。因此这里不需要HFile 本身的可靠性。 </p>
 <p><strong>HFile自身是二进制文件</strong></p>
 <p>一个列族可以有多个HFile，但是一个HFile不能有多个列族的数据，storeFile存储到hdfs的单位叫hfile，HFile数据格式中的KeyValue数据格式，value是二进制形式存在的</p>
-<h5 id="两个系统表"><a href="#两个系统表" class="headerlink" title="两个系统表"></a>两个系统表</h5><p>HBase中存有两张特殊的表，-ROOT-和.META.。<br>**.META.**：记录了用户表的Region信息，.META.可以有多个regoin。</p>
+<h5 id="两个系统表"><a href="#两个系统表" class="headerlink" title="两个系统表"></a>两个系统表</h5><p>HBase中存有两张特殊的表，-ROOT-和.META.。<br>**.META.**：记录了用户表的Region的起始rowkey和结束rowkey，及region的范围。.META.可以有多个regoin。</p>
 <p> -**ROOT-**：记录了.META.表的Region信息，-ROOT-只有一个region。Zookeeper中记录了-ROOT-表的 location</p>
 <p>Client访问用户数据之前需要首先访问zookeeper，然后访问-ROOT-表，接着访问.META.表，最后才能找到用户 数据的位置去访问</p>
 <p>新版本中两个系统表</p>
@@ -604,14 +605,14 @@
 <p>HRegion是存储数据的地方，里面有Store</p>
 <p>store是最小的单位</p>
 <p>在有数据进来时，先进入MemStore,在达到阀值后，会进行溢写，溢写到StoreFile，期间对小文件进行合并，随着region不断增大，增大到一个阀值的时候，hregion会分成两个新的hregion，hregion是hbase的分布式存储和负载均衡的最小单元，最小单元就表示不同的hregion可以分布在不同的hregion server上 但是hregion是不会拆分到多个server上</p>
-<h4 id="HBase的写流程和更新流程"><a href="#HBase的写流程和更新流程" class="headerlink" title="HBase的写流程和更新流程"></a>HBase的写流程和更新流程</h4><p>客户端发送请求，从hbase的meta表中查询出需要取得HRegionServer，当客户端将请求发送给相应地HRegionServer，在HRegionServer将put操作写入wal（预写式日志）日志文件中（磁盘中）</p>
+<h4 id="HBase的写流程和更新流程"><a href="#HBase的写流程和更新流程" class="headerlink" title="HBase的写流程和更新流程"></a>HBase的写流程和更新流程</h4><p>客户端发送请求，根据rowkey和表数据从zookeeper的meta表中查询出对应的HRegionServer信息，将请求发送给相应的HRegionServer，在HRegionServer将put操作写入wal（预写式日志）日志文件中（磁盘中）</p>
 <p>HRegionServer根据put中的tablename和rowkey找到对应的HRegion，然后找到Store，写入到Store中的MemStore，并返回写成功，并通知客户端。</p>
 <p>每一次put/delete请求都是先写入到MemStore中，当MemStore中到达阀值后，flush成一个新的storeFile</p>
 <p><img src="/zwhblog.cn/cdh/hbase/hbase/1608104-20190222103800677-2022161869.png" alt="img"></p>
-<p>执行写入时会写到两个地方，预写式日志(HLog)和MemStore。HBase默认在写入动作首先记录到这两个地方，以保证数据持久化。 当系统出现意外时，可能导致Memstore中的数据丢失，此时使用HLog来恢复checkpoint之后的数据。 </p>
+<p>执行写入时会写到两个地方，预写式日志(HLog)和MemStore。HBase默认在写入动作首先记录到这两个地方（这个操作是事务性的一起成功和失败）。 当系统出现意外时，Memstore中的数据丢失，此时使用HLog来恢复checkpoint之后的数据。 </p>
 <p>MemStore是内存里写入缓存区，在永久写入磁盘之前在这里积累。当MemStore填满后，刷到磁盘，形成一个HFile，将内存中的数据删除，同时删除HLog中的历史数据；每个Store有一个MemStore。</p>
 <h4 id="HBase的读流程"><a href="#HBase的读流程" class="headerlink" title="HBase的读流程"></a>HBase的读流程</h4><p>client先从缓存中定位region，如果没有缓存，就先访问zookeeper(zookeeper保存着meta的)，找到meta表，对应的regionserver的地址。</p>
-<p>client先regionserver发送数据读取的请求，先从memstore中找如果没有，再到blockcache找，再到hfile中找。</p>
+<p>client先regionserver发送数据读取的请求，先从memstore中找如果没有，再到blockcache找，再到磁盘查找hfile。</p>
 <h4 id="Hbase全分布式的安装"><a href="#Hbase全分布式的安装" class="headerlink" title="Hbase全分布式的安装"></a>Hbase全分布式的安装</h4><p>(保证有一个独立的zookeeper集群)</p>
 <h5 id="1、在上传hbase的tar包后进行解压"><a href="#1、在上传hbase的tar包后进行解压" class="headerlink" title="1、在上传hbase的tar包后进行解压"></a>1、在上传hbase的tar包后进行解压</h5><h5 id="2、修改-etc-profile文件"><a href="#2、修改-etc-profile文件" class="headerlink" title="2、修改/etc/profile文件"></a>2、修改/etc/profile文件</h5><p>source /etc/profile 刷新配置文件</p>
 <pre class="line-numbers language-none"><code class="language-none">export JAVA_HOME=/root/Downloads/jdk1.8.0_161
@@ -801,7 +802,11 @@ admin<span class="token punctuation">.</span><span class="token function">create
 	htable<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>put<span class="token punctuation">)</span><span class="token punctuation">;</span>
 	<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"插入数据成功"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h5 id="list来插入数据"><a href="#list来插入数据" class="headerlink" title="list来插入数据"></a>list来插入数据</h5><pre class="line-numbers language-java" data-language="java"><code class="language-java">	<span class="token comment">//这里用的是list来插入数据</span>
+<h5 id="list来批量插入数据"><a href="#list来批量插入数据" class="headerlink" title="list来批量插入数据"></a>list来批量插入数据</h5><p>最好使用批量数据插入Hbase，减少开销，不同的hbase的时候批次数量建议提前测试，大概3000-5000最优</p>
+<p>Hbase插入之所以尽量选择批量插入的原因是：</p>
+<p>Hbase底层使用了<strong>LSM树</strong>架构，牺牲了部分的读性能，大幅提高了写性能。</p>
+<p>LSM树的设计思想非常朴素：<br>将对数据的修改增量保持在内存中，达到指定的大小限制后将这些修改操作批量写入磁盘，<br>不过读取的时候稍微麻烦，需要合并磁盘中历史数据和内存中最近修改操作，<br>所以写入性能大大提升，读取时可能需要先看是否命中内存，<br>否则需要访问较多的磁盘文件。</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">	<span class="token comment">//这里用的是list来插入数据</span>
 <span class="token comment">//普通的插入数据很繁琐，list来插入制定规则的</span>
 	<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">insertlistdata</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span><span class="token punctuation">{</span>
 		<span class="token class-name">HTable</span> htable <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HTable</span><span class="token punctuation">(</span>conf<span class="token punctuation">,</span> <span class="token string">"biaoming"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -821,6 +826,27 @@ admin<span class="token punctuation">.</span><span class="token function">create
 <p>（5）尽量减少行和列的大小<br>在HBase中，value永远和它的key一起传输的。当具体的值在系统间传输时，它的rowkey，列名，时间戳也会一起传输。如果你的rowkey和列名很大，HBase storefiles中的索引（有助于随机访问）会占据HBase分配的大量内存，因为具体的值和它的key很大。可以增加block大小使得storefiles索引再更大的时间间隔增加，或者修改表的模式以减小rowkey和列名的大小。压缩也有助于更大的索引。</p>
 <p>（6）其他办法<br>列族名的长度尽可能小，最好是只有一个字符。冗长的属性名虽然可读性好，但是更短的属性名存储在HBase中会更好。也可以在建表时预估数据规模，预留region数量，例如create ‘myspace:mytable’, SPLITS =&gt; [01,02,03,,…99]<br>————————————————<br>版权声明：本文为CSDN博主「大数据私房菜」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zuochang_liu/article/details/105274316">https://blog.csdn.net/zuochang_liu/article/details/105274316</a></p>
 <h3 id="布隆过滤器在Hbase的应用"><a href="#布隆过滤器在Hbase的应用" class="headerlink" title="布隆过滤器在Hbase的应用"></a>布隆过滤器在Hbase的应用</h3><h3 id="如何排查问题"><a href="#如何排查问题" class="headerlink" title="如何排查问题"></a>如何排查问题</h3><p>出现瓶颈后排查问题，瓶颈只有三个（IO、网络、内存）</p>
+<h3 id="HBase的优化"><a href="#HBase的优化" class="headerlink" title="HBase的优化"></a>HBase的优化</h3><ol>
+<li>rowkey的设计:</li>
+</ol>
+<p>hbase的rowkey可以是任何字符,没有限制,按照字典顺序会进行排序,前期设计rowkey会让hbase的使用变简单</p>
+<p>遵循 长度、散列、唯一原则 ，尽可能避免热点问题</p>
+<ol start="2">
+<li>预创建HRegion</li>
+</ol>
+<p>在Hbase插入数据时，只会有一个Region，不够了才会进行创建，可以先调用Hbase的api预先创建Hregion来使用，写入的时候按照分区情况做负载均衡。</p>
+<ol start="3">
+<li>读缓存</li>
+</ol>
+<p>读缓存设置，查数据的时候回先从metastore查询数据，没有命中，然后查询blockcache，没有命中再去查询磁盘，提升查询的效率。</p>
+<ol start="4">
+<li>批量插入</li>
+</ol>
+<p>插入数据尽量使用批量插入，利用LSM树的特点。先载入到缓存，在同意刷入到磁盘中</p>
+<ol start="5">
+<li>不创建过多的列族</li>
+</ol>
+<p>现在Hbase不能很好的处理超过2-3个列族，并且官方也不推荐创建过多。当前项目中一个就够用</p>
 
                 
             </div>
@@ -1362,7 +1388,7 @@ admin<span class="token punctuation">.</span><span class="token function">create
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.1k</span>&nbsp;字
+                class="white-color">144.7k</span>&nbsp;字
             
             
             
