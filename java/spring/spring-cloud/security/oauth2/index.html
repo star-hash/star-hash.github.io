@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Oauth2笔记, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -527,23 +527,23 @@
 <p>默认情况下，<code>@EnableAuthorizationServer</code>授予客户端访问客户端凭据的权限，这意味着您可以执行以下操作：</p>
 <h3 id="添加最终用户登录流程"><a href="#添加最终用户登录流程" class="headerlink" title="添加最终用户登录流程"></a>添加最终用户登录流程</h3><p>顺便说一句，添加的实例<code>WebSecurityConfigurerAdapter</code>只是我们现在为最终用户添加表单登录流程所需要的。但是，请注意，这是有关Web应用程序本身的所有其他配置（而不是OAuth 2.0 API）的地方。</p>
 <p>如果您想自定义登录页面，不仅为用户提供表单登录，还可以添加其他支持（如密码恢复），因此请<code>WebSecurityConfigurerAdapter</code>自行选择</p>
-<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><p><img src="/zwhblog.cn/java/spring/spring-cloud/security/oauth2/15209061-98feec3dbfd354bf.png" alt="OAuth 2.0的运行流程"> </p>
+<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a>运行流程</h2><p><img src="/java/spring/spring-cloud/security/oauth2/15209061-98feec3dbfd354bf.png" alt="OAuth 2.0的运行流程"> </p>
 <p>（A）用户打开客户端以后，客户端要求用户给予授权。<br> （B）用户同意给予客户端授权。<br> （C）客户端使用上一步获得的授权，向授权服务器申请令牌。<br> （D）授权服务器对客户端进行认证以后，确认无误，同意发放令牌。<br> （E）客户端使用令牌，向资源服务器申请获取资源。<br> （F）资源服务器确认令牌无误，同意向客户端开放资源。</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/50083c74e5b3">https://www.jianshu.com/p/50083c74e5b3</a></p>
-<h3 id="1、授权码模式（authorization-code）"><a href="#1、授权码模式（authorization-code）" class="headerlink" title="1、授权码模式（authorization code）"></a>1、授权码模式（authorization code）</h3><p><img src="/zwhblog.cn/java/spring/spring-cloud/security/oauth2/11176703-a4c3084ea58e1530.png" alt="img"></p>
+<h3 id="1、授权码模式（authorization-code）"><a href="#1、授权码模式（authorization-code）" class="headerlink" title="1、授权码模式（authorization code）"></a>1、授权码模式（authorization code）</h3><p><img src="/java/spring/spring-cloud/security/oauth2/11176703-a4c3084ea58e1530.png" alt="img"></p>
 <p>（A）用户访问客户端，后者将前者导向认证服务器。</p>
 <p>（B）用户选择是否给予客户端授权。</p>
 <p>（C）假设用户给予授权，认证服务器将用户导向客户端事先指定的”重定向URI”（redirection URI），同时附上一个授权码。（一般有效时间是10分钟）</p>
 <p>（D）客户端收到授权码，附上早先的”重定向URI”，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。</p>
 <p>（E）认证服务器核对了授权码和重定向URI，确认无误后，向客户端发送访问令牌（access token）和更新令牌（refresh token）。</p>
 <h3 id="2、简化模式（implicit）"><a href="#2、简化模式（implicit）" class="headerlink" title="2、简化模式（implicit）"></a>2、简化模式（implicit）</h3><p>简化模式（implicit grant type）不通过第三方应用程序的服务器，直接在浏览器中向认证服务器申请令牌，跳过了”授权码”这个步骤，因此得名。所有步骤在浏览器中完成，令牌对访问者是可见的，且客户端不需要认证。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/security/oauth2/15209061-2d1bb6aa3925ca0d.png" alt="img"></p>
+<p><img src="/java/spring/spring-cloud/security/oauth2/15209061-2d1bb6aa3925ca0d.png" alt="img"></p>
 <p>（A）客户端将用户导向认证服务器。<br> （B）用户决定是否给于客户端授权。<br> （C）假设用户给予授权，认证服务器将用户导向客户端指定的”重定向URI”，并在URI的Hash部分包含了访问令牌。<br> （D）浏览器向资源服务器发出请求，其中不包括上一步收到的Hash值。<br> （E）资源服务器返回一个网页，其中包含的代码可以获取Hash值中的令牌。<br> （F）浏览器执行上一步获得的脚本，提取出令牌。<br> （G）浏览器将令牌发给客户端。</p>
 <h3 id="3、密码模式（resource-owner-password-credentials）"><a href="#3、密码模式（resource-owner-password-credentials）" class="headerlink" title="3、密码模式（resource owner password credentials）"></a>3、密码模式（resource owner password credentials）</h3><p>密码模式（Resource Owner Password Credentials Grant）中，用户向客户端提供自己的用户名和密码。客户端使用这些信息，向”服务商提供商”索要授权。在这种模式中，用户必须把自己的密码给客户端，但是客户端不得储存密码。这通常用在用户对客户端高度信任的情况下。一般不支持refresh token。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/security/oauth2/15209061-38d92855ebb979d1.png" alt="img"></p>
+<p><img src="/java/spring/spring-cloud/security/oauth2/15209061-38d92855ebb979d1.png" alt="img"></p>
 <p>（A）用户向客户端提供用户名和密码。<br>（B）客户端将用户名和密码发给认证服务器，向后者请求令牌。<br>（C）认证服务器确认无误后，向客户端提供访问令牌。</p>
 <h3 id="4、客户端模式（client-credentials）"><a href="#4、客户端模式（client-credentials）" class="headerlink" title="4、客户端模式（client credentials）"></a>4、客户端模式（client credentials）</h3><p>指客户端以自己的名义，而不是以用户的名义，向”服务提供商”进行认证。严格地说，客户端模式并不属于OAuth框架所要解决的问题。在这种模式中，用户直接向客户端注册，客户端以自己的名义要求”服务提供商”提供服务，其实不存在授权问题。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/security/oauth2/15209061-193021c225466558.png" alt="img"></p>
+<p><img src="/java/spring/spring-cloud/security/oauth2/15209061-193021c225466558.png" alt="img"></p>
 <p>（A）客户端向认证服务器进行身份认证，并要求一个访问令牌。<br>（B）认证服务器确认无误后，向客户端提供访问令牌。</p>
 <h2 id="Oauth和Secutiry的使用"><a href="#Oauth和Secutiry的使用" class="headerlink" title="Oauth和Secutiry的使用"></a>Oauth和Secutiry的使用</h2><p>1 、授权服务器配置</p>
 <p><code>EnableAuthorizationServer</code>注解的使用</p>
@@ -679,7 +679,7 @@ jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/security/oauth2/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/security/oauth2/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/security/oauth2/">https://star-hash.github.io/java/spring/spring-cloud/security/oauth2/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -894,13 +894,13 @@ jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/fu-wu-qi-zu-jian-ban-ben/">
+                <a href="/java/spring/spring-cloud/security/springcloud-security/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Linux备份">
                         
-                        <span class="card-title"></span>
+                        <span class="card-title">Linux备份</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -911,15 +911,31 @@ jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-20
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            三山
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Spring-Cloud/" class="post-category">
+                                    Spring Cloud
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Security/">
+                        <span class="chip bg-color">Spring Security</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1170,7 +1186,7 @@ jti: jwt的唯一身份标识，主要用来作为一次性token,从而回避重
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

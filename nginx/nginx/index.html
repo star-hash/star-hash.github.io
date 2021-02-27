@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Nginx学习笔记, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -575,7 +575,7 @@ server {
 autoindex_exact_size off; #文件大小从KB开始显示
 
 autoindex_localtime on; #显示文件修改时间为服务器本地时间<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/nginx/nginx/image-20210122141501484.png" alt="配置图"></p>
+<p><img src="/nginx/nginx/image-20210122141501484.png" alt="配置图"></p>
 <p>2、重新启动nginx</p>
 <pre class="line-numbers language-none"><code class="language-none">nginx -s stop ＃停止nginx
 
@@ -584,12 +584,12 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
 <blockquote>
 <p>/usr/share/nginx/html</p>
 </blockquote>
-<p><img src="/zwhblog.cn/nginx/nginx/image-20210122141927043.png" alt="image-20210122141927043"></p>
+<p><img src="/nginx/nginx/image-20210122141927043.png" alt="image-20210122141927043"></p>
 <p>4、尝试外部访问资源</p>
 <blockquote>
 <p>访问成功</p>
 </blockquote>
-<p><img src="/zwhblog.cn/nginx/nginx/image-20210122142224262.png" alt="image-20210122142224262"></p>
+<p><img src="/nginx/nginx/image-20210122142224262.png" alt="image-20210122142224262"></p>
 <h4 id="做负载均衡服务器"><a href="#做负载均衡服务器" class="headerlink" title="做负载均衡服务器"></a>做负载均衡服务器</h4><p>例子：使用nginx  给2个tomcat服务端 做负载均衡</p>
 <p>2台tomcat是在1台机器安装了2个tomcat实例</p>
 <p>如何在1台机器可以安装多个tomcat实例?<br>修改2个tomcat实例的端口号来区分不同的tomcat实例<br>               修改接收关闭信息的端口号<br>               修改接收http请求的端口号<br>               修改ajp协议的端口号</p>
@@ -637,7 +637,7 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/nginx/nginx/">https://star-hash.github.io/zwhblog.cn/nginx/nginx/</a>
+                    <a href="https://star-hash.github.io/nginx/nginx/">https://star-hash.github.io/nginx/nginx/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -852,6 +852,59 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/mysql/shu-ju-ku-fen-ku-fen-biao-ke-neng-chan-sheng-de-wen-ti/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Mysql分库分表带来的问题">
+                        
+                        <span class="card-title">Mysql分库分表带来的问题</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" class="post-category">
+                                    分库分表
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Mysql/">
+                        <span class="chip bg-color">Mysql</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/">
+                        <span class="chip bg-color">分库分表</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/shell-bian-cheng/centos-bian-xie-shell-jiao-ben/">
                     <div class="card-image">
                         
@@ -868,9 +921,9 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -892,55 +945,6 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
                     
                     <a href="/tags/Centos/">
                         <span class="chip bg-color">Centos</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/cdh/zookeeper/zookeeper/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Zookeeper">
-                        
-                        <span class="card-title">Zookeeper</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-16
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Zookeeper/" class="post-category">
-                                    Zookeeper
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Zookeeper/">
-                        <span class="chip bg-color">Zookeeper</span>
                     </a>
                     
                 </div>
@@ -1144,7 +1148,7 @@ nginx     #重新启动ngnix<span aria-hidden="true" class="line-numbers-rows"><
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

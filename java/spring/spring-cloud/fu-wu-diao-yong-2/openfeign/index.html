@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring OpenFeign, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -513,7 +513,7 @@
 <p>它解决了让开发者调用远程接口就跟调用本地方法一样，无需关注与远程的交互细节，更无需关注分布式环境开发。</p>
 <h2 id="OpenFeign干了什么事？"><a href="#OpenFeign干了什么事？" class="headerlink" title="OpenFeign干了什么事？"></a>OpenFeign干了什么事？</h2><p>Feign在使用java http客户端变得容易</p>
 <p>之前使用方式是Ribbon+RestTemplate，利用RestTemplate对http请求的封装处理，形成了一套模板化的调用方法。但是对于服务依赖调用可能不止一处，往往一个接口会被多处调用，通常会针对每个微服务自行封装一些客户端来包装这些依赖服务的调用。Feign进行了进一步的封装，他来定义和实现依赖服务接口的定义。在Feign帮助下，只需要创建一个接口并使用注解的方式来配置它，即可完成对服务的接口绑定，简化了Spring cloud Ribbon调用客户端的开发量。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201134515999.png" alt="之前的方式"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201134515999.png" alt="之前的方式"></p>
 <h2 id="OpenFeign的具体使用"><a href="#OpenFeign的具体使用" class="headerlink" title="OpenFeign的具体使用"></a>OpenFeign的具体使用</h2><p>OpenFeign需要在接口上使用注解</p>
 <ol>
 <li>pom文件配置,导入openfeign依赖</li>
@@ -669,16 +669,16 @@
 <ol start="6">
 <li>调用接口查看结果</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201151007944.png" alt="image-20210201151007944"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201151020811.png" alt="image-20210201151020811"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201151007944.png" alt="image-20210201151007944"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201151020811.png" alt="image-20210201151020811"></p>
 <p>是轮询方式的负载均衡，但是想一想这里是Eureka起作用的负载均衡吗，并不是的</p>
 <p>OpenFeign集成了Ribbon，底层调用时会自动的按照ribbon负载均衡策略来调用微服务</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201150928110.png" alt="Openfeign中包含Ribbon"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201150928110.png" alt="Openfeign中包含Ribbon"></p>
 <p>利用Ribbon维护了Payment的服务列表信息，并且通过轮询的方式实现了客户端的负载均衡。</p>
-<h2 id="Feign和OpenFeign的区别"><a href="#Feign和OpenFeign的区别" class="headerlink" title="Feign和OpenFeign的区别"></a>Feign和OpenFeign的区别</h2><p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201132142779.png" alt="Feign和OpenFeign的区别"></p>
+<h2 id="Feign和OpenFeign的区别"><a href="#Feign和OpenFeign的区别" class="headerlink" title="Feign和OpenFeign的区别"></a>Feign和OpenFeign的区别</h2><p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201132142779.png" alt="Feign和OpenFeign的区别"></p>
 <h2 id="OpenFeign超时控制"><a href="#OpenFeign超时控制" class="headerlink" title="OpenFeign超时控制"></a>OpenFeign超时控制</h2><p>OpenFeign默认<code>1 second</code> 没有返回结果就会报 <code>read timeout </code></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201154035051.png" alt="超时web页面"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201153759137.png" alt="超过1Secnod 客户端就报错"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201154035051.png" alt="超时web页面"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201153759137.png" alt="超过1Secnod 客户端就报错"></p>
 <p>但是我们业务需要超过1S时间去获取结果。这时候需要配置他的超时时间</p>
 <ol>
 <li>在yml文件中配置</li>
@@ -761,8 +761,8 @@
 <ol start="3">
 <li>尝试访问接口</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201162142740.png" alt="访问接口"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201161303732.png" alt="日志在控制台的输出"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201162142740.png" alt="访问接口"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/image-20210201161303732.png" alt="日志在控制台的输出"></p>
 
                 
             </div>
@@ -789,7 +789,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/">https://star-hash.github.io/java/spring/spring-cloud/fu-wu-diao-yong-2/openfeign/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1316,7 +1316,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

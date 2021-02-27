@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring Alibaba概述, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -524,8 +524,8 @@
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>type</span><span class="token punctuation">&gt;</span></span>pom<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>type</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">&gt;</span></span>import<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/image-20210209105601706.png" alt="与Spring Boot版本对应关系图"></p>
-<h2 id="注册中心各个特性"><a href="#注册中心各个特性" class="headerlink" title="注册中心各个特性"></a>注册中心各个特性</h2><p><img src="/zwhblog.cn/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/image-20210210080806682.png" alt="注册中心特性对比图"></p>
+<p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/image-20210209105601706.png" alt="与Spring Boot版本对应关系图"></p>
+<h2 id="注册中心各个特性"><a href="#注册中心各个特性" class="headerlink" title="注册中心各个特性"></a>注册中心各个特性</h2><p><img src="/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/image-20210210080806682.png" alt="注册中心特性对比图"></p>
 <h3 id="选择模式使用："><a href="#选择模式使用：" class="headerlink" title="选择模式使用："></a>选择模式使用：</h3><p><strong>重点</strong>：Nacos支持AP和CP特性</p>
 <p>一般来说不需要要存储服务级别的信息且服务实例是通过nacos-client注册，并能保持心跳的上报，选择AP。Spring Cloud和Dubbo都是用的AP模式。伪列服务的可用性减弱了一致性，AP模式下仅支持注册临时实例</p>
 <p>需要在服务级别编辑或者存储配置信息，那么CP是必须，K8S和DNS服务是CP模式。CP模式支持持久化注册，以Raft协议为集群运行模式，该模式下实力必须先注册服务，服务如果不存在，则返回错误</p>
@@ -555,7 +555,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/">https://star-hash.github.io/java/spring/spring-cloud/spring-cloud-alibaba/spring-cloud-alibaba/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -774,6 +774,63 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/java/spring/spring-cloud/spring-cloud-zu-jian-shuo-ming/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Spring Cloud组件说明">
+                        
+                        <span class="card-title">Spring Cloud组件说明</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Spring/" class="post-category">
+                                    Spring
+                                </a>
+                            
+                            <a href="/categories/Spring/Spring-Cloud/" class="post-category">
+                                    Spring Cloud
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
+                    </a>
+                    
+                    <a href="/tags/Spring-Cloud/">
+                        <span class="chip bg-color">Spring Cloud</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/">
                     <div class="card-image">
                         
@@ -790,9 +847,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -818,55 +875,6 @@
                     
                     <a href="/tags/Spring-Sentinel/">
                         <span class="chip bg-color">Spring Sentinel</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/mysql/mysql-bu-chang-yong-ming-ling/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Mysql不常用命令总结">
-                        
-                        <span class="card-title">Mysql不常用命令总结</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Mysql/" class="post-category">
-                                    Mysql
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Mysql/">
-                        <span class="chip bg-color">Mysql</span>
                     </a>
                     
                 </div>
@@ -1070,7 +1078,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

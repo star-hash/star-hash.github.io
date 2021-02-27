@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring Cloud组件说明, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -519,14 +519,14 @@
 <p>Ribbon的负载均衡策略：轮询，随机和根据响应时间加权重。他的实现方式有很多种。</p>
 <p>常见的负载均衡组件有：Nginx，LVS，硬件F5等</p>
 <h3 id="Ribbon核心组件IRule"><a href="#Ribbon核心组件IRule" class="headerlink" title="Ribbon核心组件IRule"></a>Ribbon核心组件IRule</h3><p>IRule：根据特定算法从服务列表中选取一个要访问的服务。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131144236556.png" alt="image-20210131144236556"></p>
-<h3 id="Ribbon替换负载均衡算法"><a href="#Ribbon替换负载均衡算法" class="headerlink" title="Ribbon替换负载均衡算法"></a>Ribbon替换负载均衡算法</h3><p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131145712484.png" alt="image-20210131145712484"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131144236556.png" alt="image-20210131144236556"></p>
+<h3 id="Ribbon替换负载均衡算法"><a href="#Ribbon替换负载均衡算法" class="headerlink" title="Ribbon替换负载均衡算法"></a>Ribbon替换负载均衡算法</h3><p><img src="/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131145712484.png" alt="image-20210131145712484"></p>
 <ol>
 <li>建立一个IRule的的返回类，并将它注入spring</li>
 </ol>
 <p>注意事项：这个类的位置不能再ComponentScan注解（在SpringApplication注解中包含此注解）可以扫描掉的包下面，否则就会被所有Ribbon客户端共享，达不到特殊化定制的目的</p>
 <p>这里建了一个和启动类所在的包同级别的包</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131150137351.png" alt="image-20210131150137351"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/image-20210131150137351.png" alt="image-20210131150137351"></p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">myrule</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token namespace">com<span class="token punctuation">.</span>netflix<span class="token punctuation">.</span>loadbalancer<span class="token punctuation">.</span></span><span class="token class-name">IRule</span><span class="token punctuation">;</span>
@@ -673,7 +673,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/">https://star-hash.github.io/java/spring/spring-cloud/fu-wu-diao-yong/ribbon/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1192,7 +1192,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

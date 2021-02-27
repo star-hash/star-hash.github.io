@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="keywords" content="Linux备份, zhangwenhui,github,blogs">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>zhangwenhui</title>
+    <title>Linux备份 | zhangwenhui</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title"></h1>
+                    <h1 class="description center-align post-title">Linux备份</h1>
                 </div>
             </div>
         </div>
@@ -431,12 +431,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Spring/">
+                                <span class="chip bg-color">Spring</span>
+                            </a>
+                        
+                            <a href="/tags/Spring-Security/">
+                                <span class="chip bg-color">Spring Security</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Spring-Cloud/" class="post-category">
+                                Spring Cloud
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-02-22
+                    2021-02-20
                 </div>
                 
 
@@ -454,14 +471,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    200
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -484,488 +501,277 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <table>
-<thead>
-<tr>
-<th>系统</th>
-<th>CentOS Linux release 7.6.1810</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>JDK</td>
-<td>JDK_1.8</td>
-</tr>
-<tr>
-<td>CM</td>
-<td>CM_5.16.2</td>
-</tr>
-<tr>
-<td>CDH</td>
-<td>CDH_5.16.2</td>
-</tr>
-<tr>
-<td>Hadoop</td>
-<td>2.6.0</td>
-</tr>
-<tr>
-<td>Yarn</td>
-<td>2.6.0</td>
-</tr>
-<tr>
-<td>MapReduce</td>
-<td>2.6.0</td>
-</tr>
-<tr>
-<td>Kafka</td>
-<td>2.2.1</td>
-</tr>
-<tr>
-<td>Oozie</td>
-<td>4.1.0</td>
-</tr>
-<tr>
-<td>Spark2</td>
-<td>2.4.0</td>
-</tr>
-<tr>
-<td>Sqoop</td>
-<td>1.4.6</td>
-</tr>
-<tr>
-<td>Zookeeper</td>
-<td>3.4.5</td>
-</tr>
-<tr>
-<td>Canal</td>
-<td>1.1.4</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>hadoop1</th>
-<th>hadoop2</th>
-<th>hadoop3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>HDFS配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>HDFS.namenode</td>
-<td>HDFS.SNN</td>
-<td>HDFS.HttpFS</td>
-</tr>
-<tr>
-<td>HDFS.blancer</td>
-<td>HDFS.Gateway</td>
-<td>HDFS.Gateway</td>
-</tr>
-<tr>
-<td>HDFS.Gateway</td>
-<td>HDFS.datanode</td>
-<td>HDFS.datanode</td>
-</tr>
-<tr>
-<td>HDFS.datanode</td>
-<td>HDFS.ZKfailover controller</td>
-<td>HDFS.journalnode</td>
-</tr>
-<tr>
-<td>HDFS.https</td>
-<td>HDFS.journalnode</td>
-<td></td>
-</tr>
-<tr>
-<td>HDFS.journalnode</td>
-<td>HDFS.namenode</td>
-<td></td>
-</tr>
-<tr>
-<td>HDFS.ZKfailover controller</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Hive配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Hive.Gateway</td>
-<td>Hive.Gateway</td>
-<td>Hive.Gateway</td>
-</tr>
-<tr>
-<td>Hive.Metastore Server</td>
-<td>Hive.Server2</td>
-<td>Hive.Server2</td>
-</tr>
-<tr>
-<td>Hive.Server2</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Kafka配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Kafka.Gateway</td>
-<td>Kafka.Gateway</td>
-<td>Kafka.Gateway</td>
-</tr>
-<tr>
-<td>Kafka.Broker</td>
-<td>Kafka.Broker</td>
-<td>Kafka.Broker</td>
-</tr>
-<tr>
-<td>Kafka.MirrorMaker</td>
-<td>Kafka.MirrorMaker</td>
-<td>Kafka.MirrorMaker</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>CM配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Service Monitor</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Alert Publisher</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Event Server</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Host Monitor</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Alert Monitor</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Oozie配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Oozie.server</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Spark2</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Spark2.Gateway</td>
-<td>Spark2.Gateway</td>
-<td>Spark2.Gateway</td>
-</tr>
-<tr>
-<td></td>
-<td>Spark2.History Server</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Sqoop</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Sqoop.Client Gateway</td>
-<td>Sqoop.Client Gateway</td>
-<td>Sqoop.Client Gateway</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Yarn</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Yarn.NodeManager</td>
-<td>Yarn.JobHistory Server</td>
-<td>Yarn.NodeManager</td>
-</tr>
-<tr>
-<td></td>
-<td>Yarn.NodeManager</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td>Yarn.ResourceManager</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Zookeeper配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>ZK.server</td>
-<td>ZK.server</td>
-<td>ZK.server</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Canal配置</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Canal.Server</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+                <h1 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h1><p>主要的两个功能，认证和授权</p>
+<p>Security的效果是通过过滤器来实现的，他有多个过滤器，对不同的请求进行不同的过滤。</p>
+<h3 id="过滤器是如何加载的？"><a href="#过滤器是如何加载的？" class="headerlink" title="过滤器是如何加载的？"></a>过滤器是如何加载的？</h3><p>使用SpringSecurity配置过滤器</p>
+<p>DelegationFilterProxy</p>
+<h3 id="设置用户名和密码的方式"><a href="#设置用户名和密码的方式" class="headerlink" title="设置用户名和密码的方式"></a>设置用户名和密码的方式</h3><ol>
+<li><strong>通过配置文件设置</strong></li>
+</ol>
+<p>在application.yml文件中配置</p>
+<pre class="line-numbers language-none"><code class="language-none">spring.security.user.name=账号
+spring.security.user.password=密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol>
+<li><strong>通过配置类设置</strong></li>
+</ol>
+<p>继承WebSecurityConfigurationAdapter类，重写方法configure方法</p>
+<p>在里面通过auth对象设置账号和密码以及保存的位置</p>
+<p>这里面有多个configurate方法，http的config方法可以设置登陆页面的跳转和设置访问是否需要拦截、auth的config方法可以定义userdatails类和password地址</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@EnableWebSecurity</span>
+<span class="token comment">//开启security注解支持</span>
+<span class="token annotation punctuation">@EnableGlobalMethodSecurity</span><span class="token punctuation">(</span>prePostEnabled <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSecurityConfig</span> <span class="token keyword">extends</span> <span class="token class-name">WebSecurityConfigurerAdapter</span> <span class="token punctuation">{</span>
+
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token class-name">PasswordEncoder</span> passwordEncoder<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * userDetailsService 获取token的时候对用户进行一些自定义过滤，并将保存用户信息（用户名，密码，角色等），这个是userdetailsservice的实现类
+     */</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token annotation punctuation">@Qualifier</span><span class="token punctuation">(</span><span class="token string">"userDetailsServiceImpl"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">UserDetailsService</span> userDetailsService<span class="token punctuation">;</span>
+
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">AuthenticationManager</span> <span class="token function">authenticationManagerBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">authenticationManagerBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 配置用户签名服务 主要是user-details 机制，
+     *
+     * @param auth 签名管理器构造器，用于构建用户具体权限控制
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationManagerBuilder</span> auth<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        auth<span class="token punctuation">.</span><span class="token function">userDetailsService</span><span class="token punctuation">(</span>userDetailsService<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">passwordEncoder</span><span class="token punctuation">(</span>passwordEncoder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> http<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        http
+                <span class="token punctuation">.</span><span class="token function">cors</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">csrf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">disable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">requestMatchers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/oauth/**/"</span><span class="token punctuation">,</span> <span class="token string">"/login/**/"</span><span class="token punctuation">,</span> <span class="token string">"/logout/**/"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">authorizeRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/oauth/**/"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<ol start="3">
+<li><strong>通过自定义实现类设置</strong></li>
+</ol>
+<p>实现接口UserDetailsService接口并重写方法</p>
+<p>上面的两种方式都不常用，因为他们都是写死的并且不安全</p>
+<p>下面是使用的实例：</p>
+<ol>
+<li>service层的userdetailservice实现类编写，这里调用的servcie方法查数据库就不写进来了</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserDetailsServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserDetailsService</span> <span class="token punctuation">{</span>
+
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token class-name">AdminService</span> adminService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">UserDetails</span> <span class="token function">loadUserByUsername</span><span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">String</span> username<span class="token punctuation">)</span>
+            <span class="token keyword">throws</span> <span class="token class-name">UsernameNotFoundException</span> <span class="token punctuation">{</span>
+
+        <span class="token class-name">Admin</span> admin <span class="token operator">=</span> adminService<span class="token punctuation">.</span><span class="token function">findAdminByName</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 如果用户不存在则认证失败</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>admin <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">UsernameNotFoundException</span><span class="token punctuation">(</span>username <span class="token operator">+</span> <span class="token string">" not found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SimpleGrantedAuthority</span><span class="token punctuation">&gt;</span></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">SimpleGrantedAuthority</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">//授权</span>
+        list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SimpleGrantedAuthority</span><span class="token punctuation">(</span><span class="token string">"admin"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span>username<span class="token punctuation">,</span> admin<span class="token punctuation">.</span><span class="token function">getPwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>webSecurityConfig配置类</li>
+</ol>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>caeri<span class="token punctuation">.</span>largescreen<span class="token punctuation">.</span>oauth<span class="token punctuation">.</span>config<span class="token punctuation">.</span>auth</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Autowired</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Qualifier</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Bean</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>authentication<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationManager</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>authentication<span class="token punctuation">.</span>builders<span class="token punctuation">.</span></span><span class="token class-name">AuthenticationManagerBuilder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>method<span class="token punctuation">.</span>configuration<span class="token punctuation">.</span></span><span class="token class-name">EnableGlobalMethodSecurity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>web<span class="token punctuation">.</span>builders<span class="token punctuation">.</span></span><span class="token class-name">HttpSecurity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>web<span class="token punctuation">.</span>configuration<span class="token punctuation">.</span></span><span class="token class-name">EnableWebSecurity</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>web<span class="token punctuation">.</span>configuration<span class="token punctuation">.</span></span><span class="token class-name">WebSecurityConfigurerAdapter</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>core<span class="token punctuation">.</span>userdetails<span class="token punctuation">.</span></span><span class="token class-name">UserDetailsService</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>bcrypt<span class="token punctuation">.</span></span><span class="token class-name">BCryptPasswordEncoder</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>security<span class="token punctuation">.</span>crypto<span class="token punctuation">.</span>password<span class="token punctuation">.</span></span><span class="token class-name">PasswordEncoder</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@EnableWebSecurity</span>
+<span class="token annotation punctuation">@EnableGlobalMethodSecurity</span><span class="token punctuation">(</span>prePostEnabled <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebSecurityConfig</span> <span class="token keyword">extends</span> <span class="token class-name">WebSecurityConfigurerAdapter</span> <span class="token punctuation">{</span>
+
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token class-name">PasswordEncoder</span> passwordEncoder<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * userDetailsService 获取token的时候对用户进行一些自定义过滤，并将保存用户信息（用户名，密码，角色等）
+     */</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token annotation punctuation">@Qualifier</span><span class="token punctuation">(</span><span class="token string">"userDetailsServiceImpl"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token class-name">UserDetailsService</span> userDetailsService<span class="token punctuation">;</span>
+
+
+    
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">AuthenticationManager</span> <span class="token function">authenticationManagerBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">authenticationManagerBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 配置用户签名服务 主要是user-details 机制，
+     *
+     * @param auth 签名管理器构造器，用于构建用户具体权限控制
+     * @throws Exception
+     */</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">AuthenticationManagerBuilder</span> auth<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        auth<span class="token punctuation">.</span><span class="token function">userDetailsService</span><span class="token punctuation">(</span>userDetailsService<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">passwordEncoder</span><span class="token punctuation">(</span>passwordEncoder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token class-name">HttpSecurity</span> http<span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
+        http
+                <span class="token punctuation">.</span><span class="token function">cors</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">csrf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">disable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">requestMatchers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/oauth/**/"</span><span class="token punctuation">,</span> <span class="token string">"/login/**/"</span><span class="token punctuation">,</span> <span class="token string">"/logout/**/"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">and</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">authorizeRequests</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">antMatchers</span><span class="token punctuation">(</span><span class="token string">"/oauth/**/"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">authenticated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="基于角色或权限进行访问控制"><a href="#基于角色或权限进行访问控制" class="headerlink" title="基于角色或权限进行访问控制"></a>基于角色或权限进行访问控制</h3><ol>
+<li>hasAuthority方法  针对指定权限进行控制</li>
+</ol>
+<p>![image-20210220195224472](Springcloud Security/image-20210220195224472.png)</p>
+<ol start="2">
+<li>hasAnyAuthority方法  针对多个权限进行设置</li>
+</ol>
+<p>![image-20210220195546172](Springcloud Security/image-20210220195546172.png)</p>
+<h2 id="UserDetailsService接口"><a href="#UserDetailsService接口" class="headerlink" title="UserDetailsService接口"></a>UserDetailsService接口</h2><p>loadUserByUsername方法 返回<code>UserDetails</code> 类型的数据。</p>
+<h2 id="UserDetails接口"><a href="#UserDetails接口" class="headerlink" title="UserDetails接口"></a>UserDetails接口</h2><p>里面的方法返回用户的明细信息</p>
+<p>UserDetails 也是一个接口，源码：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">/**
+ * Provides core user information.
+ *
+ * &lt;p&gt;
+ * Implementations are not used directly by Spring Security for security purposes. They
+ * simply store user information which is later encapsulated into {@link Authentication}
+ * objects. This allows non-security related user information (such as email addresses,
+ * telephone numbers etc) to be stored in a convenient location.
+ * &lt;p&gt;
+ * Concrete implementations must take particular care to ensure the non-null contract
+ * detailed for each method is enforced. See
+ * {@link org.springframework.security.core.userdetails.User} for a reference
+ * implementation (which you might like to extend or use in your code).
+ *
+ * @see UserDetailsService
+ * @see UserCache
+ *
+ * @author Ben Alex
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserDetails</span> <span class="token keyword">extends</span> <span class="token class-name">Serializable</span> <span class="token punctuation">{</span>
+   <span class="token comment">// ~ Methods</span>
+   <span class="token comment">// ========================================================================================================</span>
+
+   <span class="token comment">/**
+    * Returns the authorities granted to the user. Cannot return &lt;code&gt;null&lt;/code&gt;.
+    *
+    * @return the authorities, sorted by natural key (never &lt;code&gt;null&lt;/code&gt;)
+    * 获取权限列表
+    */</span>
+   <span class="token class-name">Collection</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">GrantedAuthority</span><span class="token punctuation">&gt;</span></span> <span class="token function">getAuthorities</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Returns the password used to authenticate the user.
+    *
+    * @return the password
+    * 获取用户密码
+    */</span>
+   <span class="token class-name">String</span> <span class="token function">getPassword</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Returns the username used to authenticate the user. Cannot return &lt;code&gt;null&lt;/code&gt;.
+    *
+    * @return the username (never &lt;code&gt;null&lt;/code&gt;)
+    * 获取用户名称
+    */</span>
+   <span class="token class-name">String</span> <span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Indicates whether the user's account has expired. An expired account cannot be
+    * authenticated.
+    *
+    * @return &lt;code&gt;true&lt;/code&gt; if the user's account is valid (ie non-expired),
+    * &lt;code&gt;false&lt;/code&gt; if no longer valid (ie expired)
+    * 凭证是否过期
+    */</span>
+   <span class="token keyword">boolean</span> <span class="token function">isAccountNonExpired</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Indicates whether the user is locked or unlocked. A locked user cannot be
+    * authenticated.
+    *
+    * @return &lt;code&gt;true&lt;/code&gt; if the user is not locked, &lt;code&gt;false&lt;/code&gt; otherwise
+    * 账号是否被锁定
+    */</span>
+   <span class="token keyword">boolean</span> <span class="token function">isAccountNonLocked</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Indicates whether the user's credentials (password) has expired. Expired
+    * credentials prevent authentication.
+    *
+    * @return &lt;code&gt;true&lt;/code&gt; if the user's credentials are valid (ie non-expired),
+    * &lt;code&gt;false&lt;/code&gt; if no longer valid (ie expired)
+    * 凭证是否过期
+    */</span>
+   <span class="token keyword">boolean</span> <span class="token function">isCredentialsNonExpired</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">/**
+    * Indicates whether the user is enabled or disabled. A disabled user cannot be
+    * authenticated.
+    *
+    * @return &lt;code&gt;true&lt;/code&gt; if the user is enabled, &lt;code&gt;false&lt;/code&gt; otherwise
+    * 是否启用
+    */</span>
+   <span class="token keyword">boolean</span> <span class="token function">isEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>UserDetails是个接口，我们主要使用它的实现类 User</p>
+<p>![实现类](Springcloud Security/image-20210218162256716.png)</p>
+<p>User需要对比password </p>
+<h2 id="PasswordEncoder接口"><a href="#PasswordEncoder接口" class="headerlink" title="PasswordEncoder接口"></a>PasswordEncoder接口</h2><p>这是个接口，用来加密和解密，需要提前注入到容器中使用</p>
+<p>![passwordencoder实现类](Springcloud Security/image-20210218163230375.png)</p>
+<p>实现类很多，官方主要推荐使用<code>BCryptPasswordEncoder</code></p>
+<h3 id="BCryptPasswordEncoder类"><a href="#BCryptPasswordEncoder类" class="headerlink" title="BCryptPasswordEncoder类"></a>BCryptPasswordEncoder类</h3><p>![实现类的使用](Springcloud Security/image-20210218163835905.png)</p>
+<p>可以自定义加密算法</p>
 
                 
             </div>
@@ -992,7 +798,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/fu-wu-qi-zu-jian-ban-ben/">https://star-hash.github.io/zwhblog.cn/fu-wu-qi-zu-jian-ban-ben/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/security/springcloud-security/">https://star-hash.github.io/java/spring/spring-cloud/security/springcloud-security/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1029,7 +835,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/Spring/">
+                                    <span class="chip bg-color">Spring</span>
+                                </a>
+                            
+                                <a href="/tags/Spring-Security/">
+                                    <span class="chip bg-color">Spring Security</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1479,7 +1293,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

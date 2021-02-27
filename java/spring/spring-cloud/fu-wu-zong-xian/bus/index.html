@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring Bus, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -507,21 +507,21 @@
             <div id="articleContent">
                 <h2 id="Bus是什么？"><a href="#Bus是什么？" class="headerlink" title="Bus是什么？"></a>Bus是什么？</h2><p>Spring cloud bus通过轻量消息代理连接各个分布的节点。这会用在广播状态的变化（例如配置变化）或者其他的消息指令。Spring bus的一个核心思想是通过分布式的启动器对spring boot应用进行扩展，也可以用来建立一个多个应用之间的通信频道。目前唯一实现的方式是用AMQP消息代理作为通道，同样特性的设置（有些取决于通道的设置）在更多通道的文档中。</p>
 <p>这里使用Bus的主要目的是为了实现Config的动态刷新，在Spring cloud中使用Config一般都和Bus一起使用。支持两种消息代理，<strong>RabbitMQ和Kafka</strong> </p>
-<h2 id="什么是消息总线？"><a href="#什么是消息总线？" class="headerlink" title="什么是消息总线？"></a>什么是消息总线？</h2><p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413193843905-332447609.png" alt="img"></p>
+<h2 id="什么是消息总线？"><a href="#什么是消息总线？" class="headerlink" title="什么是消息总线？"></a>什么是消息总线？</h2><p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413193843905-332447609.png" alt="img"></p>
 <h2 id="两种设计思想"><a href="#两种设计思想" class="headerlink" title="两种设计思想"></a>两种设计思想</h2><ol>
 <li>利用消息总线触发一个客户端/bus/refresh,而刷新所有客户端的配置</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413195047597-1819837405.png" alt="img"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413195047597-1819837405.png" alt="img"></p>
 <ol start="2">
 <li>利用消息总线触发一个服务端ConfigServer的/bus/refresh端点,而刷新所有客户端的配置（更加推荐）</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413195207019-240234639.png" alt="img"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/1593395-20200413195207019-240234639.png" alt="img"></p>
 <p>消息中间件，整合java事件处理机制和消息中间件的功能，将服务端的数据放入到消息中间件中，客户端通过订阅的方式进行获取数据</p>
 <h2 id="Bus的使用"><a href="#Bus的使用" class="headerlink" title="Bus的使用"></a>Bus的使用</h2><h2 id="全部动态刷新"><a href="#全部动态刷新" class="headerlink" title="全部动态刷新"></a>全部动态刷新</h2><h3 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h3><ol>
 <li>pom文件</li>
 </ol>
 <p>这里使用的是rabbit消息中间件，bus包下面已经引入了，不用专门引入</p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204104702966.png" alt="image-20210204104702966"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204104702966.png" alt="image-20210204104702966"></p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0<span class="token punctuation">"</span></span>
          <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
@@ -778,9 +778,9 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
 <p>配置和上面一样，只是命令不一样</p>
 <p>原来的命令后面加上   客户端微服务名称+端口号</p>
 <pre class="line-numbers language-none"><code class="language-none">curl -X POST "http://localhost:3344/actuator/bus-refresh/config-client:3355"<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125301413.png" alt="image-20210204125301413"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125308836.png" alt="image-20210204125308836"></p>
-<h2 id="Bus执行流程"><a href="#Bus执行流程" class="headerlink" title="Bus执行流程"></a>Bus执行流程</h2><p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125733110.png" alt="image-20210204125733110"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125301413.png" alt="image-20210204125301413"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125308836.png" alt="image-20210204125308836"></p>
+<h2 id="Bus执行流程"><a href="#Bus执行流程" class="headerlink" title="Bus执行流程"></a>Bus执行流程</h2><p><img src="/java/spring/spring-cloud/fu-wu-zong-xian/bus/image-20210204125733110.png" alt="image-20210204125733110"></p>
 
                 
             </div>
@@ -807,7 +807,7 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-zong-xian/bus/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/fu-wu-zong-xian/bus/">https://star-hash.github.io/java/spring/spring-cloud/fu-wu-zong-xian/bus/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1026,63 +1026,6 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/java/spring/spring-cloud/spring-cloud-zu-jian-shuo-ming/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Spring Cloud组件说明">
-                        
-                        <span class="card-title">Spring Cloud组件说明</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Spring/" class="post-category">
-                                    Spring
-                                </a>
-                            
-                            <a href="/categories/Spring/Spring-Cloud/" class="post-category">
-                                    Spring Cloud
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Spring/">
-                        <span class="chip bg-color">Spring</span>
-                    </a>
-                    
-                    <a href="/tags/Spring-Cloud/">
-                        <span class="chip bg-color">Spring Cloud</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
                 <a href="/java/spring/spring-cloud/spring-cloud-alibaba/spring-sleuth/">
                     <div class="card-image">
                         
@@ -1099,9 +1042,9 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -1127,6 +1070,55 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
                     
                     <a href="/tags/Spring-Sentinel/">
                         <span class="chip bg-color">Spring Sentinel</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/mysql/mysql-bu-chang-yong-ming-ling/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="Mysql不常用命令总结">
+                        
+                        <span class="card-title">Mysql不常用命令总结</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Mysql/" class="post-category">
+                                    Mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Mysql/">
+                        <span class="chip bg-color">Mysql</span>
                     </a>
                     
                 </div>
@@ -1330,7 +1322,7 @@ curl -X POST "http://localhost:3344/actuator/bus-refresh"<span aria-hidden="true
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

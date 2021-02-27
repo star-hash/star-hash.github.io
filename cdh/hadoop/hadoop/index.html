@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Hadoop学习笔记, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -501,10 +501,10 @@
 <h3 id="配置jdk和hadoop的环境"><a href="#配置jdk和hadoop的环境" class="headerlink" title="配置jdk和hadoop的环境"></a>配置jdk和hadoop的环境</h3><p>1.使用 SSH Secure Shell 上传文件<br>2.上传到 ~/Downloads/下并解压<br>3.配置/etc下面的profile文件的JAVA_HOME和HADOOP_HOME</p>
 <pre class="line-numbers language-none"><code class="language-none"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>4.重启服务  Source profile</p>
-<h3 id="Hadoop-1"><a href="#Hadoop-1" class="headerlink" title="Hadoop"></a>Hadoop</h3><h4 id="Namenode和Datanode的关系图"><a href="#Namenode和Datanode的关系图" class="headerlink" title="Namenode和Datanode的关系图"></a>Namenode和Datanode的关系图</h4><p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565334786917.png" alt="1565334786917"></p>
+<h3 id="Hadoop-1"><a href="#Hadoop-1" class="headerlink" title="Hadoop"></a>Hadoop</h3><h4 id="Namenode和Datanode的关系图"><a href="#Namenode和Datanode的关系图" class="headerlink" title="Namenode和Datanode的关系图"></a>Namenode和Datanode的关系图</h4><p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565334786917.png" alt="1565334786917"></p>
 <h4 id="Hadoop1-0和Hadoop2-0-系统的区别"><a href="#Hadoop1-0和Hadoop2-0-系统的区别" class="headerlink" title="Hadoop1.0和Hadoop2.0 系统的区别"></a>Hadoop1.0和Hadoop2.0 系统的区别</h4><p> HADOOP1.0主要是由MapReduce和HDFS构成的，其中MapReduce是一个离线处理框架，由编程模型（新旧API）、运行时环境（JobTracker和TaskTracker）和数据处理引擎（MapTask和ReduceTask）三部分组成。</p>
 <p>HADOOP2.0主要由HDFS、MapReduce和YARN三个系统组成，其中YARN是一个资源管理系统，负责集群资源管理和调度，MapReduce则是运行在YARN上的离线处理框架，它与Hadoop 1.0中的MapReduce在编程模型（新旧API）和数据处理引擎（MapTask和ReduceTask）两个方面是相同的。</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565432697598.png" alt="1565432697598"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565432697598.png" alt="1565432697598"></p>
 <h4 id="Hadoop2的三大核心"><a href="#Hadoop2的三大核心" class="headerlink" title="Hadoop2的三大核心"></a>Hadoop2的三大核心</h4><p>HDFS、MapReduce、YARN</p>
 <p>MapReduce、YARN</p>
 <p>YARN（通用资源管理系统）</p>
@@ -538,7 +538,7 @@
 <h6 id="元数据镜像"><a href="#元数据镜像" class="headerlink" title="元数据镜像"></a>元数据镜像</h6><p>内存中保持最新的一份 （实时更新）</p>
 <p>内存中的镜像 =fsiamge+edits</p>
 <h4 id="HDFS架构-——DataNode"><a href="#HDFS架构-——DataNode" class="headerlink" title="HDFS架构 ——DataNode"></a>HDFS架构 ——DataNode</h4><p> 1.一个数据块在DataNode以文件存储在磁盘上，包括两个文件，一个是数据本身，<br> 一个是元数据包括数据块的长度，块数据的校验和（自检块信息）以及时间戳<br> 2.DataNode启动后向NameNode注册，（谁先启动）通过后，周期性的向NameNode上报所有的块信息（namenode被动的）<br> 3.心跳是每3秒一次，心跳返回结果带有NameNode给该DataNode的命令，如删除某个数据块。（namenode被动发送信息，发送指令给block块删除备份）如果超过10分钟没有收到某个DataNode 的心跳，则认为该节点不可用。<br> 4.集群运行中可以安全加入和退出一些机器</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565342966100.png" alt="1565342966100"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565342966100.png" alt="1565342966100"></p>
 <h6 id="DataNode启动过程"><a href="#DataNode启动过程" class="headerlink" title="DataNode启动过程"></a>DataNode启动过程</h6><p>先NameNode注册、发送Block Report </p>
 <h4 id="HDFS架构-——文件"><a href="#HDFS架构-——文件" class="headerlink" title="HDFS架构 ——文件"></a>HDFS架构 ——文件</h4><p> 1.文件切分成块（默认大小128M ，文件切分成块（默认大小128M），以块为单位，每个块有多个副本存储在不同的机器上，副本数可在文件生成时指定（默认3）<br> 2.可以创建、删除、移动或重命名文件，当文件创建、写入和关闭之后不能修改文件内容。（易读不易写）</p>
 <h4 id="HDFS架构——Client"><a href="#HDFS架构——Client" class="headerlink" title="HDFS架构——Client"></a>HDFS架构——Client</h4><h6 id="Client职责"><a href="#Client职责" class="headerlink" title="Client职责"></a>Client职责</h6><p>1.文件切分成块（128M）</p>
@@ -643,16 +643,16 @@ public class MyPartition extends Partitioner&lt;Text, NullWritable&gt; {
 <p>ssh免密登陆 </p>
 <h6 id="1-配置文件-5个"><a href="#1-配置文件-5个" class="headerlink" title="1.配置文件(5个)"></a>1.配置文件(5个)</h6><p>hadoop-env.sh   修改JAVA_HOME和HADOOP_HOME的路径<br>core-site.xml       node主机名    tmpdir 放feimage和edits  format时必须将tmpdir删除 （没删起冲突）<br>hdfs-site.xml       文件备份数量<br>yarn-site.xml  yarn    给mr提供资源<br>mapread-site.xml.template  因为识别不了得改个名字 mv mapred-site.xml.template mapred-site.xml<br>mapread-site.xml                   提供work工作 的名字 具体给他分配资源的是yarn</p>
 <p>在配置文件完成后 通过 hadoop namenode -format 进行格式化 </p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565333152187.png" alt="1565333152187"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565333152187.png" alt="1565333152187"></p>
 <h6 id="2-格式化成功后-启动进程"><a href="#2-格式化成功后-启动进程" class="headerlink" title="2.格式化成功后 启动进程"></a>2.格式化成功后 启动进程</h6><p>start-dfs.sh        　启动namenode 和datanode</p>
 <p>start-yarn.sh        启动yarn进程 </p>
 <p>start-all.sh            还包括yarn的resourcemanager 和nodemanager</p>
 <p>查看当前运行进程   jps</p>
 <p>杀死进程      kill -9 进程编号 </p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565333901204.png" alt="1565333901204"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565333901204.png" alt="1565333901204"></p>
 <p> stop-all.sh   关闭所有进程 </p>
 <p>hadoop jar jar包名称   描述名称    </p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565334501352.png" alt="1565334501352"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565334501352.png" alt="1565334501352"></p>
 <h2 id="Hadoop全分布式环境部署"><a href="#Hadoop全分布式环境部署" class="headerlink" title="Hadoop全分布式环境部署"></a>Hadoop全分布式环境部署</h2><p>克隆好的虚拟机</p>
 <p>1.安装jdk</p>
 <p>2.安装hadoop</p>
@@ -964,38 +964,38 @@ start-yarn.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><sp
 <p>hadoop-daemon.sh start datanode   启动linux04自身datanode</p>
 <p>(只是自身启动, 其它主机并不识别)</p>
 <p>1.在/root/Downloads/hadoop-2.6.5/etc/hadoop新建dfs-hosts.conf文件，添加所有从节点的主机名</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565741909177.png" alt="1565741909177"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565741909177.png" alt="1565741909177"></p>
 <p>2.在hdfs-site添加dfs.hosts标签，将文件引入</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565708859953.png" alt="1565708859953"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565708859953.png" alt="1565708859953"></p>
 <p>3.hadoop dfsadmin  -refreshNodes  刷新节点(在linux01中)</p>
 <p>4.hdfs dfsadmin  -report        列举所有的从节点(slaves) </p>
 <p>5.从新节点中启动：start-balancer.sh 均衡当前的hdfs块</p>
 <h5 id="动态添加yarn节点"><a href="#动态添加yarn节点" class="headerlink" title="动态添加yarn节点"></a>动态添加yarn节点</h5><p>1.在/root/Downloads/hadoop-2.6.5/etc/hadoop下新建include文件</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761607025.png" alt="1565761607025"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761607025.png" alt="1565761607025"></p>
 <p>2.在yarn-site文件中添加yarn.resourcemanager.nodes.include-path标签</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565709061576.png" alt="1565709061576"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565709061576.png" alt="1565709061576"></p>
 <p>3.Yarn rmadmin -refreshNodes        刷新节点</p>
 <h5 id="集群下线节点"><a href="#集群下线节点" class="headerlink" title="集群下线节点"></a>集群下线节点</h5><p>1.在hdfs-site.xml配置文件中配置</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565709227787.png" alt="1565709227787"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565709227787.png" alt="1565709227787"></p>
 <p>2.exclude文件中添加需要删除的节点</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565742284106.png" alt="1565742284106"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565742284106.png" alt="1565742284106"></p>
 <p>3.hadoop dfsadmin  -refreshNodes  刷新节点</p>
 <p>4.hdfs dfsadmin -report         列举所有的从节点(slaves)</p>
 <p>5.在节点中关闭进程</p>
 <p>sbin/hadoop-daemon.sh stop datanode<br>sbin/yarn-daemon.sh stop nodemanager</p>
 <h5 id="动态卸载yarn节点"><a href="#动态卸载yarn节点" class="headerlink" title="动态卸载yarn节点"></a>动态卸载yarn节点</h5><p>1.在/root/Downloads/hadoop-2.6.5/etc/hadoop新建include文件</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761658204.png" alt="1565761658204"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761658204.png" alt="1565761658204"></p>
 <p>2.在yarn-site.xml文件中添加yarn.resourcemanager.nodes.exclude-path标签</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761905492.png" alt="1565761905492"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565761905492.png" alt="1565761905492"></p>
 <p>3.yarn rmadmin -refreshNodes        刷新节点 </p>
 <h3 id="NN故障-SNN解决流程"><a href="#NN故障-SNN解决流程" class="headerlink" title="NN故障     SNN解决流程"></a>NN故障     SNN解决流程</h3><p>演示</p>
 <p>1.删除主机的元数据(name nameedits中的<br>current)</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745283334.png" alt="1565745283334"></p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745292245.png" alt="1565745292245"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745283334.png" alt="1565745283334"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745292245.png" alt="1565745292245"></p>
 <p>2.start-dfs.sh启动元数据丢失(namenode进程丢失)</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745547739.png" alt="1565745547739"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745547739.png" alt="1565745547739"></p>
 <p>3.恢复namenode(启动只会读取name和nameedits所以需要恢复)</p>
-<p><img src="/zwhblog.cn/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745507670.png" alt="1565745507670"></p>
+<p><img src="/cdh/hadoop/hadoop/Users\Administrator\AppData\Roaming\Typora\typora-user-images\1565745507670.png" alt="1565745507670"></p>
 <p>4.恢复namenode（启动会读取name和nameedits，所有得恢复）</p>
 <p>hadoop namennode -importCheckpoint</p>
 <h2 id="HA（高可用集群）双机集群系统简称"><a href="#HA（高可用集群）双机集群系统简称" class="headerlink" title="HA（高可用集群）双机集群系统简称"></a>HA（高可用集群）双机集群系统简称</h2><p>HDFS通常由两个NameNode组成，一个处于active状态，另一个处于standby状态。Active NameNode对外提供服务，比如处理来自客户端的RPC请求，而Standby NameNode则不对外提供服务，仅同步Active NameNode的状态，以便能够在它失败时快速进行切换。</p>
@@ -1300,7 +1300,7 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/cdh/hadoop/hadoop/">https://star-hash.github.io/zwhblog.cn/cdh/hadoop/hadoop/</a>
+                    <a href="https://star-hash.github.io/cdh/hadoop/hadoop/">https://star-hash.github.io/cdh/hadoop/hadoop/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1561,16 +1561,16 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/cdh/hadoop/hadoop/">
+                <a href="/da-shu-ju/fu-wu-qi-zu-jian-ban-ben/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Hadoop学习笔记">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="大数据组件版本">
                         
-                        <span class="card-title">Hadoop学习笔记</span>
+                        <span class="card-title">大数据组件版本</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1581,26 +1581,25 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-10-29
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Hadoop/" class="post-category">
-                                    Hadoop
+                            <a href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/" class="post-category">
+                                    大数据
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Hadopp/">
-                        <span class="chip bg-color">Hadopp</span>
+                    <a href="/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">
+                        <span class="chip bg-color">大数据</span>
                     </a>
                     
                 </div>
@@ -1804,7 +1803,7 @@ NodeManager<span aria-hidden="true" class="line-numbers-rows"><span></span><span
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

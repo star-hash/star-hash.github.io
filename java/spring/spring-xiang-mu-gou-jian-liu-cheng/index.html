@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring项目构建流程, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -511,7 +511,7 @@
 </ol>
 <h3 id="Spring-Boot-Cloud-版本选择"><a href="#Spring-Boot-Cloud-版本选择" class="headerlink" title="Spring Boot/Cloud 版本选择"></a>Spring Boot/Cloud 版本选择</h3><p>Spring Boot 选择2.0以后的版本<br>Java8以上的版本支持，这个项目是SpringBoot 2.3.4</p>
 <p>Spring版本是 <code>A~I开头</code> 的，伦敦地铁站的名称，这个项目使用的是H版本。</p>
-<p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125092647507-1611574568377.png" alt="image-20210125092647507"></p>
+<p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125092647507-1611574568377.png" alt="image-20210125092647507"></p>
 <p>在建立完成后，删除他们src和.mvn目录，resource也不用，只保留pom文件</p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>project</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://maven.apache.org/POM/4.0.0<span class="token punctuation">"</span></span>
@@ -622,7 +622,7 @@
 <li>packaging设置成pom，来让子项目继承，在打包项目的时候将会见子模块包含到需要的项目中。不要使用jar</li>
 </ol>
 <pre class="line-numbers language-none"><code class="language-none">&lt;packaging&gt;pom&lt;/packaging&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125101650137.png" alt="image-20210125101650137"></p>
+<p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125101650137.png" alt="image-20210125101650137"></p>
 <ol start="2">
 <li>删除src文件夹等</li>
 <li>在父项目中配置你的版本号和插件</li>
@@ -728,7 +728,7 @@
         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">&gt;</span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencyManagement</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>project</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125093742067.png" alt="image-20210125093742067"></p>
+<p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125093742067.png" alt="image-20210125093742067"></p>
 <h2 id="开启热部署功能"><a href="#开启热部署功能" class="headerlink" title="开启热部署功能"></a>开启热部署功能</h2><h3 id="1、导入devtools的包"><a href="#1、导入devtools的包" class="headerlink" title="1、导入devtools的包"></a>1、导入devtools的包</h3><pre class="line-numbers language-none"><code class="language-none">&lt;!--热部署--&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -736,11 +736,11 @@
     &lt;scope&gt;runtime&lt;/scope&gt;
     &lt;optional&gt;true&lt;/optional&gt;
 &lt;/dependency&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="2、进行idea设置"><a href="#2、进行idea设置" class="headerlink" title="2、进行idea设置"></a>2、进行idea设置</h3><p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125142842401.png" alt="image-20210125142842401"></p>
+<h3 id="2、进行idea设置"><a href="#2、进行idea设置" class="headerlink" title="2、进行idea设置"></a>2、进行idea设置</h3><p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125142842401.png" alt="image-20210125142842401"></p>
 <p>开启改变项目时重构项目</p>
 <h3 id="3、配置idea"><a href="#3、配置idea" class="headerlink" title="3、配置idea"></a>3、配置idea</h3><p>ctrl+alt+shift+/</p>
-<p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125143309330.png" alt="image-20210125143309330"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125143324213.png" alt="image-20210125143324213"></p>
+<p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125143309330.png" alt="image-20210125143309330"></p>
+<p><img src="/java/spring/spring-xiang-mu-gou-jian-liu-cheng/image-20210125143324213.png" alt="image-20210125143324213"></p>
 
                 
             </div>
@@ -767,7 +767,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-xiang-mu-gou-jian-liu-cheng/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-xiang-mu-gou-jian-liu-cheng/">https://star-hash.github.io/java/spring/spring-xiang-mu-gou-jian-liu-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1286,7 +1286,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

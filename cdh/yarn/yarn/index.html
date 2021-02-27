@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Yarn的学习笔记, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -514,13 +514,13 @@
 <h3 id="Yarn的内存"><a href="#Yarn的内存" class="headerlink" title="Yarn的内存"></a>Yarn的内存</h3><p>yarn的内存默认设置是8G，可以灵活的调整他的大小</p>
 <p>运行一个任务默认最大内存也是8G，这个也是需要调整的</p>
 <h3 id="Yarn执行的流程"><a href="#Yarn执行的流程" class="headerlink" title="Yarn执行的流程"></a>Yarn执行的流程</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Transkai/p/10549923.html">https://www.cnblogs.com/Transkai/p/10549923.html</a></p>
-<p><img src="/zwhblog.cn/cdh/yarn/yarn/1565437165939.png" alt="1565437165939"></p>
+<p><img src="/cdh/yarn/yarn/1565437165939.png" alt="1565437165939"></p>
 <p>2、如果是yarn平台，对resoucemanager提交作业审请<br>3、resourcemanager返回一个jobid和数据保存目录（hdfs://xxx/staging/xxx）<br>4、客户端根据返回数据保存目录路径，将job.split、job.xml、jar文件提交到hdfs://xxx/staging/xxx目录<br>5、提交数据资源之后，客户端对resouremanager提交任务运行<br>6、resourcemanager将任务存储任务队列<br>7、resourcemanager发送命令nodemanager处理从任务取出的任务<br>8、nodemanager往resourcemanageer审请我要创建一个app master<br>a、在nodemanager创建一个container，再启动app master<br>9、app master读取数据切片处理方案<br>10、app master往resourcemanager审请运行资源<br>11、resourcemanager往空闲的nodemanager主机发送指令，要创建Container<br>12、app master往nodemanger发送运行指令，container运行任务。</p>
 <h3 id="Yarn调度器"><a href="#Yarn调度器" class="headerlink" title="Yarn调度器"></a>Yarn调度器</h3><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lenmom/p/11285273.html">https://www.cnblogs.com/lenmom/p/11285273.html</a></p>
 <h5 id="1、FIFO-Scheduler-先进先出调度器"><a href="#1、FIFO-Scheduler-先进先出调度器" class="headerlink" title="1、FIFO Scheduler(先进先出调度器)"></a><strong>1、FIFO Scheduler(先进先出调度器)</strong></h5><p>先进先出，但不适合资源公平性</p>
 <p>FIFO Scheduler是最简单也是最容易理解的调度器，也不需要任何配置，但它并不适用于共享集群。大的应用可能会占用所有集群资源，这就导致其它应用被阻塞。在共享集群中，更适合采用Capacity Scheduler或Fair Scheduler，这两个调度器都允许大任务和小任务在提交的同时获得一定的系统资源。下面“Yarn调度器对比图”展示了这几个调度器的区别，从图中可以看出，<strong>在FIFO 调度器中，小任务会被大任务阻塞</strong>。</p>
-<p><img src="/zwhblog.cn/cdh/yarn/yarn/31857-20190801204346575-976593023.png" alt="img"></p>
-<h5 id="2、Capacity-Scheduler-容量调度器"><a href="#2、Capacity-Scheduler-容量调度器" class="headerlink" title="2、Capacity Scheduler(容量调度器)"></a><strong>2、Capacity Scheduler(容量调度器)</strong></h5><p><img src="/zwhblog.cn/cdh/yarn/yarn/31857-20190801204818038-843718141.png" alt="img"></p>
+<p><img src="/cdh/yarn/yarn/31857-20190801204346575-976593023.png" alt="img"></p>
+<h5 id="2、Capacity-Scheduler-容量调度器"><a href="#2、Capacity-Scheduler-容量调度器" class="headerlink" title="2、Capacity Scheduler(容量调度器)"></a><strong>2、Capacity Scheduler(容量调度器)</strong></h5><p><img src="/cdh/yarn/yarn/31857-20190801204818038-843718141.png" alt="img"></p>
 <p>yarn-site.xml中默认配置的资源调度器。</p>
 <p>独立的专门队列保证小作业也可以提交后就启动，队列容量是专门保留的</p>
 <p>以整个集群的利用率为代价，与FIFO比，大作业执行的时间要长</p>
@@ -537,15 +537,15 @@
 <p>申请——》启动——》运行——》回收</p>
 <p>用户可以通过启用uber组件来允许JVM重用——即在同一个container里面依次执行多个task。在mapred-site.xml文件中，改变一下几个参数的配置即可启用uber的方法：</p>
 <h4 id="Uber配置文件"><a href="#Uber配置文件" class="headerlink" title="Uber配置文件"></a>Uber配置文件</h4><p>在maped-site.xml文件添加</p>
-<p><img src="/zwhblog.cn/cdh/yarn/yarn/1565710519732.png" alt="1565710519732"></p>
+<p><img src="/cdh/yarn/yarn/1565710519732.png" alt="1565710519732"></p>
 <h3 id="Yarn-分布式资源管理系统"><a href="#Yarn-分布式资源管理系统" class="headerlink" title="Yarn 分布式资源管理系统"></a>Yarn 分布式资源管理系统</h3><p>yarn能够给长短应用运行时提供资源分配</p>
 <h3 id="RPC协议"><a href="#RPC协议" class="headerlink" title="RPC协议"></a>RPC协议</h3><p>远程过程调用</p>
-<p><img src="/zwhblog.cn/cdh/yarn/yarn/1565525258071.png" alt="1565525258071"></p>
+<p><img src="/cdh/yarn/yarn/1565525258071.png" alt="1565525258071"></p>
 <h5 id="长应用"><a href="#长应用" class="headerlink" title="长应用"></a>长应用</h5><p>通常情况下，永不停止运行</p>
 <h5 id="短应用"><a href="#短应用" class="headerlink" title="短应用"></a>短应用</h5><p>短时间内会运行结束的程序</p>
 <p>JobTracker是主节点的进程 </p>
 <p>TaskTracker是从节点的进程 ，管理mr任务 </p>
-<p><img src="/zwhblog.cn/cdh/yarn/yarn/1565437244367.png" alt="1565437244367"></p>
+<p><img src="/cdh/yarn/yarn/1565437244367.png" alt="1565437244367"></p>
 <h3 id="一个程序运行需要3点"><a href="#一个程序运行需要3点" class="headerlink" title="一个程序运行需要3点"></a>一个程序运行需要3点</h3><p>数据，资源，mr（jar包）</p>
 
                 
@@ -573,7 +573,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/cdh/yarn/yarn/">https://star-hash.github.io/zwhblog.cn/cdh/yarn/yarn/</a>
+                    <a href="https://star-hash.github.io/cdh/yarn/yarn/">https://star-hash.github.io/cdh/yarn/yarn/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1088,7 +1088,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

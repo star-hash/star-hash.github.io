@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="NTP时间服务器配置, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -509,7 +509,7 @@
 <p>3、开放防火墙，打开端口</p>
 <p>这次没有涉及到访问失败等错误，暂时没有涉及这一过程</p>
 <p>这里再尝试访问 ntp.neu.edu.cn iburst 东北大学服务器，看是否能返回时间，确认可用性</p>
-<p><img src="/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/image-20210118132401581-1611060385064.png" alt="尝试连接访问"></p>
+<p><img src="/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/image-20210118132401581-1611060385064.png" alt="尝试连接访问"></p>
 <p>4、ntp配置文件配置</p>
 <pre class="line-numbers language-none"><code class="language-none">vim /etc/ntp.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>配置文件内容：只用添加一行内容</p>
@@ -636,8 +636,8 @@ server 127.127.1.0
 fudge 127.127.1.0 stratum 10
 <span class="token comment">&lt;!--这里的参数说明在第二个类型配置中有说明--&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>更改主节点的net.conf</p>
-<p><img src="/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673183759-1611060370035.png" alt="第一张图"></p>
-<p><img src="/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673197384-1611060399818.png" alt="第二张图"></p>
+<p><img src="/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673183759-1611060370035.png" alt="第一张图"></p>
+<p><img src="/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673197384-1611060399818.png" alt="第二张图"></p>
 <p>2、vim /etc/sysconfig/ntpd</p>
 <pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">&lt;!--增加内容--&gt;
 SYNC_HWCLOCK=yes<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -651,7 +651,7 @@ SYNC_HWCLOCK=yes<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <pre class="line-numbers language-none"><code class="language-none">*/10 * * * * /usr/sbin/ntpdate bw77<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
-<p>7、定时任务完成<img src="/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673332501-1611060410677.png" alt="1567673332501">后可以crontab -l 来查看定时任务</p>
+<p>7、定时任务完成<img src="/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/1567673332501-1611060410677.png" alt="1567673332501">后可以crontab -l 来查看定时任务</p>
 <pre class="line-numbers language-none"><code class="language-none">crontab -l		查看任务<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
@@ -705,7 +705,7 @@ synchronised to NTP server (202.118.1.46) at stratum 2
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/">https://star-hash.github.io/zwhblog.cn/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/</a>
+                    <a href="https://star-hash.github.io/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/">https://star-hash.github.io/linux/ntp-shi-jian-fu-wu-qi-pei-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -969,13 +969,13 @@ synchronised to NTP server (202.118.1.46) at stratum 2
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/shu-ju-cang-ku/huan-man-bian-hua-wei/">
+                <a href="/da-shu-ju/da-shu-ju-zhi-shi-zong-jie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="缓慢变化维解决的几种方式">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="大数据部分知识总结">
                         
-                        <span class="card-title">缓慢变化维解决的几种方式</span>
+                        <span class="card-title">大数据部分知识总结</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -992,8 +992,8 @@ synchronised to NTP server (202.118.1.46) at stratum 2
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/" class="post-category">
-                                    数据仓库
+                            <a href="/categories/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    复习笔记
                                 </a>
                             
                             
@@ -1003,12 +1003,8 @@ synchronised to NTP server (202.118.1.46) at stratum 2
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E4%BB%93%E5%BA%93/">
-                        <span class="chip bg-color">数据仓库</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%BC%93%E6%85%A2%E5%8F%98%E5%8C%96%E7%BB%B4/">
-                        <span class="chip bg-color">缓慢变化维</span>
+                    <a href="/tags/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">复习笔记</span>
                     </a>
                     
                 </div>
@@ -1212,7 +1208,7 @@ synchronised to NTP server (202.118.1.46) at stratum 2
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

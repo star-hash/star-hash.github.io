@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Flume, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -467,14 +467,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    6.3k
+                    6.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    28 分
+                    30 分
                 </div>
                 
 
@@ -497,7 +497,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Flume是什么"><a href="#Flume是什么" class="headerlink" title="Flume是什么"></a>Flume是什么</h3><p>是cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统</p>
+                <h3 id="Flume是什么"><a href="#Flume是什么" class="headerlink" title="Flume是什么"></a>Flume是什么</h3><p>非官方中文文档地址：<a target="_blank" rel="noopener" href="https://flume.liyifeng.org/#hdfs-sink">https://flume.liyifeng.org/#hdfs-sink</a></p>
+<p>是cloudera提供的一个高可用的，高可靠的，分布式的海量日志采集、聚合和传输的系统</p>
 <p>日志收集</p>
 <p>数据处理</p>
 <h4 id="什么要用flume"><a href="#什么要用flume" class="headerlink" title="什么要用flume"></a>什么要用flume</h4><p>将客户端的请求经过负载均衡，写入到日志文件中，<strong>通过flume采集日志放到flume中，监控变化</strong>，etl对hdfs中的日志数据进行清洗和转换，然后可以放入到hbase或hive中，统计数据的结果(mr,spark,flink)，结果经过sqoop放入到MySQL(mongodb,redis)中，返回给客户端进行展示结果</p>
@@ -545,10 +546,11 @@ export PATH=$PATH:$FLUME_HOME/bin<span aria-hidden="true" class="line-numbers-ro
 <h4 id="Flume-逻辑上分三层架构"><a href="#Flume-逻辑上分三层架构" class="headerlink" title="Flume 逻辑上分三层架构"></a>Flume 逻辑上分三层架构</h4><p>Agent，collector，storage</p>
 <p>Agent<br>用于采集数据，agent 是 flume 中存储数据流的地方，同时 agent 会将产生的数据传输到 collector<br>Coolector<br>Collector 的作用是坚多个 agent 的数据汇总后，加载到 storage 中，多个 collector 之间遵循负载均衡规则<br>Storage<br>Storage 是存储系统，可以是一个普通 file，也可以是 HDFS，HIVE，Hbase 等。<br>————————————————<br>版权声明：本文为CSDN博主「郑斯道」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengshidao/article/details/78312299">https://blog.csdn.net/zhengshidao/article/details/78312299</a></p>
 <h4 id="flume-ng-的组件"><a href="#flume-ng-的组件" class="headerlink" title="flume ng 的组件"></a>flume ng 的组件</h4><h5 id="Agent"><a href="#Agent" class="headerlink" title="Agent"></a>Agent</h5><p>flume以agent是flume的最小执行单位。一个agent就是一个jvm，单个agent由source、sink和channel三大组件构成，agent是产生数据流的地方</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
+<p><img src="/flume/flume/999804-20171108130603872-780242084.png" alt="img"></p>
 <h4 id="1、source（单线程）"><a href="#1、source（单线程）" class="headerlink" title="1、source（单线程）"></a>1、source（单线程）</h4><p>完成对日志数据的采集，分成transtion和event打入channel</p>
-<p>Event： 一个数据单元，消息头和消息体组成。（Events可以是日志记录、 avro 对象等。）</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
+<p>Event： 一个数据单元，消息头和消息体组成。（Events可以是日志记录、 avro 对象等。）可以选择配置batchsize和batchtimeout两个参数</p>
+<p>一个source可以接入多个channel。</p>
+<p><img src="/flume/flume/999804-20171108130931325-512757774.png" alt="img"></p>
 <h6 id="source-avro-类型"><a href="#source-avro-类型" class="headerlink" title="source  avro 类型"></a>source  avro 类型</h6><p>avro是监控的本地文件</p>
 <p>vim avro.conf</p>
 <pre class="line-numbers language-conf" data-language="conf"><code class="language-conf">a1.sources = r1
@@ -593,7 +595,7 @@ a1.channels=c1
 
 a1.sources.r1.type=exec
 a1.sources.r1.command=tail -f /root/ssss.txt
-#tail -f 是命令的结果，不是文件的变化
+#tail -f 是命令的结果，实时刷新文件尾部倒数第10行数据开始读取  command是exec类型必须配置的参数
 
 a1.channels.c1.type=memory
 a1.channels.c1.capacity=1000
@@ -659,7 +661,7 @@ a1.sinks.k1.channel = c1<span aria-hidden="true" class="line-numbers-rows"><span
 <p>进行测试</p>
 <pre class="line-numbers language-none"><code class="language-none">curl -X post -d '[{"headers":{"a1":"a"},"body":"i am a log"}]' linux01:6666<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>结果显示</p>
-<p><img src="/zwhblog.cn/flume/flume/1568806782986.png" alt="1568806782986"></p>
+<p><img src="/flume/flume/1568806782986.png" alt="1568806782986"></p>
 <h6 id="source-spooldir"><a href="#source-spooldir" class="headerlink" title="source spooldir"></a>source spooldir</h6><p>监控目录下的文件变化，一次性，在采集后不可修改，文件后缀名变为.COMPLETED，此时不能再对文件内容进行改变，否则flume会抛出异常</p>
 <p>即spool source类型只适合采集一次写入。<strong>不支持断点续传</strong></p>
 <p>vim spool.conf</p>
@@ -694,7 +696,7 @@ flume-ng agent -n a1 -c . -f spool.conf -Dflume.root.logger=INFO,console
 <h4 id="2、channel（缓存区，一次性）"><a href="#2、channel（缓存区，一次性）" class="headerlink" title="2、channel（缓存区，一次性）"></a>2、channel（缓存区，一次性）</h4><p>主要提供队列功能，对source提供的数据进行简单的缓存，是连接Source和Sink的组件，还可以对source和sink之间进行解耦</p>
 <p>可以把Channel看作是一个缓冲区，它将保存事件直到Sink处理完该事件。</p>
 <p>处理场景：source端数据高峰sink端速度比source端慢，这时候channel就起到了它的作用。</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
+<p><img src="/flume/flume/999804-20171108131248653-2068131817.png" alt="img"></p>
 <h6 id="channel-memory-类型-常用"><a href="#channel-memory-类型-常用" class="headerlink" title="channel memory 类型(常用)"></a>channel memory 类型(常用)</h6><pre class="line-numbers language-none"><code class="language-none">a1.sources = r1
 a1.sinks = k1
 a1.channels = c1
@@ -745,7 +747,8 @@ a1.sinks.k1.channel = c1 <span aria-hidden="true" class="line-numbers-rows"><spa
 <p>FileChannel传输速度相对于Memory慢，但数据安全保障高，Agent进程挂掉也可以从失败中恢复数据。</p>
 <h4 id="3、sink（单线程）"><a href="#3、sink（单线程）" class="headerlink" title="3、sink（单线程）"></a>3、sink（单线程）</h4><p>取出channel的数据，进行相应的存储文件系统，数据库，或者提交到远程服务器</p>
 <p>Sink负责持久化日志或者把事件推向另一个Source。</p>
-<p><img src="/zwhblog.cn/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
+<p>一个sink只能接入一个channel。</p>
+<p><img src="/flume/flume/999804-20171108131516809-1930573599.png" alt="img"></p>
 <h6 id="sink-hdfs"><a href="#sink-hdfs" class="headerlink" title="sink hdfs"></a>sink hdfs</h6><p>生成的监控文件在hdfs中，在浏览器中 linux:50070  来查看结果，hdfs dfs -text 路径  查看数据</p>
 <p>vim hdfs-sink.conf </p>
 <pre class="line-numbers language-none"><code class="language-none">@sink必配项
@@ -767,6 +770,9 @@ a1.sinks.k1.hdfs.filePrefix = 1811A
 a1.sinks.k1.hdfs.round = true
 a1.sinks.k1.hdfs.roundValue = 1
 a1.sinks.k1.hdfs.roundUnit = minute
+#文件压缩格式
+a1.sinks.k1.hdfs.codeC=snappy
+#文件类型
 a1.sinks.k1.hdfs.fileType=DataStream
 a1.sinks.k1.hdfs.writeFormat=Text
 ##下面这3个是文件夹下的文件的控制，谁先满足按谁来
@@ -791,7 +797,7 @@ type        sinks的类型
 #idleTimeout   当目前被打开的临时文件在该参数指定的时间（秒）内，没有任何数据写入，则将该临时文件关闭并重命名成目标文件(闲置N秒后，关闭当前文件（去掉.tmp后缀）)
 
 a1.sources.r1.channels=c1
-a1.sinks.k1.channel=c1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+a1.sinks.k1.channel=c1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>启动</p>
 <pre class="line-numbers language-none"><code class="language-none">flume-ng agent -n a1 -c . -f hdfs-sink.conf -Dflume.root.logger=info,console<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h6 id="sink-file"><a href="#sink-file" class="headerlink" title="sink file"></a>sink file</h6><p>存储数据到本地文件系统</p>
@@ -919,8 +925,8 @@ a1.sink.k1.channel=c1<span aria-hidden="true" class="line-numbers-rows"><span></
 <p>event是传输数据的核心，他的组成有<strong>headers</strong>和<strong>body</strong>两部分组成：Header是一个集合 Map[String,String]用于携带一些KV类型的元数据（标识，描述等），body部分可以是string和<strong>byte[]字节数组</strong>，body装载着具体的数据内容，headers部分是interceptor,可以存放一些数据属性,header默认是空的</p>
 <p> 从source获取数据后会先封装成event，然后将event发送到channel，sink从channel拿event消费 </p>
 <h4 id="interceptor-拦截器）"><a href="#interceptor-拦截器）" class="headerlink" title="interceptor(拦截器）"></a>interceptor(拦截器）</h4><p>拦截器的位置在source传入到channel中时发挥作用，当我们为Source指定拦截器后，我们在拦截器中会得到event，根据需求我们可以对event进行保留还是抛弃，抛弃的数据不会进入Channel中。</p>
-<h4 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h4><p>channel选择器</p>
-<p>channel选择器有两种，<strong>replicating</strong>和<strong>multiplexing</strong></p>
+<h4 id="channel选择器"><a href="#channel选择器" class="headerlink" title="channel选择器"></a>channel选择器</h4><p>channel选择器</p>
+<p>channel选择器有两种，<strong>replicating</strong>(默认)和<strong>multiplexing</strong></p>
 <p>replicating是发给下级所有的channel</p>
 <p>multiplexing是根据选择自己配置把不同的数据发送给不同的channel</p>
 <p>（判断header数据，然后把不同event传输给不同的配置对象）</p>
@@ -1211,7 +1217,25 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
 <p>尖叫提示：如果完成以上操作依然出现权限不足错误，请修改/var/lib/ganglia目录的权限：</p>
 <p>[admin@hadoop-yarn flume]$ sudo chmod -R 777 /var/lib/ganglia</p>
 <h3 id="Flume思考题"><a href="#Flume思考题" class="headerlink" title="Flume思考题"></a>Flume思考题</h3><p><strong>flume采集断掉，要从上面的进度继续采集，怎么弄？</strong></p>
-<p>使用interceptor设置，创建日志文件，在中断连接时按照这个里面的日志文件来进行继续</p>
+<p>思想：记录中间传输的状态</p>
+<ol>
+<li>使用interceptor设置，创建日志文件，在中断连接时按照这个里面的日志文件来进行继续</li>
+<li>taildirsource 可以实现断点续传。</li>
+</ol>
+<p><strong>只有上面方式可以实现</strong></p>
+<p>channel中有<strong>transactionCapacity</strong> 参数设置事务容量大小，channel的transactionCapacity参数不能小于sink和source的batchsize。最好是batchsize的倍数。flume正常运行可能会导致数据的重复，但不会丢失数据！但是flume意外停止就会丢失数据。</p>
+<p><strong>Flume有事务控制吗？</strong></p>
+<p>Flume拥有事务控制，source到channel和channel到sink，这两个过程都可以实现事务控制。（一起成功一起失败，可以回滚）</p>
+<p><strong>Flume的权限控制用什么实现？</strong></p>
+<p>kerberos来实现，通常是运维人员来设置</p>
+<p><strong>配置flume的日志文件名称包含时间？</strong></p>
+<ol>
+<li>flume的可以编写interceptor，将数据的时间进行解析添加到event的头部，进行调用</li>
+<li>通过flume自带的 %Y %M 等一系列特殊符号定义，但是可能会出现半夜12点的数据到了第二天，在处理的时候就会少一部分数据。不建议使用</li>
+</ol>
+<h3 id="flume动态加载配置"><a href="#flume动态加载配置" class="headerlink" title="flume动态加载配置"></a><strong>flume动态加载配置</strong></h3><p>运行过程中，如果配置发生改变，需要重新启动flume来使它生效。</p>
+<p>也可以不用重启flume服务，flume会在一段时间后重新检测flume的配置文件，并自动更新。</p>
+<p>也可以通过将配置文件放在zk上，通过zk的监听来实现实时的更新配置</p>
 
                 
             </div>
@@ -1238,7 +1262,7 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/flume/flume/">https://star-hash.github.io/zwhblog.cn/flume/flume/</a>
+                    <a href="https://star-hash.github.io/flume/flume/">https://star-hash.github.io/flume/flume/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1741,7 +1765,7 @@ SELINUXTYPE=targeted<span aria-hidden="true" class="line-numbers-rows"><span></s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

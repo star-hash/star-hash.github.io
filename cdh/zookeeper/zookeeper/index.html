@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Zookeeper, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -534,7 +534,7 @@ fifo  先进先出
 b是服务器的ip地址
 c是服务器和集群中leader服务器交换信息的端口
 d是执行选举时的服务器相互通信的端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/cdh/zookeeper/zookeeper/1571141126560.png" alt="1571141126560"></p>
+<p><img src="/cdh/zookeeper/zookeeper/1571141126560.png" alt="1571141126560"></p>
 <p>4.创建文件夹logs和data(文件夹必须存在)</p>
 <p>5.myid 文件</p>
 <p>data文件中创建myid文件并 三个节点写不同的值 1，2，3</p>
@@ -603,7 +603,7 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
 <p>5）znode可以被监控，包括这个目录节点中存储的数据的修改，子节点目录的变化等，一旦变化可以通知设置监控的客户端，这个是Zookeeper的核心特性，Zookeeper的很多功能都是基于这个特性实现的。Watcher ZooKeeper支持一种Watch操作，Client可以在某个ZNode上设置一个Watcher，来Watch该ZNode上的变化。如果该ZNode上有相应的变化，就会触发这个Watcher，把相应的事件通知给设置Watcher的Client。需要注意的是，ZooKeeper中的Watcher是一次性的，即触发一次就会被取消，如果想继续Watch的话，需要客户端重新设置Watcher。</p>
 <p>6）ZXID：每次对Zookeeper的状态的改变都会产生一个zxid，zxid是全局有序的，如果zxid1小于zxid2，则zxid1在zxid2之前发生。</p>
 <p>7)Session: Client与ZooKeeper之间的通信，需要创建一个Session，这个Session会有一个超时时间，所以在Session没超时之前，Client与ZooKeeper Server的连接可以在各个ZooKeeper Server之间透明地移动  connect + ip:端口号）ZooKeeper Client会每t/3 ms发一次心跳给Server，如果Client 2t/3 ms没收到来自Server的心跳回应，就会换到一个新的ZooKeeper Server上。这里t是用户配置的Session的超时时间。</p>
-<p><img src="/zwhblog.cn/cdh/zookeeper/zookeeper/clip_image002.jpg" alt="img"> <img src="/zwhblog.cn/cdh/zookeeper/zookeeper/clip_image004.jpg" alt="img"></p>
+<p><img src="/cdh/zookeeper/zookeeper/clip_image002.jpg" alt="img"> <img src="/cdh/zookeeper/zookeeper/clip_image004.jpg" alt="img"></p>
 <p>(client不论连接到哪个Server，展示给它都是同一个视图，这是zookeeper最重要的性能。)</p>
 <h3 id="读写模式"><a href="#读写模式" class="headerlink" title="读写模式"></a>读写模式</h3><p>在ZooKeeper集群中，读可以从任意一个ZooKeeper Server读，这一点是保证ZooKeeper比较好的读性能的关键；写的请求会先Forwarder到Leader，然后由Leader来通过ZooKeeper中的原子广播协议，将请求广播给所有的Follower，Leader收到一半以上的写成功的Ack（acknowlage）后，就认为该写成功了，就会将该写进行持久化，并告诉客户端写成功了。</p>
 <h3 id="Zookeeper具体写入过程："><a href="#Zookeeper具体写入过程：" class="headerlink" title="Zookeeper具体写入过程："></a>Zookeeper具体写入过程：</h3><p>election投票功能</p>
@@ -630,7 +630,7 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
 <p>和大多数分布式系统一样，ZooKeeper也有WAL(Write-Ahead-Log)edits，对于每一个更新操作，ZooKeeper都会先写WAL, 然后再对内存中的数据做更新，然后向Client通知更新结果。另外，ZooKeeper还会定期将内存中的目录树进行Snapshot fsimage，落地到磁盘上，这个跟HDFS中的FSImage是比较类似的。这么做的主要目的，一当然是数据的持久化，二是加快重启之后的恢复速度，如果全部通过Replay WAL的形式恢复的话，会比较慢。</p>
 <h3 id="FIFO"><a href="#FIFO" class="headerlink" title="FIFO"></a>FIFO</h3><p>对于每一个ZooKeeper客户端而言，所有的操作都是遵循FIFO顺序的，这一特性是由下面两个基本特性来保证的：一是ZooKeeper Client与Server之间的网络通信是基于TCP，TCP保证了Client/Server之间传输命令的顺序；二是ZooKeeper Server执行客户端请求也是严格按照FIFO顺序的。</p>
 <h3 id="ZooKeeper-Session"><a href="#ZooKeeper-Session" class="headerlink" title="ZooKeeper Session"></a><strong>ZooKeeper Session</strong></h3><p>Client和Zookeeper集群建立连接，整个session状态变化如图所示：</p>
-<p><img src="/zwhblog.cn/cdh/zookeeper/zookeeper/clip_image005.jpg" alt="img"></p>
+<p><img src="/cdh/zookeeper/zookeeper/clip_image005.jpg" alt="img"></p>
 <p>如果Client因为Timeout和Zookeeper Server失去连接，client处在CONNECTING状态，会自动尝试再去连接Server，如果在session有效期内再次成功连接到某个Server，则回到CONNECTED状态。</p>
 <p>注意：如果因为网络状态不好，client和Server失去联系，client会停留在当前状态，会尝试主动再次连接Zookeeper Server。client不能宣称自己的session expired(会话超时)，session expired是由Zookeeper Server来决定的，client可以选择自己主动关闭session。 </p>
 <h3 id="ZooKeeper-Watch"><a href="#ZooKeeper-Watch" class="headerlink" title="ZooKeeper Watch"></a><strong>ZooKeeper Watch</strong></h3><p>Zookeeper watch是一种监听通知机制。Zookeeper所有的读操作getData(), getChildren()和 exists()都可以设置监视(watch)，监视事件可以理解为一次性的触发器 One-time trigger</p>
@@ -695,7 +695,7 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/cdh/zookeeper/zookeeper/">https://star-hash.github.io/zwhblog.cn/cdh/zookeeper/zookeeper/</a>
+                    <a href="https://star-hash.github.io/cdh/zookeeper/zookeeper/">https://star-hash.github.io/cdh/zookeeper/zookeeper/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -910,13 +910,13 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/nginx/nginx/">
+                <a href="/shell-bian-cheng/centos-bian-xie-shell-jiao-ben/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="Nginx学习笔记">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Shell脚本编写">
                         
-                        <span class="card-title">Nginx学习笔记</span>
+                        <span class="card-title">Shell脚本编写</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -933,8 +933,8 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Nginx/" class="post-category">
-                                    Nginx
+                            <a href="/categories/Shell/" class="post-category">
+                                    Shell
                                 </a>
                             
                             
@@ -944,8 +944,12 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Nginx/">
-                        <span class="chip bg-color">Nginx</span>
+                    <a href="/tags/Shell/">
+                        <span class="chip bg-color">Shell</span>
+                    </a>
+                    
+                    <a href="/tags/Centos/">
+                        <span class="chip bg-color">Centos</span>
                     </a>
                     
                 </div>
@@ -1202,7 +1206,7 @@ closed	      //连接关闭<span aria-hidden="true" class="line-numbers-rows"><s
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Spring Hystrix, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -813,7 +813,7 @@
 <ol start="2">
 <li>启动类和上面没有区别</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202110727181.png" alt="image-20210202110727181"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202110727181.png" alt="image-20210202110727181"></p>
 <h3 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h3><h4 id="超时和Running-Error案例-1"><a href="#超时和Running-Error案例-1" class="headerlink" title="超时和Running Error案例"></a>超时和Running Error案例</h4><h5 id="超时案例-1"><a href="#超时案例-1" class="headerlink" title="超时案例"></a>超时案例</h5><p>在class 中设置的，并没有在interface中设置，如果客户端和服务端都设置了Hystrix超时时间，服务端3秒超时，客户端1秒超时，那么1秒后就会进入到客户端的超时方法。</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">package</span> <span class="token namespace">com<span class="token punctuation">.</span>exercise<span class="token punctuation">.</span>springcloud<span class="token punctuation">.</span>controller</span><span class="token punctuation">;</span>
 
@@ -854,7 +854,7 @@
         <span class="token keyword">return</span> <span class="token string">"我是消费者80，对方支付系统繁忙，请稍后再试，o(╥﹏╥)o"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202113641144.png" alt="访问结果"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202113641144.png" alt="访问结果"></p>
 <h5 id="Running-Error案例-1"><a href="#Running-Error案例-1" class="headerlink" title="Running Error案例"></a>Running Error案例</h5><ol>
 <li>也是只更改了下 */0 ，剩下的没变</li>
 </ol>
@@ -1265,7 +1265,7 @@
 <blockquote>
 <p>localhost:9001/hystrix</p>
 </blockquote>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202165539741.png" alt="image-20210202165539741"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202165539741.png" alt="image-20210202165539741"></p>
 <p>这里只是启动了hystrix的监控，但是没有监控任务微服务</p>
 <p>5.配置被检控的微服务</p>
 <p>pom文件配置,凡是被监控的都得包含下面这两个依赖</p>
@@ -1312,9 +1312,9 @@
 <ol start="8">
 <li>Hystrix页面进行指定微服务访问</li>
 </ol>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202171827449.png" alt="History监控页面"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202171945337.png" alt="具体微服务监控页面"></p>
-<p><img src="/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/2020081013181955.png" alt="监控指标含义"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202171827449.png" alt="History监控页面"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/image-20210202171945337.png" alt="具体微服务监控页面"></p>
+<p><img src="/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/2020081013181955.png" alt="监控指标含义"></p>
 <p>具体指标查看含义可查看:<a target="_blank" rel="noopener" href="https://blog.csdn.net/chen134225/article/details/107911009">https://blog.csdn.net/chen134225/article/details/107911009</a></p>
 
                 
@@ -1342,7 +1342,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/">https://star-hash.github.io/zwhblog.cn/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/</a>
+                    <a href="https://star-hash.github.io/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/">https://star-hash.github.io/java/spring/spring-cloud/fu-wu-jiang-ji/hystrix/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1861,7 +1861,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             

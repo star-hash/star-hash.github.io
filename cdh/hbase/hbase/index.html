@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Hbase的学习笔记, zhangwenhui,github,blogs">
-    <meta name="description" content="要给自己定个目标去实现">
+    <meta name="description" content="今年过完java疯狂讲义">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -147,7 +147,7 @@
         <div class="logo-name">zhangwenhui</div>
         <div class="logo-desc">
             
-            要给自己定个目标去实现
+            今年过完java疯狂讲义
             
         </div>
     </div>
@@ -531,7 +531,7 @@
 <p>hive —–读模式的数据仓库：读数据的时候进行校验</p>
 <p>hbase—–无严格模式的数据库</p>
 <p>hbase中的数据最终存储在hdfs上</p>
-<p><img src="/zwhblog.cn/cdh/hbase/hbase/image-20191127114211875.png" alt="image-20191127114211875"></p>
+<p><img src="/cdh/hbase/hbase/image-20191127114211875.png" alt="image-20191127114211875"></p>
 <h5 id="逻辑模型"><a href="#逻辑模型" class="headerlink" title="逻辑模型"></a>逻辑模型</h5><p>HBase使用坐标来识别单元里的数据</p>
 <p>行键+列族+列+时间戳  来取一个值</p>
 <h5 id="存储模型"><a href="#存储模型" class="headerlink" title="存储模型"></a>存储模型</h5><p>存储模型：列式存储</p>
@@ -558,7 +558,7 @@
 <h5 id="Cell（单元格）"><a href="#Cell（单元格）" class="headerlink" title="Cell（单元格）"></a>Cell（单元格）</h5><p>行键、列族、列和时间戳的结合，通过这三个值的坐标来确定一个单元格。单元格的数据是没有类型的，全部以字节码形式存储。没有值就是空(null)，不占用底层物理存储。</p>
 <h5 id="Timestamp（时间戳）"><a href="#Timestamp（时间戳）" class="headerlink" title="Timestamp（时间戳）"></a>Timestamp（时间戳）</h5><p>是列的一个属性，列的单元格值都有时间戳，系统指定，可以被使用，可根据版本(VERSIONS)或时间戳来区分不同版本的值，不同版本的值按照降序排列，访问时优先读取最新的值，新值比老值更容易读取，如果不指定，返回最新版本的值</p>
 <h5 id="Region（区域）"><a href="#Region（区域）" class="headerlink" title="Region（区域）"></a>Region（区域）</h5><p>HBase自动把表水平划分成的多个区域，划分的区域随着数据的增大而增多</p>
-<h4 id="Hbase的结构组件"><a href="#Hbase的结构组件" class="headerlink" title="Hbase的结构组件"></a>Hbase的结构组件</h4><p><img src="/zwhblog.cn/cdh/hbase/hbase/1217276-20180502141711373-31653278.png" alt="img"></p>
+<h4 id="Hbase的结构组件"><a href="#Hbase的结构组件" class="headerlink" title="Hbase的结构组件"></a>Hbase的结构组件</h4><p><img src="/cdh/hbase/hbase/1217276-20180502141711373-31653278.png" alt="img"></p>
 <h5 id="1、client"><a href="#1、client" class="headerlink" title="1、client"></a>1、client</h5><p>使用HBase RPC机制与HMaster和HRegionServer进行通信</p>
 <p>Client与HMaster进行通信进行管理类操作</p>
 <p>Client与HRegionServer进行数据读写类操作</p>
@@ -608,7 +608,7 @@
 <h4 id="HBase的写流程和更新流程"><a href="#HBase的写流程和更新流程" class="headerlink" title="HBase的写流程和更新流程"></a>HBase的写流程和更新流程</h4><p>客户端发送请求，根据rowkey和表数据从zookeeper的meta表中查询出对应的HRegionServer信息，将请求发送给相应的HRegionServer，在HRegionServer将put操作写入wal（预写式日志）日志文件中（磁盘中）</p>
 <p>HRegionServer根据put中的tablename和rowkey找到对应的HRegion，然后找到Store，写入到Store中的MemStore，并返回写成功，并通知客户端。</p>
 <p>每一次put/delete请求都是先写入到MemStore中，当MemStore中到达阀值后，flush成一个新的storeFile</p>
-<p><img src="/zwhblog.cn/cdh/hbase/hbase/1608104-20190222103800677-2022161869.png" alt="img"></p>
+<p><img src="/cdh/hbase/hbase/1608104-20190222103800677-2022161869.png" alt="img"></p>
 <p>执行写入时会写到两个地方，预写式日志(HLog)和MemStore。HBase默认在写入动作首先记录到这两个地方（这个操作是事务性的一起成功和失败）。 当系统出现意外时，Memstore中的数据丢失，此时使用HLog来恢复checkpoint之后的数据。 </p>
 <p>MemStore是内存里写入缓存区，在永久写入磁盘之前在这里积累。当MemStore填满后，刷到磁盘，形成一个HFile，将内存中的数据删除，同时删除HLog中的历史数据；每个Store有一个MemStore。</p>
 <h4 id="HBase的读流程"><a href="#HBase的读流程" class="headerlink" title="HBase的读流程"></a>HBase的读流程</h4><p>client先从缓存中定位region，如果没有缓存，就先访问zookeeper(zookeeper保存着meta的)，找到meta表，对应的regionserver的地址。</p>
@@ -873,7 +873,7 @@ admin<span class="token punctuation">.</span><span class="token function">create
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://star-hash.github.io/zwhblog.cn/cdh/hbase/hbase/">https://star-hash.github.io/zwhblog.cn/cdh/hbase/hbase/</a>
+                    <a href="https://star-hash.github.io/cdh/hbase/hbase/">https://star-hash.github.io/cdh/hbase/hbase/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1388,7 +1388,7 @@ admin<span class="token punctuation">.</span><span class="token function">create
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">144.7k</span>&nbsp;字
+                class="white-color">146.4k</span>&nbsp;字
             
             
             
